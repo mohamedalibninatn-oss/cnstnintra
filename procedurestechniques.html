@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procédures Techniques</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --primary-hover: #1d4ed8;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent-blue: #2563eb;
+            --accent-green: #10b981;
+            --sub-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 2rem 1rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        /* En-tête principal */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header i {
+            font-size: 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        /* Liste principale */
+        .procedure-list {
+            list-style: none;
+        }
+
+        /* Élément de procédure de niveau supérieur */
+        .procedure-item {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .procedure-item:last-child {
+            border-bottom: none;
+        }
+
+        .procedure-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .procedure-header:hover {
+            background-color: #f0fdf4;
+            color: var(--primary-hover);
+        }
+
+        .procedure-header i.badge-icon {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .procedure-code {
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Sous-éléments / Formulaires */
+        .sub-list {
+            list-style: none;
+            background-color: var(--sub-bg);
+            padding: 0.5rem 1rem 0.75rem 2.5rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .sub-item {
+            margin: 0.35rem 0;
+        }
+
+        .sub-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .sub-link:hover {
+            background-color: #ffffff;
+            color: #1d4ed8;
+            text-decoration: underline;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .sub-link i {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .sub-link:hover i {
+            color: #2563eb;
+        }
+
+        /* Style spécifique pour les fichiers XLS */
+        .sub-link.excel-file {
+            color: #059669;
+        }
+
+        .sub-link.excel-file i {
+            color: #10b981;
+        }
+
+        .sub-link.excel-file:hover {
+            color: #047857;
+        }
+
+        /* Responsive design */
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .header {
+                padding: 1.25rem 1rem;
+            }
+            .procedure-header {
+                padding: 0.85rem 1rem;
+                font-size: 0.9rem;
+            }
+            .sub-list {
+                padding-left: 1.25rem;
+            }
+            .sub-link {
+                font-size: 0.82rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <i class="fa-solid fa-folder-tree"></i>
+            <h1>Procédures Techniques</h1>
+        </div>
+
+        <!-- Liste des Procédures -->
+        <ul class="procedure-list">
+
+            <!-- IT01 -->
+            <li class="procedure-item">
+                <a href="pdf/IT01Maitrisedeseregistrementstechniques.pdf" class="procedure-header">
+                    <i class="fa-solid fa-file-contract badge-icon"></i>
+                    <span class="procedure-code">IT01</span>
+                    <span>Maîtrise des enregistrements techniques</span>
+                </a>
+            </li>
+
+            <!-- PT01 -->
+            <li class="procedure-item">
+                <a href="pdf/PT01Gestiondesequipement.pdf" class="procedure-header">
+                    <i class="fa-solid fa-gears badge-icon"></i>
+                    <span class="procedure-code">PT01</span>
+                    <span>Gestion des équipements</span>
+                </a>
+                <ul class="sub-list">
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE01-PT01 - Liste des équipements</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE02-PT01 - Fiche de vie</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE03-PT01 - Plan d'étalonnage</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE04-PT01 - Registre de suivi des équipements</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE05-PT01 - Plan d'entretien</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE06-PT01 - Demande intervention technique</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- PT02 -->
+            <li class="procedure-item">
+                <a href="pdf/PT02Maitriseinstallations.pdf" class="procedure-header">
+                    <i class="fa-solid fa-temperature-half badge-icon"></i>
+                    <span class="procedure-code">PT02</span>
+                    <span>Maîtrise des installations et des conditions ambiantes</span>
+                </a>
+            </li>
+
+            <!-- PT03 -->
+            <li class="procedure-item">
+                <a href="pdf/PT03Habilitationdupersonnel.pdf" class="procedure-header">
+                    <i class="fa-solid fa-user-check badge-icon"></i>
+                    <span class="procedure-code">PT03</span>
+                    <span>Habilitation du personnel</span>
+                </a>
+                <ul class="sub-list">
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE01-PT03 – Formulaire d'orientation et d'accueil</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE02-PT03 – Formulaire d'évaluation de la répétabilité des opérateurs</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE03-PT03 – Formulaire d'évaluation par rapport à un opérateur habilité</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE04-PT03 – Formulaire d'évaluation par rapport à un matériau de référence</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE05-PT03 – Formulaire d'évaluation par comparaison intralaboratoire z score</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>E06-PT03 – Rapport d'habilitation</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE07-PT03 – Grille d'habilitation</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link excel-file">
+                            <i class="fa-regular fa-file-excel"></i>
+                            <span>Habilitation.xls</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- PT04 -->
+            <li class="procedure-item">
+                <a href="pdf/PT04Methodologiegeneraledestimationdincertitude.pdf" class="procedure-header">
+                    <i class="fa-solid fa-calculator badge-icon"></i>
+                    <span class="procedure-code">PT04</span>
+                    <span>Méthodologie générale d'estimation d'incertitude de mesure</span>
+                </a>
+            </li>
+
+            <!-- PT05 -->
+            <li class="procedure-item">
+                <a href="pdf/PT05methodologiegeneraledeverificationvalidation2.pdf" class="procedure-header">
+                    <i class="fa-solid fa-vial-circle-check badge-icon"></i>
+                    <span class="procedure-code">PT05</span>
+                    <span>Méthodologie générale de vérification validation des critères de performance des méthodes d'analyse</span>
+                </a>
+                <ul class="sub-list">
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE01-PT05 Fiche de test de la normalité Shapiro-Wilk</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE02-PT05 Fiche de test de rejet des points aberrants Dixon</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE03-PT05 Fiche de test d'homogénéité des variances Cochran</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE04-PT05 Fiche d'évaluation de la répétabilité</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE05-PT05 Fiche d'évaluation de la reproductibilité interne</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>Dvérification validation</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- PT06 -->
+            <li class="procedure-item">
+                <a href="pdf/PT06procedurecontrolequalitedlavaliditedesresultatsmodifie.pdf" class="procedure-header">
+                    <i class="fa-solid fa-chart-line badge-icon"></i>
+                    <span class="procedure-code">PT06</span>
+                    <span>Contrôle qualité de la validité des résultats</span>
+                </a>
+                <ul class="sub-list">
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE01-PT06 Vérification par un matériau de référence certifié</span>
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE02-PT05 Contrôle qualité</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- PT07 -->
+            <li class="procedure-item">
+                <a href="pdf/PT07Validationdesresultatspardesessaisinterlaboratoire.pdf" class="procedure-header">
+                    <i class="fa-solid fa-flask badge-icon"></i>
+                    <span class="procedure-code">PT07</span>
+                    <span>Validation des résultats par des essais inter laboratoires</span>
+                </a>
+                <ul class="sub-list">
+                    <li class="sub-item">
+                        <a href="#" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE01-PQ17 Résultats des essais interlaboratoires</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- PT08 -->
+            <li class="procedure-item">
+                <a href="pdf/PT08Elaborationdescartesdecontroles.pdf" class="procedure-header">
+                    <i class="fa-solid fa-square-poll-vertical badge-icon"></i>
+                    <span class="procedure-code">PT08</span>
+                    <span>Elaboration des cartes de contrôle</span>
+                </a>
+                <ul class="sub-list">
+                    <li class="sub-item">
+                        <a href="pdf/FE01-PQ17.pdf" class="sub-link">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <span>FE01-PQ17 Fiche d'action préventive</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- PT17 -->
+            <li class="procedure-item">
+                <a href="pdf/PQ17.pdf" class="procedure-header">
+                    <i class="fa-solid fa-shield-halved badge-icon"></i>
+                    <span class="procedure-code">PT17</span>
+                    <span>Procédure: Action Préventive</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+</body>
+</html>

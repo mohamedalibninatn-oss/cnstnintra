@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CNSTN - Unité d'Hydrologie Isotopique</title>
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      background-color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* Section Contenu / Mission */
+    .content-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: flex-end; /* Aligné sur le côté droit comme le modèle */
+    }
+
+    .mission-box {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .mission-title {
+      color: #2b5b84;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .mission-list {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin-bottom: 30px;
+      color: #444;
+      font-size: 0.95rem;
+    }
+
+    .mission-list li {
+      margin-bottom: 8px;
+    }
+
+    /* Boutons d'onglets / Navigation interne */
+    .button-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-nav {
+      background-color: #2b5b84;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-nav:hover {
+      background-color: #1e4160;
+    }
+
+    /* Section Pied de Page (Footer) */
+    footer {
+      background-color: #e3ab55; /* Couleur dorée / ocre */
+      color: #1e3d59;
+      padding: 50px 20px 40px;
+      margin-top: 100px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col a {
+      color: #1f4260;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .footer-col a:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .content-container {
+        justify-content: center;
+      }
+      .button-group {
+        justify-content: center;
+      }
+      .btn-nav {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section Mission -->
+  <main class="content-container">
+    <div class="mission-box">
+      <h2 class="mission-title">Mission</h2>
+      <ul class="mission-list">
+        <li>Datation au carbone 14 des eaux souterraines et des œuvres archéologiques.</li>
+        <li>Spectrométrie bêta et comptage par scintillation liquide.</li>
+        <li>Analyses par spectrométrie d'absorption atomique.</li>
+        <li>Analyses par la chromatographie ionique.</li>
+        <li>Mesure de la radioactivité dans l'environnement.</li>
+      </ul>
+
+      <div class="button-group">
+        <button class="btn-nav">MISSION</button>
+        <button class="btn-nav">PROJETS</button>
+        <button class="btn-nav">PRESTATION</button>
+        <button class="btn-nav">ÉQUIPEMENTS</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <ul>
+          <li><a href="#">ACCUEIL</a></li>
+          <li><a href="#">Accès à l'information</a></li>
+          <li><a href="#">actualités</a></li>
+          <li><a href="#">bibliothèque</a></li>
+          <li><a href="#">le Nucléaire</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul>
+          <li><a href="#">bibliothèque</a></li>
+          <li><a href="#">coopération</a></li>
+          <li><a href="#">coopération africaine</a></li>
+          <li><a href="#">coopération internationale</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul>
+          <li><a href="#">le Nucléaire</a></li>
+          <li><a href="#">liens Utiles</a></li>
+          <li><a href="#">plan stratégique 2023/2024</a></li>
+          <li><a href="#">photothèque</a></li>
+          <li><a href="#">Organigramme</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul>
+          <li><a href="#">Unité d'Hydrologie Isotopique</a></li>
+          <li><a href="#">Unité de Microbiologie</a></li>
+          <li><a href="#">Unité de Radioanalyse</a></li>
+          <li><a href="#">Unité de Radiochimie</a></li>
+          <li><a href="#">Unité de Radioprotection</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul>
+          <li><a href="#">Unité Pilote de Production des Mâles Stériles de la Cératite</a></li>
+          <li><a href="#">Unité Pilote de Traitement par Rayonnements Ionisants</a></li>
+          <li><a href="#">Unité Radiopharmaceutiques</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

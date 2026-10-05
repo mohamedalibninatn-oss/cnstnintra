@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traitement des Réclamations Client - Portal Qualité</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for better visual polish */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full font-sans text-slate-800 antialiased flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo & System Name -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                        <i class="fa-solid fa-square-poll-vertical text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider">Système de Management Qualité</span>
+                        <h1 class="text-lg font-bold text-slate-900 leading-tight">Portail Documentaire</h1>
+                    </div>
+                </div>
+
+                <!-- Right Actions / User Profile -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center text-xs text-slate-500 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                        Système à jour (ISO 9001 v2015)
+                    </div>
+                    <button class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                    </button>
+                    <div class="h-6 w-px bg-slate-200"></div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 font-semibold text-sm border border-slate-300">
+                            AQ
+                        </div>
+                        <span class="hidden sm:inline-block text-sm font-medium text-slate-700">Resp. Qualité</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Breadcrumb navigation -->
+        <nav class="flex text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-slate-500 hover:text-brand-600 transition-colors">
+                        <i class="fa-solid fa-house mr-2"></i> Accueil
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-400 mx-2"></i>
+                        <a href="#" class="text-slate-500 hover:text-brand-600 transition-colors">Processus Client</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-400 mx-2"></i>
+                        <span class="text-slate-900 font-medium">Traitement des réclamations client
+                            <a href="pdf/PQ08.pdf" class="doc-link">traitement des réclamations clients</a>
+                        </span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-8 relative overflow-hidden">
+            <!-- Decorative Accent line -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-600 via-sky-500 to-indigo-600"></div>
+            
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-md bg-brand-50 border border-brand-100 text-brand-700 text-xs font-semibold uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-folder-open text-brand-500"></i>
+                        <span>Procédure & Enregistrements</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        Traitement des réclamations client
+                        
+                    </h1>
+                    <p class="text-slate-500 text-sm sm:text-base mt-2 max-w-2xl">
+                        Ensemble des documents relatifs à l'enregistrement, à l'analyse et à la résolution des insatisfactions formulées par les clients.
+                    </p>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-3">
+                    <button onclick="downloadAll()" class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-800 shadow-md shadow-brand-500/20 transition-all duration-150">
+                        <i class="fa-solid fa-download mr-2"></i>
+                        Tout Télécharger (ZIP)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-100">
+                <div>
+                    <span class="text-xs text-slate-400 uppercase font-medium">Documents installés</span>
+                    <p class="text-lg font-bold text-slate-800 mt-0.5" id="stat-count">3 Fichiers</p>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-400 uppercase font-medium">Dernière révision</span>
+                    <p class="text-lg font-bold text-slate-800 mt-0.5">15 Jan standard 2024</p>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-400 uppercase font-medium">Statut du Processus</span>
+                    <p class="text-lg font-bold text-emerald-600 mt-0.5 flex items-center">
+                        <i class="fa-solid fa-circle-check text-xs mr-1.5"></i> Valide
+                    </p>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-400 uppercase font-medium">Accès</span>
+                    <p class="text-lg font-bold text-slate-800 mt-0.5">Public Interne</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 mb-6">
+            <!-- Search bar -->
+            <div class="relative flex-1 max-w-md">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="searchInput" onkeyup="filterDocs()" placeholder="Rechercher par code ou désignation..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 shadow-sm transition-all">
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex items-center bg-slate-200/60 p-1 rounded-xl text-xs font-medium self-start sm:self-auto overflow-x-auto w-full sm:w-auto">
+                <button onclick="setFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm transition-all font-semibold">Tous (3)</button>
+                <button onclick="setFilter('Procedure')" id="btn-Procedure" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">Procédures (1)</button>
+                <button onclick="setFilter('Formulaire')" id="btn-Formulaire" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">Formulaires (1)</button>
+                <button onclick="setFilter('Registre')" id="btn-Registre" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all">Registres (1)</button>
+            </div>
+        </div>
+
+        <div class="space-y-4" id="documentsList">
+
+            <!-- Document Card 1 -->
+            <div class="doc-card bg-white rounded-2xl p-5 border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all duration-200 group"
+                 data-code="PQ08" data-title="Traitement des réclamations client" data-type="Procedure">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    
+                    <!-- Left info section -->
+                    <div class="flex items-start space-x-4">
+                        <!-- Icon Box -->
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
+                            <i class="fa-solid fa-file-contract text-xl"></i>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center flex-wrap gap-2 mb-1">
+                                <!-- Code Badge -->
+                                <span class="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-md tracking-wide shadow-sm">
+                                    PQ08
+                                </span>
+                                <!-- Type Tag -->
+                                <span class="bg-blue-100 text-blue-700 font-semibold text-xs px-2.5 py-0.5 rounded-full">
+                                    Procédure Qualité
+                                </span>
+                                <span class="text-xs text-slate-400">v3.1</span>
+                            </div>
+                            
+                            <!-- Title -->
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors cursor-pointer" onclick="openPreview('PQ08', 'Traitement des réclamations client', 'Procédure Qualité', 'PDF', '1.4 MB', '15/01/2024')">
+                                Traitement des réclamations client
+                            </h3>
+                            
+                            <p class="text-slate-500 text-xs mt-1">
+                                Définit la méthodologie relative à la réception, au traitement et au suivi des réclamations reçues des clients.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right metadata & actions -->
+                    <div class="flex items-center justify-between md:justify-end gap-6 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
+                        <div class="hidden lg:block text-right text-xs">
+                            <div class="text-slate-400">Mis à jour le</div>
+                            <div class="font-medium text-slate-700">15 Jan. 2024</div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <!-- Extension badge -->
+                            <span class="text-xs font-semibold px-2 py-1 rounded bg-red-50 text-red-600 border border-red-100 uppercase mr-2">PDF</span>
+                            
+                            <!-- Actions -->
+                            <button onclick="openPreview('PQ08', 'Traitement des réclamations client', 'Procédure Qualité', 'PDF', '1.4 MB', '15/01/2024')" 
+                                    class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center gap-1.5"
+                                    title="Aperçu">
+                                <i class="fa-regular fa-eye"></i>
+                                <span>Visualiser</span>
+                            </button>
+
+                            <button onclick="downloadDoc('PQ08')" 
+                                    class="px-3.5 py-2 rounded-xl text-xs font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 transition-colors flex items-center gap-1.5"
+                                    title="Télécharger">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Télécharger</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Document Card 2 -->
+            <div class="doc-card bg-white rounded-2xl p-5 border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all duration-200 group"
+                 data-code="FE01-PQ09" data-title="Fiche de réclamation" data-type="Formulaire">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    
+                    <!-- Left info section -->
+                    <div class="flex items-start space-x-4">
+                        <!-- Icon Box -->
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 flex-shrink-0 group-hover:bg-amber-600 group-hover:text-white transition-colors duration-200">
+                            <i class="fa-solid fa-file-pen text-xl"></i>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center flex-wrap gap-2 mb-1">
+                                <!-- Code Badge -->
+                                <span class="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-md tracking-wide shadow-sm">
+                                    FE01-PQ09
+                                </span>
+                                <!-- Type Tag -->
+                                <span class="bg-amber-100 text-amber-800 font-semibold text-xs px-2.5 py-0.5 rounded-full">
+                                    Formulaire d'Enregistrement
+                                </span>
+                                <span class="text-xs text-slate-400">v2.0</span>
+                            </div>
+                            
+                            <!-- Title -->
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors cursor-pointer" onclick="openPreview('FE01-PQ09', 'Fiche de réclamation', 'Formulaire d\'Enregistrement', 'DOCX', '450 KB', '02/02/2024')">
+                                Fiche de réclamation
+                            </h3>
+                            
+                            <p class="text-slate-500 text-xs mt-1">
+                                Formulaire standard à remplir lors de l'ouverture d'une fiche d'incident ou réclamation client.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right metadata & actions -->
+                    <div class="flex items-center justify-between md:justify-end gap-6 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
+                        <div class="hidden lg:block text-right text-xs">
+                            <div class="text-slate-400">Mis à jour le</div>
+                            <div class="font-medium text-slate-700">02 Fév. 2024</div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <!-- Extension badge -->
+                            <span class="text-xs font-semibold px-2 py-1 rounded bg-blue-50 text-blue-600 border border-blue-100 uppercase mr-2">DOCX</span>
+                            
+                            <!-- Actions -->
+                            <button onclick="openPreview('FE01-PQ09', 'Fiche de réclamation', 'Formulaire d\'Enregistrement', 'DOCX', '450 KB', '02/02/2024')" 
+                                    class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center gap-1.5"
+                                    title="Aperçu">
+                                <i class="fa-regular fa-eye"></i>
+                                <span>Visualiser</span>
+                            </button>
+
+                            <button onclick="downloadDoc('FE01-PQ09')" 
+                                    class="px-3.5 py-2 rounded-xl text-xs font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 transition-colors flex items-center gap-1.5"
+                                    title="Télécharger">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Télécharger</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Document Card 3 -->
+            <div class="doc-card bg-white rounded-2xl p-5 border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all duration-200 group"
+                 data-code="FE02-PQ09" data-title="Registre de réclamation client" data-type="Registre">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    
+                    <!-- Left info section -->
+                    <div class="flex items-start space-x-4">
+                        <!-- Icon Box -->
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-200">
+                            <i class="fa-solid fa-table-list text-xl"></i>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center flex-wrap gap-2 mb-1">
+                                <!-- Code Badge -->
+                                <span class="bg-slate-900 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-md tracking-wide shadow-sm">
+                                    FE02-PQ09
+                                </span>
+                                <!-- Type Tag -->
+                                <span class="bg-emerald-100 text-emerald-800 font-semibold text-xs px-2.5 py-0.5 rounded-full">
+                                    Registre / Suivi
+                                </span>
+                                <span class="text-xs text-slate-400">v1.4</span>
+                            </div>
+                            
+                            <!-- Title -->
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors cursor-pointer" onclick="openPreview('FE02-PQ09', 'Registre de réclamation client', 'Registre de Suivi', 'XLSX', '890 KB', '10/03/2024')">
+                                Registre de réclamation client
+                            </h3>
+                            
+                            <p class="text-slate-500 text-xs mt-1">
+                                Tableau de bord synthétique consolidant l'historique, les plans d'actions et les délais de réponse.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right metadata & actions -->
+                    <div class="flex items-center justify-between md:justify-end gap-6 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
+                        <div class="hidden lg:block text-right text-xs">
+                            <div class="text-slate-400">Mis à jour le</div>
+                            <div class="font-medium text-slate-700">10 Mars 2024</div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <!-- Extension badge -->
+                            <span class="text-xs font-semibold px-2 py-1 rounded bg-emerald-50 text-emerald-600 border border-emerald-100 uppercase mr-2">XLSX</span>
+                            
+                            <!-- Actions -->
+                            <button onclick="openPreview('FE02-PQ09', 'Registre de réclamation client', 'Registre de Suivi', 'XLSX', '890 KB', '10/03/2024')" 
+                                    class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center gap-1.5"
+                                    title="Aperçu">
+                                <i class="fa-regular fa-eye"></i>
+                                <span>Visualiser</span>
+                            </button>
+
+                            <button onclick="downloadDoc('FE02-PQ09')" 
+                                    class="px-3.5 py-2 rounded-xl text-xs font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 transition-colors flex items-center gap-1.5"
+                                    title="Télécharger">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Télécharger</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="noResults" class="hidden text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+                <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                <p class="text-slate-600 font-medium text-base">Aucun document ne correspond à votre recherche</p>
+                <p class="text-slate-400 text-xs mt-1">Essayez de vérifier le code ou le mot clé saisi.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <p>© 2026 Direction Qualité & Satisfaction Client. Tous droits réservés.</p>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="hover:text-brand-600 transition-colors">Politique Qualité</a>
+                <a href="#" class="hover:text-brand-600 transition-colors">Aide & Support</a>
+                <a href="#" class="hover:text-brand-600 transition-colors">Guide Utilisateur</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-100 transform transition-all scale-95 opacity-0" id="modalContainer">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span id="modalCode" class="bg-brand-600 text-white text-xs font-mono font-bold px-2.5 py-1 rounded">CODE</span>
+                    <h3 id="modalTitle" class="font-bold text-base text-white truncate max-w-md">Titre du document</h3>
+                </div>
+                <button onclick="closePreview()" class="text-slate-400 hover:text-white p-1 transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Simulation -->
+            <div class="p-6">
+                <!-- Document Details Grid -->
+                <div class="grid grid-cols-3 gap-4 p-4 bg-slate-50 rounded-xl mb-6 text-xs">
+                    <div>
+                        <span class="text-slate-400 block mb-0.5">Type de document</span>
+                        <span id="modalType" class="font-semibold text-slate-700">Procédure</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block mb-0.5">Taille / Format</span>
+                        <span id="modalFormat" class="font-semibold text-slate-700">PDF (1.2 MB)</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block mb-0.5">Date de mise à jour</span>
+                        <span id="modalDate" class="font-semibold text-slate-700">01/01/2024</span>
+                    </div>
+                </div>
+
+                <!-- Document Paper Mockup -->
+                <div class="border border-slate-200 rounded-xl p-8 bg-slate-50/50 flex flex-col items-center text-center space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-brand-50 border border-brand-100 text-brand-600 flex items-center justify-center text-2xl shadow-inner">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-slate-800 text-sm">Visualisation du document système</h4>
+                        <p class="text-xs text-slate-500 mt-1 max-w-sm">
+                            Le document est verrouillé en lecture seule. Vous pouvez consulter les détails complets ou le télécharger localement.
+                        </p>
+                    </div>
+                    
+                    <!-- Fake Document Lines -->
+                    <div class="w-full space-y-2 pt-2">
+                        <div class="h-2 bg-slate-200 rounded w-3/4 mx-auto"></div>
+                        <div class="h-2 bg-slate-200 rounded w-5/6 mx-auto"></div>
+                        <div class="h-2 bg-slate-200 rounded w-2/3 mx-auto"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end space-x-3">
+                <button onclick="closePreview()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 transition-colors">
+                    Fermer
+                </button>
+                <button onclick="downloadCurrentModalDoc()" class="px-4 py-2 text-xs font-semibold text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Télécharger la copie</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-xs z-50 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMsg">Action effectuée avec succès</span>
+    </div>
+
+    <script>
+        let activeFilter = 'all';
+        let currentModalCode = '';
+
+        // Filter Functionality
+        function filterDocs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.doc-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const code = card.getAttribute('data-code').toLowerCase();
+                const title = card.getAttribute('data-title').toLowerCase();
+                const type = card.getAttribute('data-type');
+
+                const matchesSearch = code.includes(query) || title.includes(query);
+                const matchesCategory = (activeFilter === 'all') || (type === activeFilter);
+
+                if (matchesSearch && matchesCategory) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Toggle empty state
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Category Filter Tabs
+        function setFilter(type) {
+            activeFilter = type;
+            
+            // Reset tab styles
+            ['all', 'Procedure', 'Formulaire', 'Registre'].forEach(t => {
+                const btn = document.getElementById(`btn-${t}`);
+                if (btn) {
+                    if (t === type) {
+                        btn.className = "px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm transition-all font-semibold";
+                    } else {
+                        btn.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+                    }
+                }
+            });
+
+            filterDocs();
+        }
+
+        // Modal Controls
+        function openPreview(code, title, type, format, size, date) {
+            currentModalCode = code;
+            document.getElementById('modalCode').innerText = code;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalType').innerText = type;
+            document.getElementById('modalFormat').innerText = `${format} (${size})`;
+            document.getElementById('modalDate').innerText = date;
+
+            const modal = document.getElementById('previewModal');
+            const container = document.getElementById('modalContainer');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closePreview() {
+            const modal = document.getElementById('previewModal');
+            const container = document.getElementById('modalContainer');
+
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        // Action Notifications / Simulations
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            
+            toastMsg.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function downloadDoc(code) {
+            showToast(`Téléchargement de ${code} en cours...`);
+        }
+
+        function downloadCurrentModalDoc() {
+            closePreview();
+            setTimeout(() => {
+                downloadDoc(currentModalCode);
+            }, 250);
+        }
+
+        function downloadAll() {
+            showToast('Préparation de l\'archive ZIP (3 fichiers)...');
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePreview();
+            }
+        });
+    </script>
+</body>
+</html>

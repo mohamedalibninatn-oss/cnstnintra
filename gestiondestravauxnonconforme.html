@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Gestion des travaux non conforme</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            blue: '#0F4C81',
+                            navy: '#0A2540',
+                            accent: '#2563EB',
+                            lightBg: '#F8FAFC',
+                            red: '#E11D48',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-shadow {
+            box-shadow: 0 4px 20px -2px rgba(15, 76, 129, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+        }
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px -4px rgba(15, 76, 129, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="h-full font-sans antialiased text-slate-800 bg-slate-50 flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo CNSTN & Title -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3 cursor-pointer">
+                    <!-- Stylized Atomic Logo -->
+                    <div class="relative w-12 h-12 flex items-center justify-center">
+                        <svg class="w-12 h-12 text-cnstn-blue" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Orbit 1 -->
+                            <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(-30 50 50)" stroke="currentColor" stroke-width="3.5" class="opacity-85"/>
+                            <!-- Orbit 2 -->
+                            <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(30 50 50)" stroke="currentColor" stroke-width="3.5" class="opacity-85"/>
+                            <!-- Orbit 3 -->
+                            <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(90 50 50)" stroke="#1d4ed8" stroke-width="2.5" class="opacity-60"/>
+                            <!-- Nucleus Dot -->
+                            <circle cx="50" cy="50" r="7" fill="#E11D48"/>
+                            <!-- Electron Dots -->
+                            <circle cx="20" cy="33" r="3.5" fill="#0F4C81"/>
+                            <circle cx="80" cy="67" r="3.5" fill="#0F4C81"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center">
+                            <span class="text-2xl font-bold tracking-tight text-cnstn-navy">Intranet</span>
+                            <span class="text-2xl font-extrabold text-cnstn-blue ml-1.5 uppercase tracking-wider">CNSTN</span>
+                        </div>
+                        <p class="text-xs font-medium text-slate-500 hidden sm:block">Centre National des Sciences et Technologies Nucléaires</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Right Menu / Profile -->
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <span class="text-xs px-2.5 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded-full border border-emerald-200">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> Système QHSE
+                    </span>
+                </div>
+                
+                <div class="h-8 w-px bg-slate-200 hidden sm:block"></div>
+
+                <!-- User Profile Badge -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-cnstn-blue font-bold shadow-sm">
+                        AD
+                    </div>
+                    <div class="hidden sm:block text-left">
+                        <div class="text-sm font-semibold text-slate-800 leading-tight">Agent Qualité</div>
+                        <div class="text-xs text-slate-500">Intranet Utilisateur</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-white border-b border-slate-200 py-3 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex text-sm text-slate-500" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                    <li class="inline-flex items-center">
+                        <a href="#" class="hover:text-cnstn-blue inline-flex items-center text-slate-500 transition-colors">
+                            <i class="fa-solid fa-house mr-2 text-xs"></i> Accueil
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 mx-1.5"></i>
+                            <a href="#" class="hover:text-cnstn-blue text-slate-500 transition-colors">Qualité & Procédures</a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400 mx-1.5"></i>
+                            <span class="font-medium text-slate-800">Gestion des travaux non conforme</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Title Section -->
+        <div class="md:flex md:items-center md:justify-between mb-8 pb-6 border-b border-slate-200">
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-blue-50 text-cnstn-blue rounded-xl border border-blue-100">
+                        <i class="fa-solid fa-clipboard-check text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold leading-7 text-slate-900 tracking-tight">
+                            Gestion des travaux non conforme
+                        </h1>
+                        <p class="mt-1 text-sm text-slate-500">
+                            Procédures, enregistrements et fiches de dérogation pour le suivi de la conformité CNSTN.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Action Button -->
+            <div class="mt-4 md:mt-0 flex space-x-3">
+                <button onclick="createNewDocument()" class="inline-flex items-center px-4 py-2.5 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-cnstn-blue hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cnstn-blue transition-colors">
+                    <i class="fa-solid fa-plus mr-2"></i> Nouvelle Déclaration
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl custom-shadow mb-8 border border-slate-200/80">
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <!-- Search Input -->
+                <div class="relative w-full sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input type="text" id="searchInput" onkeyup="filterDocuments()" placeholder="Rechercher un document, code PQ13, fiche..." class="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cnstn-blue focus:border-transparent transition-all">
+                </div>
+
+                <!-- Stats / Quick Count -->
+                <div class="flex items-center space-x-2 text-sm text-slate-500 w-full sm:w-auto justify-end">
+                    <span class="font-medium text-slate-700" id="docCount">3</span> documents officiels disponibles
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="documentsGrid">
+
+            <!-- CARD 1: Procédures -->
+            <div class="doc-card bg-white rounded-xl border border-slate-200/90 custom-shadow card-hover flex flex-col justify-between overflow-hidden" data-title="PQ13 Procédures Gestion des travaux non conforme">
+                <div class="p-6">
+                    <!-- Header Badge & Icon -->
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 text-xl font-bold">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100">
+                            Procédure Officielle
+                        </span>
+                    </div>
+
+                    <!-- Code & Title -->
+                    <div class="text-xs font-bold uppercase tracking-wider text-cnstn-blue mb-1">PQ13</div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug hover:text-cnstn-blue cursor-pointer transition-colors">
+                        Procédures Gestion des travaux non conforme
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-2 line-clamp-2">
+                        Document cadre décrivant la méthodologie et les étapes de traitement des écarts et non-conformités constatés lors des travaux.
+                    </p>
+
+                    <!-- Meta details -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-500">
+                        <div>
+                            <span class="block text-slate-400">Format</span>
+                            <span class="font-medium text-slate-700">PDF (.pdf)</span>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400">Révision</span>
+                            <span class="font-medium text-slate-700">v2.1 (Actif)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions Footer -->
+                <div class="bg-slate-50/80 px-6 py-3.5 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="previewDocument('PQ13 Procédures Gestion des travaux non conforme')" class="text-xs font-semibold text-slate-600 hover:text-cnstn-blue flex items-center transition-colors">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Consulter
+                    </button>
+                    <a href="#" onclick="downloadFile('PQ13_Procedures_Gestion_travaux_non_conforme.pdf')" class="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-cnstn-blue shadow-xs transition-colors">
+                        <i class="fa-solid fa-download mr-1.5 text-slate-400"></i> Télécharger
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 2: Fiche de dérogation -->
+            <div class="doc-card bg-white rounded-xl border border-slate-200/90 custom-shadow card-hover flex flex-col justify-between overflow-hidden" data-title="FE02-PQ13 Fiche de dérogation">
+                <div class="p-6">
+                    <!-- Header Badge & Icon -->
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-100 text-xl font-bold">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100">
+                            Formulaire / Fiche
+                        </span>
+                    </div>
+
+                    <!-- Code & Title -->
+                    <div class="text-xs font-bold uppercase tracking-wider text-amber-600 mb-1">FE02-PQ13</div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug hover:text-cnstn-blue cursor-pointer transition-colors">
+                        Fiche de dérogation
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-2 line-clamp-2">
+                        Formulaire de demande de dérogation exceptionnelle pour la validation ou l'acceptation sous réserve des écarts détectés.
+                    </p>
+
+                    <!-- Meta details -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-500">
+                        <div>
+                            <span class="block text-slate-400">Format</span>
+                            <span class="font-medium text-slate-700">DOCX / PDF</span>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400">Usage</span>
+                            <span class="font-medium text-slate-700">Interne CNSTN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions Footer -->
+                <div class="bg-slate-50/80 px-6 py-3.5 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="previewDocument('FE02-PQ13 Fiche de dérogation')" class="text-xs font-semibold text-slate-600 hover:text-cnstn-blue flex items-center transition-colors">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Consulter
+                    </button>
+                    <a href="#" onclick="downloadFile('FE02-PQ13_Fiche_de_derogation.docx')" class="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-cnstn-blue shadow-xs transition-colors">
+                        <i class="fa-solid fa-download mr-1.5 text-slate-400"></i> Télécharger
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 3: Registre -->
+            <div class="doc-card bg-white rounded-xl border border-slate-200/90 custom-shadow card-hover flex flex-col justify-between overflow-hidden" data-title="FE03-PQ13 Registre des travaux non conformes juin 2025">
+                <div class="p-6">
+                    <!-- Header Badge & Icon -->
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 text-xl font-bold">
+                            <i class="fa-solid fa-file-excel"></i>
+                        </div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
+                            Registre à jour
+                        </span>
+                    </div>
+
+                    <!-- Code & Title -->
+                    <div class="text-xs font-bold uppercase tracking-wider text-emerald-700 mb-1">FE03-PQ13</div>
+                    <h3 class="text-lg font-bold text-slate-800 leading-snug hover:text-cnstn-blue cursor-pointer transition-colors">
+                        Registre des travaux non conformes juin 2025
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-2 line-clamp-2">
+                        Tableau récapitulatif du suivi, des actions correctives et des résolutions de non-conformités mises à jour pour juin 2025.
+                    </p>
+
+                    <!-- Meta details -->
+                    <div class="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 text-xs text-slate-500">
+                        <div>
+                            <span class="block text-slate-400">Mise à jour</span>
+                            <span class="font-medium text-emerald-700 font-semibold">Juin 2025</span>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400">Type</span>
+                            <span class="font-medium text-slate-700">Tableur Excel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions Footer -->
+                <div class="bg-slate-50/80 px-6 py-3.5 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="previewDocument('FE03-PQ13 Registre des travaux non conformes juin 2025')" class="text-xs font-semibold text-slate-600 hover:text-cnstn-blue flex items-center transition-colors">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Consulter
+                    </button>
+                    <a href="#" onclick="downloadFile('FE03-PQ13_Registre_travaux_non_conformes_juin_2025.xlsx')" class="inline-flex items-center px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-cnstn-blue shadow-xs transition-colors">
+                        <i class="fa-solid fa-download mr-1.5 text-slate-400"></i> Télécharger
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="noResults" class="hidden text-center py-12 bg-white rounded-xl border border-slate-200 custom-shadow mt-4">
+            <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+            <h3 class="text-lg font-medium text-slate-800">Aucun document trouvé</h3>
+            <p class="text-sm text-slate-500 mt-1">Essayez avec un autre mot-clé ou réinitialisez le filtre.</p>
+            <button onclick="resetSearch()" class="mt-4 px-4 py-2 text-xs font-medium text-cnstn-blue bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                Réinitialiser la recherche
+            </button>
+        </div>
+
+        <div class="mt-12 bg-blue-50/60 border border-blue-100 rounded-xl p-5 flex items-start space-x-4">
+            <div class="text-cnstn-blue mt-0.5">
+                <i class="fa-solid fa-circle-info text-xl"></i>
+            </div>
+            <div class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <span class="font-semibold text-slate-800 block mb-0.5">Besoin d'aide sur les procédures QHSE ?</span>
+                Pour toute assistance concernant la soumission d'une fiche de dérogation ou la tenue du registre des travaux non conformes, veuillez contacter le responsable Qualité Sécurité de la CNSTN via l'extension téléphonique <strong>402</strong> ou par e-mail à <a href="mailto:qhse@cnstn.rnrt.tn" class="text-cnstn-blue underline font-medium">qhse@cnstn.rnrt.tn</a>.
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-3 sm:space-y-0">
+            <div>
+                © 2025 - 2026 <strong>CNSTN</strong> - Centre National des Sciences et Technologies Nucléaires.
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="hover:text-cnstn-blue transition-colors">Politique Qualité</a>
+                <a href="#" class="hover:text-cnstn-blue transition-colors">Support Technique</a>
+                <a href="#" class="hover:text-cnstn-blue transition-colors">Manuel Intranet</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Modal Container for Document Preview -->
+    <div id="previewModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full p-6 border border-slate-100">
+            <div class="flex justify-between items-start pb-4 border-b border-slate-100">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-blue-50 text-cnstn-blue rounded-lg">
+                        <i class="fa-solid fa-file-lines text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg" id="modalTitle">Aperçu du document</h3>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="py-6 text-sm text-slate-600">
+                <p class="mb-4">Le document est archivé sur le serveur Intranet CNSTN. Vous pouvez visualiser les métadonnées ou télécharger la version officielle.</p>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200/80 space-y-2">
+                    <div class="flex justify-between"><span class="text-slate-400">Statut:</span> <span class="font-medium text-emerald-600">Validé & Validé Qualité</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Dernière mise à jour:</span> <span class="font-medium text-slate-700">Juin 2025</span></div>
+                    <div class="flex justify-between"><span class="text-slate-400">Accès:</span> <span class="font-medium text-slate-700">Personnel Autorisé CNSTN</span></div>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closeModal()" class="px-4 py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50">
+                    Fermer
+                </button>
+                <button onclick="triggerToast('Ouverture du document en cours...'); closeModal();" class="px-4 py-2 bg-cnstn-blue text-white rounded-lg text-xs font-semibold hover:bg-slate-800 transition-colors">
+                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Ouvrir le fichier
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-lg text-xs font-medium flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMessage">Action effectuée avec succès</span>
+    </div>
+
+    <script>
+        function filterDocuments() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.doc-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(input)) {
+                    card.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            document.getElementById('docCount').textContent = visibleCount;
+
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        function resetSearch() {
+            document.getElementById('searchInput').value = '';
+            filterDocuments();
+        }
+
+        function previewDocument(title) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('previewModal').classList.add('hidden');
+        }
+
+        function downloadFile(filename) {
+            triggerToast('Téléchargement de ' + filename + '...');
+        }
+
+        function createNewDocument() {
+            triggerToast('Ouverture du formulaire de déclaration de non-conformité...');
+        }
+
+        function triggerToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

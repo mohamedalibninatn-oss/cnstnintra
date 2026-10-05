@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procédures et formulaires organisationnels</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1A56B5',
+                            hover: '#0F3C85',
+                            bg: '#F3F6FA',
+                            cardBg: '#FFFFFF',
+                            textGray: '#6B7280'
+                        }
+                    },
+                    boxShadow: {
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03)',
+                        'card-hover': '0 20px 30px -10px rgba(26, 86, 181, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #F3F6FA;
+            /* Pattern subtil en arrière-plan */
+            background-image: radial-gradient(#E2E8F0 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+        }
+
+        .card-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 flex flex-col justify-between">
+
+    <div class="max-w-7xl mx-auto w-full">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <span class="inline-block px-4 py-1.5 mb-3 text-xs font-semibold tracking-wider text-brand-blue uppercase bg-blue-50 rounded-full border border-blue-100">
+                Portail Documentaire
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+                Procédures et formulaires organisationnels
+            </h1>
+            <p class="mt-3 max-w-2xl mx-auto text-base text-gray-500">
+                Accédez facilement aux documents, imprimés et procédures de chaque direction.
+            </p>
+            <div class="mt-4 w-24 h-1 bg-brand-blue mx-auto rounded-full"></div>
+        </header>
+
+        <!-- Main Grid for Cards -->
+        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+
+            <!-- Card 1: DSC -->
+            <a href="imprimeesdirectiondesservicescommuns.html" class="group bg-white rounded-2xl p-6 shadow-card card-transition hover:-translate-y-2 hover:shadow-card-hover border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
+                <div class="w-full h-44 mb-6 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-300">
+                    <!-- SVG Folder Stack Illustration -->
+                    <svg class="w-28 h-28 text-amber-600 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 11v6a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" opacity="0.7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 15v2a2 2 0 002 2h14a2 2 0 002-2v-1" opacity="0.4" />
+                    </svg>
+                </div>
+                <h2 class="text-base font-bold text-brand-blue group-hover:text-brand-hover leading-snug mb-3 uppercase tracking-wide">
+                    Imprimées Direction des Services Communs
+                </h2>
+                <span class="mt-auto text-sm font-semibold text-brand-textGray bg-gray-100 px-3 py-1 rounded-md">
+                    DSC
+                </span>
+            </a>
+
+            <!-- Card 2: DG -->
+            <a href="imprimesdirectiongeneral.html" class="group bg-white rounded-2xl p-6 shadow-card card-transition hover:-translate-y-2 hover:shadow-card-hover border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
+                <div class="w-full h-44 mb-6 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-300">
+                    <!-- SVG Signature / Document Illustration -->
+                    <svg class="w-28 h-28 text-blue-600 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 21h18" />
+                    </svg>
+                </div>
+                <h2 class="text-base font-bold text-brand-blue group-hover:text-brand-hover leading-snug mb-3 uppercase tracking-wide">
+                    Imprimées Direction Générale
+                </h2>
+                <span class="mt-auto text-sm font-semibold text-brand-textGray bg-gray-100 px-3 py-1 rounded-md">
+                    DG
+                </span>
+            </a>
+
+            <!-- Card 3: SMQ -->
+            <a href="proceduresetimprimeesservicequalite.html" class="group bg-white rounded-2xl p-6 shadow-card card-transition hover:-translate-y-2 hover:shadow-card-hover border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
+                <div class="w-full h-44 mb-6 rounded-xl bg-slate-800 flex flex-col items-center justify-center p-4 group-hover:scale-105 transition-transform duration-300 relative">
+                    <!-- Visuel Devis / SMQ avec style moderne -->
+                    <div class="text-white text-xl font-bold tracking-wider mb-2 border-b-2 border-yellow-400 pb-1">
+                        Devis
+                    </div>
+                    <svg class="w-12 h-12 text-slate-400 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <h2 class="text-base font-bold text-brand-blue group-hover:text-brand-hover leading-snug mb-3 uppercase tracking-wide">
+                    Procédures et Imprimées Service Qualité
+                </h2>
+                <span class="mt-auto text-sm font-semibold text-brand-textGray bg-gray-100 px-3 py-1 rounded-md">
+                    SMQ
+                </span>
+            </a>
+
+            <!-- Card 4: DSN -->
+            <a href="imprimesdirectiondelasurtenucleaires.html" class="group bg-white rounded-2xl p-6 shadow-card card-transition hover:-translate-y-2 hover:shadow-card-hover border border-gray-100 flex flex-col items-center text-center relative overflow-hidden">
+                <div class="w-full h-44 mb-6 rounded-xl bg-gradient-to-br from-cyan-50 to-teal-50 flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-300">
+                    <!-- SVG Nuclear Safety Icon -->
+                    <svg class="w-28 h-28 text-teal-600 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M12 11c0 1.657 1.343 3 3 3s3-1.343 3-3-1.343-3-3-3-3 1.343-3 3z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M12 11V3m0 8v8" />
+                        <circle cx="12" cy="11" r="9" stroke-width="1.2" stroke-dasharray="2 2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M9 12l-2 3.5m7-3.5l2 3.5" />
+                    </svg>
+                </div>
+                <h2 class="text-base font-bold text-brand-blue group-hover:text-brand-hover leading-snug mb-3 uppercase tracking-wide">
+                    Imprimées Direction de Sûreté Nucléaire
+                </h2>
+                <span class="mt-auto text-sm font-semibold text-brand-textGray bg-gray-100 px-3 py-1 rounded-md">
+                    DSN
+                </span>
+            </a>
+
+            <!-- Card 5 (Bonus): Direction Recherche -->
+            <a href="directionrechercheenergieetmatiere.html" class="group bg-white rounded-2xl p-6 shadow-card card-transition hover:-translate-y-2 hover:shadow-card-hover border border-gray-100 flex flex-col items-center text-center relative overflow-hidden sm:col-span-2 lg:col-span-1 lg:col-start-1">
+                <div class="w-full h-44 mb-6 rounded-xl bg-gradient-to-br from-emerald-50 to-green-50 flex items-center justify-center p-4 group-hover:scale-105 transition-transform duration-300">
+                    <!-- SVG Renewable Energy / Research Icon -->
+                    <svg class="w-28 h-28 text-emerald-600 drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M12 16a4 4 0 100-8 4 4 0 000 8z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M19.5 12.5c0 3.866-3.358 7-7.5 7s-7.5-3.134-7.5-7" opacity="0.5" />
+                    </svg>
+                </div>
+                <h2 class="text-base font-bold text-brand-blue group-hover:text-brand-hover leading-snug mb-3 uppercase tracking-wide">
+                    Direction Recherche
+                </h2>
+                <span class="mt-auto text-sm font-semibold text-brand-textGray bg-gray-100 px-3 py-1 rounded-md">
+                    DR
+                </span>
+            </a>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 text-center text-xs text-gray-400">
+        &copy; Procédures et Formulaires Organisationnels — Tous droits réservés.
+    </footer>
+
+</body>
+</html>

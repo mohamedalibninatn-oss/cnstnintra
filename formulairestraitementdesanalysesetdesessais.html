@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traitement des Analyses - Gestion Documentaire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .doc-row {
+            transition: all 0.2s ease-in-out;
+        }
+        .doc-row:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8 text-slate-800">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+            
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 sm:p-8 text-white">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-indigo-500/20 rounded-xl border border-indigo-400/30 text-indigo-300">
+                            <i class="fa-solid fa-microscope text-2xl sm:text-3xl"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap mb-1">
+                                <span class="bg-indigo-500/30 text-indigo-200 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-indigo-400/30">
+                                    Procedure P.QUA.0008
+                                </span>
+                                <span class="text-slate-400 text-xs font-medium">• Qualité & Laboratoire</span>
+                            </div>
+                            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white capitalize">
+                                Traitement des analyses
+                            </h1>
+                            <p class="text-slate-300 text-sm mt-1">
+                                Formulaires et documents relatifs au traitement des analyses et des essais
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats Badge -->
+                    <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-3 rounded-xl border border-white/10 self-start md:self-auto">
+                        <i class="fa-solid fa-folder-open text-indigo-400 text-xl"></i>
+                        <div>
+                            <p class="text-xs text-slate-300">Total documents</p>
+                            <p class="text-lg font-bold leading-none text-white" id="docCount">12</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Bar (Search & Filter) -->
+            <div class="p-4 sm:p-6 bg-slate-50 border-b border-slate-100 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div class="relative w-full sm:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="searchInput" onkeyup="filterDocs()" 
+                        placeholder="Rechercher par code ou nom de fichier..." 
+                        class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-sm">
+                </div>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider mr-1">Filtrer:</span>
+                    <button onclick="filterType('all')" class="filter-btn active text-xs font-medium px-3 py-1.5 rounded-lg bg-indigo-600 text-white shadow-sm transition-all">Tous</button>
+                    <button onclick="filterType('pdf')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">PDF</button>
+                    <button onclick="filterType('doc')" class="filter-btn text-xs font-medium px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">DOC</button>
+                </div>
+            </div>
+
+            <!-- Document List Section -->
+            <div class="p-4 sm:p-6">
+                <div class="space-y-3" id="docList">
+                    
+                    <!-- Doc Item 1 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1052/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Fiche de demande d’analyse _Echantillon</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Formulaire officiel de demande d'échantillonnage</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1052/09/07 - Fiche de demande d’analyse _Echantillon .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 2 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1053/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Fiche d’étude de faisabilité</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Évaluation préalable des capacités d'analyse</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1053/09/07 - Fiche d’étude de faisabilité .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 3 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1054/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Registre de suivi des propositions des analyses</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Suivi centralisé des propositions clients</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1054/09/07 - Registre de suivi des propositions des analyses .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 4 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1055/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Liste des techniques d’analyses Prix</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Catalogue des tarifs et techniques disponibles</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1055/09/07 - Liste des techniques d’analyses Prix.pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 5 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1056/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Offre de prix</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Modèle standard d'offre financière</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1056/09/07 - Offre de prix .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 6 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1057/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Lettre de refus</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Notification formelle en cas d'impossibilité de traitement</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1057/09/07 - Lettre de refus .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 7 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1059/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Fiche d’analyses</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Spécifications techniques du test</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1059/09/07 - Fiche d’analyses .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 8 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1060/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Etiquette d’identification des échantillons</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Gabarit d'étiquetage réglementaire</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1060/09/07 - Etiquette d’identification des échantillons.pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 9 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1062/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Ordre de service</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Lancement et exécution des prestations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1062/09/07 - Ordre de service .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 10 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="doc">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1063/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Rapport d’analyses</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Trame éditable du rapport d'essai complet</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200/60">
+                                <i class="fa-solid fa-file-word"></i> .doc
+                            </span>
+                            <button onclick="downloadAction('1063/09/07 - Rapport d’analyses .doc')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 11 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="doc">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1064/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Rapport d’analyse de remplacement</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Rapport rectificatif ou d'amendement</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200/60">
+                                <i class="fa-solid fa-file-word"></i> .doc
+                            </span>
+                            <button onclick="downloadAction('1064/09/07 - Rapport d’analyse de remplacement .doc')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Doc Item 12 -->
+                    <div class="doc-row doc-item bg-white p-4 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-type="pdf">
+                        <div class="flex items-start sm:items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-700 font-mono border border-slate-200 shrink-0">
+                                1065/09/07
+                            </span>
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-800 hover:text-indigo-600 cursor-pointer">Demande de facturation</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Fiche d'instruction pour le service comptabilité</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200/60">
+                                <i class="fa-solid fa-file-pdf"></i> .pdf
+                            </span>
+                            <button onclick="downloadAction('1065/09/07 - Demande de facturation .pdf')" class="px-3.5 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Empty state hidden by default -->
+                <div id="emptyState" class="hidden text-center py-12">
+                    <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                    <p class="text-slate-500 font-medium text-sm">Aucun document ne correspond à votre recherche.</p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
+                <p>Système de Management de la Qualité - P.QUA.0008</p>
+                <p>© 2026 Laboratoire d'analyses et d'essais. Tous droits réservés.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-5 right-5 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMessage" class="text-sm font-medium">Fichier en cours de téléchargement...</span>
+    </div>
+
+    <script>
+        let currentFilter = 'all';
+
+        function filterDocs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.doc-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                const matchesSearch = text.includes(query);
+                const itemType = item.getAttribute('data-type');
+                const matchesType = (currentFilter === 'all') || (itemType === currentFilter);
+
+                if (matchesSearch && matchesType) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Update badge count
+            document.getElementById('docCount').innerText = visibleCount;
+
+            // Toggle Empty State
+            const emptyState = document.getElementById('emptyState');
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        function filterType(type) {
+            currentFilter = type;
+            
+            // Update active button state
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            });
+
+            event.target.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            event.target.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+
+            filterDocs();
+        }
+
+        function downloadAction(fileName) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            
+            toastMsg.innerText = `Téléchargement de: ${fileName}`;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

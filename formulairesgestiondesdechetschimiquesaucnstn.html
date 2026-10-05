@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Gestion des Déchets Chimiques</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            blue: '#0F4C81',
+                            dark: '#0A3154',
+                            light: '#E8F1F5',
+                            accent: '#2563EB',
+                            teal: '#0D9488'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased text-slate-800 flex flex-col min-h-full">
+
+    <!-- Navigation / Header Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo & Brand Title -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr from-cnstn-blue to-blue-500 text-white shadow-md shadow-blue-500/20">
+                        <!-- Atom Icon representing CNSTN nuclear science -->
+                        <i class="fa-solid font-bold text-2xl fa-atom animate-spin-slow"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-2xl font-bold tracking-tight text-cnstn-blue">CNSTN</span>
+                            <span class="bg-blue-100 text-cnstn-blue text-xs font-semibold px-2 py-0.5 rounded-full border border-blue-200">INTRANET</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium">Centre National des Sciences et Technologies Nucléaires</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Quick Links / User Profile -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <nav class="flex space-x-1 bg-slate-100 p-1 rounded-lg text-sm font-medium">
+                        <a href="#" class="px-3 py-1.5 rounded-md text-slate-600 hover:text-cnstn-blue transition">Accueil</a>
+                        <a href="#" class="px-3 py-1.5 rounded-md bg-white text-cnstn-blue shadow-sm font-semibold">Formulaires</a>
+                        <a href="#" class="px-3 py-1.5 rounded-md text-slate-600 hover:text-cnstn-blue transition">Procédures</a>
+                        <a href="#" class="px-3 py-1.5 rounded-md text-slate-600 hover:text-cnstn-blue transition">Contact HSE</a>
+                    </nav>
+
+                    <div class="h-6 w-px bg-slate-200"></div>
+
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold text-sm border border-slate-300">
+                            <i class="fa-regular fa-user"></i>
+                        </div>
+                        <div class="text-xs">
+                            <span class="block font-semibold text-slate-700">Utilisateur Intranet</span>
+                            <span class="text-slate-400">Laboratoire Chimie</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex text-xs text-slate-500 mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center hover:text-cnstn-blue">
+                        <i class="fa-solid fa-house mr-2"></i>
+                        Accueil
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-slate-300 mx-2 text-[10px]"></i>
+                        <a href="#" class="hover:text-cnstn-blue">Gestion Environnementale</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-slate-300 mx-2 text-[10px]"></i>
+                        <span class="text-slate-800 font-medium">Déchets Chimiques</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Title & Header Info -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm mb-8 relative overflow-hidden">
+            <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-blue-50 to-transparent pointer-events-none hidden md:block"></div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800 font-medium mb-4">
+                    <i class="fa-solid fa-flask-vial text-amber-600"></i>
+                    <span>Service de Radioprotection et Gestion des Déchets (SRGD)</span>
+                </div>
+                
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+                    Formulaires Gestion des déchets chimiques au CNSTN
+                </h1>
+                
+                <p class="text-sm sm:text-base text-slate-600 flex items-center font-mono font-medium">
+                    <span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded border border-slate-200 mr-2 text-xs font-semibold">Référence</span>
+                    P.SRGD.0003 Formulaires gestion des déchets chimiques au CNSTN
+                </p>
+            </div>
+        </div>
+
+        <!-- Search and View Toolbar -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-between items-center mb-6">
+            <!-- Search Bar -->
+            <div class="relative w-full sm:w-96">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="searchInput" onkeyup="filterDocuments()" 
+                    placeholder="Rechercher un formulaire ou un code..." 
+                    class="block w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cnstn-blue focus:border-transparent transition shadow-sm">
+            </div>
+
+            <!-- View Toggle & Summary Count -->
+            <div class="flex items-center justify-between w-full sm:w-auto gap-4">
+                <span class="text-xs font-medium text-slate-500" id="docCount">
+                    Affichage de <span class="font-bold text-slate-800">5</span> documents
+                </span>
+                
+                <div class="flex items-center bg-slate-200 p-1 rounded-lg text-slate-600">
+                    <button id="btnTable" onclick="switchView('table')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition bg-white shadow-sm text-slate-800">
+                        <i class="fa-solid fa-list mr-1"></i> Tableau
+                    </button>
+                    <button id="btnGrid" onclick="switchView('grid')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition hover:text-slate-900">
+                        <i class="fa-solid fa-grip-vertical mr-1"></i> Cartes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE VIEW -->
+        <div id="tableView" class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                            <th class="py-4 px-6">Code / Réf</th>
+                            <th class="py-4 px-6">Nom du document / Formulaire</th>
+                            <th class="py-4 px-6">Type</th>
+                            <th class="py-4 px-6 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm font-medium" id="tableBody">
+                        
+                        <!-- Doc 1 -->
+                        <tr class="doc-row hover:bg-slate-50/80 transition group" data-title="etiquette dechets chimique finale4015" data-code="4015/03/08">
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                    <i class="fa-solid fa-barcode mr-1.5 text-blue-400"></i>
+                                    4015/03/08
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-slate-800 font-semibold group-hover:text-cnstn-blue transition">
+                                Etiquette déchets chimique Finale4015.pdf
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+                                    <i class="fa-regular fa-file-pdf text-red-500 mr-1.5 text-sm"></i> PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap text-right">
+                                <button onclick="downloadDoc('Etiquette déchets chimique Finale4015.pdf')" class="inline-flex items-center px-3 py-1.5 bg-cnstn-blue hover:bg-cnstn-dark text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all">
+                                    <i class="fa-solid fa-download mr-1.5"></i> Télécharger
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Doc 2 -->
+                        <tr class="doc-row hover:bg-slate-50/80 transition group" data-title="etiquette bet4016" data-code="4016/03/08">
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                    <i class="fa-solid fa-barcode mr-1.5 text-blue-400"></i>
+                                    4016/03/08
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-slate-800 font-semibold group-hover:text-cnstn-blue transition">
+                                Etiquette BET4016.pdf
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+                                    <i class="fa-regular fa-file-pdf text-red-500 mr-1.5 text-sm"></i> PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap text-right">
+                                <button onclick="downloadDoc('Etiquette BET4016.pdf')" class="inline-flex items-center px-3 py-1.5 bg-cnstn-blue hover:bg-cnstn-dark text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all">
+                                    <i class="fa-solid fa-download mr-1.5"></i> Télécharger
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Doc 3 -->
+                        <tr class="doc-row hover:bg-slate-50/80 transition group" data-title="demande de prise en charge des dechets chimiques et biologiques" data-code="4017/03/08">
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                    <i class="fa-solid fa-barcode mr-1.5 text-blue-400"></i>
+                                    4017/03/08
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-slate-800 font-semibold group-hover:text-cnstn-blue transition">
+                                Demande de prise en charge des déchets chimiques et biologiques
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+                                    <i class="fa-regular fa-file-pdf text-red-500 mr-1.5 text-sm"></i> PDF Form
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap text-right">
+                                <button onclick="downloadDoc('Demande de prise en charge des déchets chimiques et biologiques.pdf')" class="inline-flex items-center px-3 py-1.5 bg-cnstn-blue hover:bg-cnstn-dark text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all">
+                                    <i class="fa-solid fa-download mr-1.5"></i> Télécharger
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Doc 4 -->
+                        <tr class="doc-row hover:bg-slate-50/80 transition group" data-title="decharge dechets chimique4018" data-code="4018/03/08">
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                    <i class="fa-solid fa-barcode mr-1.5 text-blue-400"></i>
+                                    4018/03/08
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-slate-800 font-semibold group-hover:text-cnstn-blue transition">
+                                Décharge déchets chimique4018.pdf
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+                                    <i class="fa-regular fa-file-pdf text-red-500 mr-1.5 text-sm"></i> PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap text-right">
+                                <button onclick="downloadDoc('Décharge déchets chimique4018.pdf')" class="inline-flex items-center px-3 py-1.5 bg-cnstn-blue hover:bg-cnstn-dark text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all">
+                                    <i class="fa-solid fa-download mr-1.5"></i> Télécharger
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Doc 5 -->
+                        <tr class="doc-row hover:bg-slate-50/80 transition group" data-title="inventaire annuel des dechets chimiques4019" data-code="4019/03/08">
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                    <i class="fa-solid fa-barcode mr-1.5 text-blue-400"></i>
+                                    4019/03/08
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-slate-800 font-semibold group-hover:text-cnstn-blue transition">
+                                Inventaire annuel des déchets chimiques4019.pdf
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+                                    <i class="fa-regular fa-file-pdf text-red-500 mr-1.5 text-sm"></i> PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap text-right">
+                                <button onclick="downloadDoc('Inventaire annuel des déchets chimiques4019.pdf')" class="inline-flex items-center px-3 py-1.5 bg-cnstn-blue hover:bg-cnstn-dark text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all">
+                                    <i class="fa-solid fa-download mr-1.5"></i> Télécharger
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- GRID VIEW (Cards) -->
+        <div id="gridView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            
+            <!-- Card 1 -->
+            <div class="doc-card bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between" data-title="etiquette dechets chimique finale4015" data-code="4015/03/08">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            4015/03/08
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2 hover:text-cnstn-blue cursor-pointer">
+                        Etiquette déchets chimique Finale4015.pdf
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Etiquette officielle d'identification pour l'étiquetage conforme des récipients de déchets chimiques.
+                    </p>
+                </div>
+                <button onclick="downloadDoc('Etiquette déchets chimique Finale4015.pdf')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-cnstn-blue hover:text-white text-slate-700 font-semibold text-xs rounded-xl transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Télécharger le document</span>
+                </button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="doc-card bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between" data-title="etiquette bet4016" data-code="4016/03/08">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            4016/03/08
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2 hover:text-cnstn-blue cursor-pointer">
+                        Etiquette BET4016.pdf
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Etiquette spécifique aux solutions et réactifs BET (Bromure d'éthidium).
+                    </p>
+                </div>
+                <button onclick="downloadDoc('Etiquette BET4016.pdf')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-cnstn-blue hover:text-white text-slate-700 font-semibold text-xs rounded-xl transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Télécharger le document</span>
+                </button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="doc-card bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between" data-title="demande de prise en charge des dechets chimiques et biologiques" data-code="4017/03/08">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            4017/03/08
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2 hover:text-cnstn-blue cursor-pointer">
+                        Demande de prise en charge des déchets chimiques et biologiques
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Formulaire requis pour soumettre une demande d'enlèvement de déchets par le SRGD.
+                    </p>
+                </div>
+                <button onclick="downloadDoc('Demande de prise en charge des déchets chimiques et biologiques.pdf')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-cnstn-blue hover:text-white text-slate-700 font-semibold text-xs rounded-xl transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Télécharger le document</span>
+                </button>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="doc-card bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between" data-title="decharge dechets chimique4018" data-code="4018/03/08">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            4018/03/08
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2 hover:text-cnstn-blue cursor-pointer">
+                        Décharge déchets chimique4018.pdf
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Document d'attestation et de décharge lors du transfert effectif des produits toxiques.
+                    </p>
+                </div>
+                <button onclick="downloadDoc('Décharge déchets chimique4018.pdf')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-cnstn-blue hover:text-white text-slate-700 font-semibold text-xs rounded-xl transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Télécharger le document</span>
+                </button>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="doc-card bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-blue-300 transition flex flex-col justify-between" data-title="inventaire annuel des dechets chimiques4019" data-code="4019/03/08">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            4019/03/08
+                        </span>
+                        <div class="w-9 h-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center text-lg">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 mb-2 hover:text-cnstn-blue cursor-pointer">
+                        Inventaire annuel des déchets chimiques4019.pdf
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-6">
+                        Fiche récapitulative pour le bilan annuel du stock et des rejets de produits chimiques.
+                    </p>
+                </div>
+                <button onclick="downloadDoc('Inventaire annuel des déchets chimiques4019.pdf')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-cnstn-blue hover:text-white text-slate-700 font-semibold text-xs rounded-xl transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Télécharger le document</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- No Search Results State -->
+        <div id="noResults" class="hidden bg-white border border-slate-200 rounded-2xl p-12 text-center">
+            <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 text-2xl">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-800 mb-1">Aucun formulaire trouvé</h3>
+            <p class="text-xs text-slate-500">Essayez de modifier votre recherche avec d'autres termes ou le code du document.</p>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification (Replaces native Alert) -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 z-50 pointer-events-none">
+        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+            <h4 class="text-xs font-bold text-slate-100">Téléchargement simulé</h4>
+            <p id="toastMessage" class="text-xs text-slate-400">Le document a été téléchargé avec succès.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+            <p>© 2026 CNSTN - Centre National des Sciences et Technologies Nucléaires. Tous droits réservés.</p>
+            <div class="flex space-x-4 mt-3 sm:mt-0">
+                <a href="#" class="hover:text-cnstn-blue transition">Sécurité & HSE</a>
+                <span>•</span>
+                <a href="#" class="hover:text-cnstn-blue transition">Support Intranet</a>
+                <span>•</span>
+                <a href="#" class="hover:text-cnstn-blue transition">Réglementation</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Switch between Table and Grid views
+        function switchView(view) {
+            const tableView = document.getElementById('tableView');
+            const gridView = document.getElementById('gridView');
+            const btnTable = document.getElementById('btnTable');
+            const btnGrid = document.getElementById('btnGrid');
+
+            if (view === 'grid') {
+                tableView.classList.add('hidden');
+                gridView.classList.remove('hidden');
+                
+                btnGrid.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
+                btnGrid.classList.remove('hover:text-slate-900');
+                btnTable.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
+            } else {
+                gridView.classList.add('hidden');
+                tableView.classList.remove('hidden');
+                
+                btnTable.classList.add('bg-white', 'shadow-sm', 'text-slate-800');
+                btnGrid.classList.remove('bg-white', 'shadow-sm', 'text-slate-800');
+                btnGrid.classList.add('hover:text-slate-900');
+            }
+        }
+
+        // Live Filter/Search Function
+        function filterDocuments() {
+            const input = document.getElementById('searchInput').value.toLowerCase().trim();
+            const rows = document.querySelectorAll('.doc-row');
+            const cards = document.querySelectorAll('.doc-card');
+            const noResults = document.getElementById('noResults');
+            
+            let visibleCount = 0;
+
+            // Filter Table Rows
+            rows.forEach(row => {
+                const title = row.getAttribute('data-title');
+                const code = row.getAttribute('data-code');
+                if (title.includes(input) || code.includes(input)) {
+                    row.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+
+            // Filter Grid Cards
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const code = card.getAttribute('data-code');
+                if (title.includes(input) || code.includes(input)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Update visible items count
+            document.getElementById('docCount').innerHTML = `Affichage de <span class="font-bold text-slate-800">${visibleCount}</span> document(s)`;
+
+            // Toggle No Results Message
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Custom Toast Notification for Downloads (Replacing alert)
+        function downloadDoc(fileName) {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            
+            toastMsg.textContent = `Téléchargement de "${fileName}" en cours...`;
+            
+            // Show toast
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Hide toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

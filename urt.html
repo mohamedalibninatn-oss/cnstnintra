@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URT - Présentation et Mission</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      margin: 20px;
+      background-color: #ffffff;
+    }
+
+    .urt-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* --- CARROUSEL D'IMAGES --- */
+    .carousel-container {
+      flex: 1 1 400px;
+      max-width: 500px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      height: 350px;
+    }
+
+    .carousel-slides {
+      display: flex;
+      width: 400%; /* 4 images = 400% */
+      height: 100%;
+      transition: transform 0.6s ease-in-out; /* Transition fluide contrôlée en JS */
+    }
+
+    .carousel-slide {
+      width: 25%; /* Chaque image prend 1/4 du conteneur */
+      height: 100%;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Boutons de navigation manuelle (Flèches) */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 12px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 10;
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+
+    .carousel-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .carousel-btn.prev {
+      left: 10px;
+    }
+
+    .carousel-btn.next {
+      right: 10px;
+    }
+
+    /* Puces d'indication visuelle cliquables */
+    .carousel-dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .dot:hover {
+      transform: scale(1.2);
+    }
+
+    .dot.active {
+      background-color: #ffffff;
+    }
+
+    /* --- CONTENU TEXTUEL --- */
+    .urt-content {
+      flex: 1 1 500px;
+    }
+
+    .section-category {
+      color: #2b7a78;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    h1, h2 {
+      color: #2e7d32;
+      font-size: 22px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #555;
+      text-align: justify;
+    }
+
+    ul {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Boutons de navigation bas */
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: #3b6998;
+      color: #ffffff;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 3px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #2a4d70;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="urt-container">
+    
+    <!-- Carrousel d'images -->
+    <div class="carousel-container" id="urtCarousel">
+      <div class="carousel-slides" id="carouselSlides">
+        <div class="carousel-slide">
+          <img src="img/photo1.jpg" alt="Installation URT 1">
+        </div>
+        <div class="carousel-slide">
+          <img src="img/photo2.jpg.png" alt="Installation URT 2">
+        </div>
+        <div class="carousel-slide">
+          <img src="img/photo3.jpg.png" alt="Installation URT 3">
+        </div>
+        <div class="carousel-slide">
+          <img src="img/photo3.jpg.png" alt="Installation URT 4">
+        </div>
+      </div>
+
+      <!-- Boutons de navigation manuelle (Précédent / Suivant) -->
+      <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+      <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+
+      <!-- Puces indicatrices cliquables -->
+      <div class="carousel-dots">
+        <span class="dot active" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
+        <span class="dot" onclick="goToSlide(2)"></span>
+        <span class="dot" onclick="goToSlide(3)"></span>
+      </div>
+    </div>
+
+    <!-- Contenu texte -->
+    <div class="urt-content">
+      
+      <div class="section-category">Mission</div>
+      
+      <h1>Présentation Générale Et Missions</h1>
+      <p>
+        Opérationnel depuis 1999, l'irradiateur pilote, installé au Centre National des Sciences et de Technologie Nucléaire, produit un flux des rayonnements Gamma issus d'une source scellée radioactive de cobalt 60.
+      </p>
+      <p>
+        L'unité de radiotraitement utilise ces rayonnements ionisants aussi bien pour la conservation des produits alimentaires et la stérilisation des produits médicaux à usage unique que pour conférer de nouvelles propriétés physico-chimiques aux produits industriels (verre, bois, plastique...).
+      </p>
+      <p>
+        L'unité de radiotraitement a prouvé son utilité pour investir la technologie de l'irradiation dans des applications de recherche et de développement, dans l'encadrement et la formation des étudiants ainsi que dans la présentation des services adaptés aux entreprises pour la résolution des problèmes et pour la mise en place de nouveaux projets.
+      </p>
+      <p>
+        Afin d'élargir son champs d'action, l'unité de radiotraitement est en cours d'installer un <strong>accélérateur linéaire d'électrons</strong> (rayonnement Bêta) qui sera opérationnel en fin 2008.
+      </p>
+
+      <h2>Principe Et Avantages De L'Ionisation</h2>
+      <p>
+        Le principe du traitement par rayonnements ionisants, consiste à soumettre les produits à traiter (emballés ou en vrac) aux flux de photons gamma pour une durée déterminée. La durée d'exposition varie en fonction de la nature du produit et du résultat escompté. Quelque soit la dose appliquée, ce procédé ne rend en aucun cas le produit radioactif.
+      </p>
+      <p>
+        Quelque soit le type de rayonnement utilisé (Gamma ou Bêta), la technique de l'ionisation présente plusieurs avantages pour les utilisateurs, en effet, le rayonnement ionisant est un rayonnement pénétrant, non chimique, non agressif et sans dégagement de chaleur.
+      </p>
+      <p>De ce fait :</p>
+      <ul>
+        <li>Pas de danger pour la santé humaine : absence de produits chimiques et de radioactivité induite.</li>
+        <li>Pas de problème de recontamination bactérienne : traitement des produits déjà conditionnés.</li>
+        <li>Possibilité de combinaison avec d'autres méthodes de c...</li>
+      </ul>
+
+      <!-- Onglets / Boutons -->
+      <div class="nav-buttons">
+        <button class="btn">MISSION</button>
+        <button class="btn">PROJETS</button>
+        <button class="btn">PRESTATION</button>
+        <button class="btn">EQUIPEMENTS</button>
+        <ul>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JavaScript pour gérer la navigation manuelle et automatique -->
+  <script>
+    let currentIndex = 0;
+    const totalSlides = 4;
+    const slidesContainer = document.getElementById('carouselSlides');
+    const dots = document.querySelectorAll('.dot');
+    let autoSlideTimer;
+
+    function updateCarousel() {
+      // Déplacer les diapositives
+      slidesContainer.style.transform = `translateX(-${currentIndex * 25}%)`;
+      
+      // Mettre à jour l'état actif des puces
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    function moveSlide(direction) {
+      currentIndex = (currentIndex + direction + totalSlides) % totalSlides;
+      updateCarousel();
+      resetTimer();
+    }
+
+    function goToSlide(index) {
+      currentIndex = index;
+      updateCarousel();
+      resetTimer();
+    }
+
+    function startTimer() {
+      autoSlideTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+      }, 4000); // Défilement automatique toutes les 4 secondes
+    }
+
+    function resetTimer() {
+      clearInterval(autoSlideTimer);
+      startTimer();
+    }
+
+    // Pause au survol de la souris
+    const container = document.getElementById('urtCarousel');
+    container.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+    container.addEventListener('mouseleave', () => startTimer());
+
+    // Démarrage initial
+    startTimer();
+  </script>
+
+</body>
+</html>

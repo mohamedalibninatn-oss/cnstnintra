@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Gestion des Personnels</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            blue: '#004A98',
+                            lightBlue: '#0072CE',
+                            darkBlue: '#002B5C',
+                            accent: '#E31B23',
+                            grayBg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col text-slate-800 font-sans">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <!-- CNSTN Atomic Logo SVG -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.reload()">
+                    <svg class="h-12 w-auto text-cnstn-blue" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Orbits -->
+                        <ellipse cx="100" cy="60" rx="45" ry="16" transform="rotate(-30 100 60)" stroke="#004A98" stroke-width="2.5" />
+                        <ellipse cx="100" cy="60" rx="45" ry="16" transform="rotate(30 100 60)" stroke="#004A98" stroke-width="2.5" />
+                        <ellipse cx="100" cy="60" rx="45" ry="16" transform="rotate(90 100 60)" stroke="#004A98" stroke-width="2.5" />
+                        <!-- Electrons -->
+                        <circle cx="62" cy="38" r="4" fill="#0072CE" />
+                        <circle cx="138" cy="38" r="4" fill="#0072CE" />
+                        <circle cx="100" cy="105" r="4" fill="#0072CE" />
+                        <!-- Nucleus Red Dot -->
+                        <circle cx="100" cy="60" r="7" fill="#E31B23" />
+                        <!-- Text CNSTN inside logo -->
+                        <text x="100" y="98" font-family="Inter, sans-serif" font-weight="800" font-size="16" fill="#004A98" text-anchor="middle">cnstn</text>
+                    </svg>
+                    <div class="h-8 w-px bg-slate-300 hidden sm:block"></div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-cnstn-darkBlue flex items-center gap-2">
+                            Intranet CNSTN
+                        </h1>
+                        <p class="text-xs text-slate-500 hidden sm:block">Centre National des Sciences et Technologies Nucléaires</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Info / Top Right Controls -->
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" id="searchInput" onkeyup="filterForms()" placeholder="Rechercher un formulaire..." class="pl-9 pr-4 py-1.5 text-sm bg-slate-100 border border-slate-300 rounded-full focus:outline-none focus:ring-2 focus:ring-cnstn-blue focus:bg-white transition-all w-40 sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                </div>
+                <div class="flex items-center space-x-3 border-l pl-4 border-slate-200">
+                    <div class="w-9 h-9 rounded-full bg-cnstn-blue text-white flex items-center justify-center font-semibold text-sm shadow-sm">
+                        RH
+                    </div>
+                    <div class="hidden md:block text-left">
+                        <p class="text-xs font-semibold text-slate-700">Portail Agent</p>
+                        <p class="text-[10px] text-slate-500">Espace RH & Personnels</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Navigation Breadcrumb -->
+        <nav class="flex text-xs text-slate-500 mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="hover:text-cnstn-blue transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-house"></i> Accueil Intranet
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-[10px] mx-1 text-slate-400"></i>
+                        <span class="text-slate-800 font-medium">Formulaires & Procédures</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-3">
+                    <span class="p-2 bg-blue-50 text-cnstn-blue rounded-lg text-xl">
+                        <i class="fa-solid fa-users"></i>
+                    </span>
+                    Gestion des Personnels
+                </h2>
+                <p class="text-sm text-slate-500 mt-1">
+                    Accédez aux formulaires de demande de besoin et aux fiches d'évaluation du personnel contractuel.
+                </p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full font-medium border border-slate-200 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 2 Formulaires actifs
+                </span>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="bg-slate-50/80 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Formulaires disponibles (CNSTN)
+                </h3>
+                <span class="text-xs text-slate-400">Cliquez sur un formulaire pour l'ouvrir</span>
+            </div>
+
+            <!-- List Container -->
+            <ul id="formsList" class="divide-y divide-slate-100">
+                
+                <!-- Item 1: Expression de besoin en personnels -->
+                <li class="form-item hover:bg-blue-50/40 transition-colors duration-150 group cursor-pointer" onclick="openModal('modalBesoin')">
+                    <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="flex items-start sm:items-center space-x-4">
+                            <span class="text-xs font-mono font-medium text-slate-400 group-hover:text-cnstn-blue transition-colors bg-slate-100 group-hover:bg-blue-100/60 px-2.5 py-1 rounded">
+                                2017/02/09
+                            </span>
+                            <div>
+                                <a href="javascript:void(0)" class="text-cnstn-blue font-semibold text-base group-hover:underline flex items-center gap-2">
+                                    Expression de besoin en personnels
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                </a>
+                                <p class="text-xs text-slate-500 mt-0.5">Formulaire d'expression des besoins prévisionnels en recrutement et ressources humaines.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 self-end sm:self-center">
+                            <span class="text-xs bg-blue-50 text-cnstn-blue px-2.5 py-1 rounded-md font-medium border border-blue-200/60">
+                                <i class="fa-regular fa-file-lines mr-1"></i> Formulaire
+                            </span>
+                            <i class="fa-solid fa-chevron-right text-slate-300 group-hover:text-cnstn-blue group-hover:translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Item 2: Fiche d'évaluation des maîtres assistants contactuels -->
+                <li class="form-item hover:bg-blue-50/40 transition-colors duration-150 group cursor-pointer" onclick="openModal('modalEvaluation')">
+                    <div class="px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="flex items-start sm:items-center space-x-4">
+                            <span class="text-xs font-mono font-medium text-slate-400 group-hover:text-cnstn-blue transition-colors bg-slate-100 group-hover:bg-blue-100/60 px-2.5 py-1 rounded">
+                                2018/05/21
+                            </span>
+                            <div>
+                                <a href="javascript:void(0)" class="text-cnstn-blue font-semibold text-base group-hover:underline flex items-center gap-2">
+                                    Fiche d'évaluation des maîtres assistants contractuels
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                </a>
+                                <p class="text-xs text-slate-500 mt-0.5">Grille et critères d'évaluation des performances des enseignants-chercheurs sous contrat.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 self-end sm:self-center">
+                            <span class="text-xs bg-purple-50 text-purple-700 px-2.5 py-1 rounded-md font-medium border border-purple-200/60">
+                                <i class="fa-regular fa-clipboard mr-1"></i> Évaluation
+                            </span>
+                            <i class="fa-solid fa-chevron-right text-slate-300 group-hover:text-cnstn-blue group-hover:translate-x-1 transition-all"></i>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+            <!-- Empty search state -->
+            <div id="noResults" class="hidden p-8 text-center text-slate-500">
+                <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300"></i>
+                <p>Aucun formulaire ne correspond à votre recherche.</p>
+            </div>
+        </div>
+
+        <!-- Info / Guidelines Box -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start space-x-3">
+                <div class="p-2 bg-blue-50 text-cnstn-blue rounded-lg mt-0.5">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-800">Directives d'utilisation</h4>
+                    <p class="text-xs text-slate-500 mt-1">Tous les formulaires doivent être dûment renseignés par les chefs de département avant transmission au service RH.</p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start space-x-3">
+                <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg mt-0.5">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-800">Confidentialité</h4>
+                    <p class="text-xs text-slate-500 mt-1">Les données de ces fiches sont strictement réservées à l'évaluation interne et à la gestion prévisionnelle des emplois.</p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-start space-x-3">
+                <div class="p-2 bg-amber-50 text-amber-600 rounded-lg mt-0.5">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-800">Support Intranet</h4>
+                    <p class="text-xs text-slate-500 mt-1">En cas de difficulté technique, contactez le département Informatique (Poste 1402).</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>© 2026 Centre National des Sciences et Technologies Nucléaires (CNSTN) - Tous droits réservés.</p>
+            <p class="mt-1 text-slate-400">Système d'Information et Gestion Intranet - Version 3.4.2</p>
+        </div>
+    </footer>
+
+    <div id="modalBesoin" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col transform transition-all overflow-hidden border border-slate-100">
+            <!-- Modal Header -->
+            <div class="bg-cnstn-blue text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-file-signature text-xl"></i>
+                    <div>
+                        <h3 class="font-bold text-lg leading-tight">Expression de besoin en personnels</h3>
+                        <p class="text-xs text-blue-100">Réf: CNSTN-RH-F01 • Date de mise à jour: 09/02/2017</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modalBesoin')" class="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body / Form Content -->
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6">
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-cnstn-darkBlue flex items-start gap-2">
+                    <i class="fa-solid fa-circle-info mt-0.5 text-cnstn-lightBlue"></i>
+                    <span>Ce formulaire est destiné aux responsables d'unités/laboratoires pour exprimer les besoins en recrutement de personnel scientifique ou administratif.</span>
+                </div>
+
+                <form id="formBesoin" onsubmit="handleFormSubmit(event, 'Expression de Besoin')">
+                    
+                    <!-- Section 1: Demandeur -->
+                    <div class="border-b border-slate-200 pb-4 mb-4">
+                        <h4 class="text-xs font-bold uppercase text-cnstn-blue tracking-wider mb-3">1. Identification du Demandeur</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Unité / Structure demandeuse *</label>
+                                <select required class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                                    <option value="">Sélectionner une structure</option>
+                                    <option value="1">Direction de la Recherche Scientifique</option>
+                                    <option value="2">Laboratoire de Physique Nucléaire</option>
+                                    <option value="3">Département Sécurité & Protection</option>
+                                    <option value="4">Département Systèmes d'Information</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Nom & Prénom du Responsable *</label>
+                                <input type="text" required placeholder="Ex: Dr. Ahmed Ben Ali" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Détails du besoin -->
+                    <div class="border-b border-slate-200 pb-4 mb-4">
+                        <h4 class="text-xs font-bold uppercase text-cnstn-blue tracking-wider mb-3">2. Description du Profil Recherché</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Profil / Post à pourvoir *</label>
+                                <input type="text" required placeholder="Ex: Ingénieur de Recherche en Radioprotection" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Type de Contrat désiré *</label>
+                                <select required class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                                    <option value="cdi">Permanent (Statutaire)</option>
+                                    <option value="cdd">Contractuel (CDD)</option>
+                                    <option value="assistant">Maître Assistant Contractuel</option>
+                                    <option value="expert">Expert / Consultant</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Niveau d'études minimal *</label>
+                                <select required class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                                    <option value="doctorat">Doctorat / Ph.D</option>
+                                    <option value="ingenieur">Diplôme d'Ingénieur</option>
+                                    <option value="master">Master / Mastère</option>
+                                    <option value="licence">Licence</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Date souhaitée de prise de fonction</label>
+                                <input type="date" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Missions et Responsabilités principales *</label>
+                            <textarea rows="3" required placeholder="Décrivez succinctement les tâches attribuées..." class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Compétences Techniques requises</label>
+                            <textarea rows="2" placeholder="Langages, outils scientifiques, normes nucléaires..." class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Justification -->
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-cnstn-blue tracking-wider mb-3">3. Justification du Besoin</h4>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Raison de la demande *</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 bg-slate-50 p-2 rounded border border-slate-200 cursor-pointer">
+                                    <input type="radio" name="motif" value="remplacement" required class="text-cnstn-blue focus:ring-cnstn-blue">
+                                    <span>Remplacement</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 bg-slate-50 p-2 rounded border border-slate-200 cursor-pointer">
+                                    <input type="radio" name="motif" value="projet" class="text-cnstn-blue focus:ring-cnstn-blue">
+                                    <span>Nouveau Projet</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-600 bg-slate-50 p-2 rounded border border-slate-200 cursor-pointer">
+                                    <input type="radio" name="motif" value="charge" class="text-cnstn-blue focus:ring-cnstn-blue">
+                                    <span>Surcharge d'activité</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-6 flex items-center justify-end space-x-3 pt-4 border-t border-slate-200">
+                        <button type="button" onclick="closeModal('modalBesoin')" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                            Annuler
+                        </button>
+                        <button type="submit" class="px-5 py-2 text-xs font-medium bg-cnstn-blue hover:bg-cnstn-darkBlue text-white rounded-lg shadow transition-colors flex items-center gap-1.5">
+                            <i class="fa-solid fa-paper-plane"></i> Soumettre la demande
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalEvaluation" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col transform transition-all overflow-hidden border border-slate-100">
+            <!-- Modal Header -->
+            <div class="bg-cnstn-blue text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    <div>
+                        <h3 class="font-bold text-lg leading-tight">Fiche d'évaluation des maîtres assistants contractuels</h3>
+                        <p class="text-xs text-blue-100">Réf: CNSTN-RH-F08 • Date de mise à jour: 21/05/2018</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modalEvaluation')" class="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body / Evaluation Form -->
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-6">
+                
+                <form id="formEvaluation" onsubmit="handleFormSubmit(event, 'Fiche d\'évaluation')">
+                    
+                    <!-- Information Enseignant -->
+                    <div class="border-b border-slate-200 pb-4 mb-4">
+                        <h4 class="text-xs font-bold uppercase text-cnstn-blue tracking-wider mb-3">1. Identification de l'Enseignant Evalué</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Nom & Prénom du Contractuel *</label>
+                                <input type="text" required placeholder="Nom du Maître Assistant" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Matricule CNSTN *</label>
+                                <input type="text" required placeholder="Ex: MA-2023-04" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Département de Rattachement</label>
+                                <input type="text" value="Technologies Nucléaires Appliquées" class="w-full text-xs bg-slate-100 border border-slate-300 rounded-lg p-2.5 text-slate-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-1">Période d'évaluation</label>
+                                <input type="text" placeholder="Ex: Année universitaire 2025/2026" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grille d'évaluation -->
+                    <div class="border-b border-slate-200 pb-4 mb-4">
+                        <h4 class="text-xs font-bold uppercase text-cnstn-blue tracking-wider mb-3">2. Grille d'Évaluation des Performances</h4>
+                        
+                        <div class="space-y-3">
+                            <!-- Critère 1 -->
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span class="text-xs font-medium text-slate-800">1. Activités d'enseignement et encadrement</span>
+                                <select class="text-xs bg-white border border-slate-300 rounded-md p-1.5 focus:ring-cnstn-blue">
+                                    <option value="5">Excellent (5/5)</option>
+                                    <option value="4" selected>Très Satisfaisant (4/5)</option>
+                                    <option value="3">Satisfaisant (3/5)</option>
+                                    <option value="2">Insuffisant (2/5)</option>
+                                </select>
+                            </div>
+
+                            <!-- Critère 2 -->
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span class="text-xs font-medium text-slate-800">2. Travaux de Recherche & Publications CNSTN</span>
+                                <select class="text-xs bg-white border border-slate-300 rounded-md p-1.5 focus:ring-cnstn-blue">
+                                    <option value="5" selected>Excellent (5/5)</option>
+                                    <option value="4">Très Satisfaisant (4/5)</option>
+                                    <option value="3">Satisfaisant (3/5)</option>
+                                    <option value="2">Insuffisant (2/5)</option>
+                                </select>
+                            </div>
+
+                            <!-- Critère 3 -->
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span class="text-xs font-medium text-slate-800">3. Assiduité et Respect des règles de sécurité nucléaire</span>
+                                <select class="text-xs bg-white border border-slate-300 rounded-md p-1.5 focus:ring-cnstn-blue">
+                                    <option value="5" selected>Excellent (5/5)</option>
+                                    <option value="4">Très Satisfaisant (4/5)</option>
+                                    <option value="3">Satisfaisant (3/5)</option>
+                                    <option value="2">Insuffisant (2/5)</option>
+                                </select>
+                            </div>
+
+                            <!-- Critère 4 -->
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <span class="text-xs font-medium text-slate-800">4. Intégration dans l'équipe de recherche</span>
+                                <select class="text-xs bg-white border border-slate-300 rounded-md p-1.5 focus:ring-cnstn-blue">
+                                    <option value="5">Excellent (5/5)</option>
+                                    <option value="4" selected>Très Satisfaisant (4/5)</option>
+                                    <option value="3">Satisfaisant (3/5)</option>
+                                    <option value="2">Insuffisant (2/5)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion & Avis -->
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-cnstn-blue tracking-wider mb-3">3. Appréciation Globale & Avis de Renouvellement</h4>
+                        <div class="mb-3">
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Avis du Chef de Département *</label>
+                            <div class="flex items-center space-x-4 mb-2">
+                                <label class="flex items-center space-x-2 text-xs text-slate-700 cursor-pointer">
+                                    <input type="radio" name="avis" value="favorable" checked class="text-emerald-600 focus:ring-emerald-500">
+                                    <span class="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Avis Favorable (Renouvellement)</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-xs text-slate-700 cursor-pointer">
+                                    <input type="radio" name="avis" value="defavorable" class="text-red-600 focus:ring-red-500">
+                                    <span class="font-semibold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200">Avis Défavorable</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-slate-700 mb-1">Remarques et recommandations</label>
+                            <textarea rows="3" placeholder="Commentaires sur les accomplissements de l'année..." class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 focus:ring-2 focus:ring-cnstn-blue focus:bg-white"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-6 flex items-center justify-end space-x-3 pt-4 border-t border-slate-200">
+                        <button type="button" onclick="closeModal('modalEvaluation')" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                            Annuler
+                        </button>
+                        <button type="submit" class="px-5 py-2 text-xs font-medium bg-cnstn-blue hover:bg-cnstn-darkBlue text-white rounded-lg shadow transition-colors flex items-center gap-1.5">
+                            <i class="fa-solid fa-check-double"></i> Enregistrer la fiche
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none">
+        <div id="toastIcon" class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center">
+            <i class="fa-solid fa-check text-sm"></i>
+        </div>
+        <div>
+            <h5 id="toastTitle" class="text-xs font-bold text-white">Action Réussie</h5>
+            <p id="toastMessage" class="text-xs text-slate-300">Votre formulaire a été soumis avec succès.</p>
+        </div>
+    </div>
+
+    <script>
+        // Modal Handlers
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling background
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore background scroll
+            }
+        }
+
+        // Close Modal when clicking on dark backdrop
+        window.onclick = function(event) {
+            const modals = ['modalBesoin', 'modalEvaluation'];
+            modals.forEach(id => {
+                const modal = document.getElementById(id);
+                if (event.target === modal) {
+                    closeModal(id);
+                }
+            });
+        };
+
+        // Filter Forms based on search input
+        function filterForms() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.form-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Toast Notification System
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(event, formType) {
+            event.preventDefault();
+            
+            // Close active modal
+            closeModal('modalBesoin');
+            closeModal('modalEvaluation');
+
+            // Reset form
+            event.target.reset();
+
+            // Show Toast
+            showToast('Formulaire Enregistré', `Le document "${formType}" a été transmis au service RH CNSTN avec succès.`);
+        }
+    </script>
+</body>
+</html>

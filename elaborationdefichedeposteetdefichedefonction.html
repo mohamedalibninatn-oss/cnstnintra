@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élaboration de Fiche de Poste et Fiche de Fonction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; color: black; }
+            .shadow-custom { box-shadow: none !important; }
+        }
+        .shadow-custom {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-600 text-white p-2 rounded-lg">
+                    <i data-lucide="file-text" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-900 leading-tight">CNSTN Portal</h1>
+                    <p class="text-xs text-slate-500">Gestion des Ressources Humaines</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="window.print()" class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg text-sm font-medium transition">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Imprimer / Exporter</span>
+                </button>
+                <button onclick="toggleCreateModal()" class="flex items-center space-x-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>Nouvelle Fiche</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 space-y-8">
+
+        <!-- Banner Title Section -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-custom relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-50 rounded-bl-full -z-0 opacity-70"></div>
+            <div class="relative z-10">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-100 text-brand-800 mb-2">
+                            Document RH Officiel
+                        </span>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Élaboration de fiche de poste et de fiche de fonction</h1>
+                        <p class="text-xs text-slate-400 mt-1 flex items-center gap-2">
+                            <span>Par <strong>cnstn</strong></span> • <span>29 janvier 2025</span>
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm font-bold text-slate-400 block uppercase tracking-wider">Équivalent en Arabe</span>
+                        <span class="arabic-text text-xl font-bold text-brand-700">إعداد بطاقة وصف الوظائف والمهام</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Quick Links -->
+                <div class="flex flex-wrap gap-3 no-print">
+                    <a href="#fiche-poste" class="inline-flex items-center space-x-2 bg-brand-50 hover:bg-brand-100 text-brand-700 px-4 py-2.5 rounded-xl text-sm font-semibold border border-brand-200 transition">
+                        <i data-lucide="file-check" class="w-4 h-4"></i>
+                        <span>Modèle Fiche de Poste (Français / Arabe)</span>
+                    </a>
+                    <a href="#fiche-fonction" class="inline-flex items-center space-x-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-4 py-2.5 rounded-xl text-sm font-semibold border border-emerald-200 transition">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                        <span>Modèle Fiche de Fonction (بطاقة وصف مهام)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section id="fiche-poste" class="bg-white rounded-2xl border border-slate-200 shadow-custom overflow-hidden">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="user-check" class="w-5 h-5 text-brand-500"></i>
+                    <h2 class="font-bold text-lg">1. Fiche de Poste (FR) / بطاقة خطة عمل</h2>
+                </div>
+                <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">Réf: FP-2025-01</span>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-6">
+                <!-- Identification Block -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase">Intitulé du Poste</label>
+                        <p class="font-bold text-slate-800 text-base" contenteditable="true">Ingénieur en Sûreté Nucléaire et Radioprotection</p>
+                    </div>
+                    <div class="text-right">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase arabic-text">مسمى الوظيفة</label>
+                        <p class="font-bold text-brand-900 text-base arabic-text" contenteditable="true">مهندس في السلامة النواوية والوقاية من الأشعة</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase">Département / Direction</label>
+                        <p class="text-slate-700 text-sm" contenteditable="true">Direction de la Sécurité Scientifique (CNSTN)</p>
+                    </div>
+                    <div class="text-right">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase arabic-text">الإدارة / الإدارة العامة</label>
+                        <p class="text-slate-700 text-sm arabic-text" contenteditable="true">إدارة السلامة العلمية</p>
+                    </div>
+                </div>
+
+                <!-- Mission Principale -->
+                <div class="border-l-4 border-brand-600 pl-4 py-1">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide">Mission Principale / المهمة الرئيسية</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-2 leading-relaxed" contenteditable="true">
+                        Garantir le respect des normes de sécurité nucléaire et de radioprotection au sein des laboratoires, évaluer les risques radiologiques, élaborer les procédures de protection, et assurer la veille réglementaire.
+                    </p>
+                    <p class="text-sm text-slate-600 mt-1 arabic-text leading-relaxed" contenteditable="true">
+                        ضمان احترام معايير السلامة النواوية والوقاية من الإشعاع داخل المختبرات، تقييم المخاطر الشعاعية، إعداد إجراءات الحماية، ومتابعة القوانين والتراتيب الجاري بها العمل.
+                    </p>
+                </div>
+
+                <!-- Responsabilités & Activités -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <h4 class="font-semibold text-sm text-slate-800 border-b border-slate-200 pb-2 flex items-center justify-between">
+                            <span>Activités Principales</span>
+                            <i data-lucide="list-checks" class="w-4 h-4 text-brand-600"></i>
+                        </h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 space-y-1.5" contenteditable="true">
+                            <li>Contrôle périodique des installations radiologiques</li>
+                            <li>Gestion des équipements de détection d'irradiation</li>
+                            <li>Formation du personnel aux risques liés aux rayonnements</li>
+                            <li>Rédaction des rapports d'inspection et d'audit interne</li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-2 text-right">
+                        <h4 class="font-semibold text-sm text-slate-800 border-b border-slate-200 pb-2 flex items-center justify-end space-x-2">
+                            <i data-lucide="list-checks" class="w-4 h-4 text-brand-600 ml-2"></i>
+                            <span class="arabic-text">الأنشطة الرئيسية</span>
+                        </h4>
+                        <ul class="list-disc list-inside text-sm text-slate-600 space-y-1.5 arabic-text" contenteditable="true">
+                            <li>المراقبة الدورية للمنشآت الإشعاعية</li>
+                            <li>إدارة ومتابعة معدات الكشف عن الإشعاع</li>
+                            <li>تدريب الموظفين على المخاطر الإشعاعية</li>
+                            <li>إعداد تقارير التفقد والمراجعة الداخلية</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Competences Exigées -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-semibold text-sm text-slate-800 mb-3">Compétences Requises / الكفاءات المطلوبة</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white p-3 rounded-lg border border-slate-200">
+                            <span class="font-bold block text-slate-700 mb-1">Savoirs (Connaissances)</span>
+                            <p class="text-slate-600" contenteditable="true">Physique nucléaire, Radioprotection, Réglementation nationale & AIEA.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200">
+                            <span class="font-bold block text-slate-700 mb-1">Savoir-faire (Techniques)</span>
+                            <p class="text-slate-600" contenteditable="true">Utilisation des dosimètres, Analyse de risques, Rédaction technique.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200">
+                            <span class="font-bold block text-slate-700 mb-1">Savoir-être (Attitudes)</span>
+                            <p class="text-slate-600" contenteditable="true">Rigueur, sang-froid en cas d'urgence, pédagogie, sens de l'éthique.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fiche-fonction" class="bg-white rounded-2xl border border-slate-200 shadow-custom overflow-hidden">
+            <div class="bg-emerald-900 text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i data-lucide="layers" class="w-5 h-5 text-emerald-400"></i>
+                    <h2 class="font-bold text-lg">2. Fiche de Fonction / بطاقة وصف مهام</h2>
+                </div>
+                <span class="text-xs bg-emerald-800 text-emerald-200 px-2.5 py-1 rounded-md border border-emerald-700">Réf: FF-2025-02</span>
+            </div>
+
+            <div class="p-6 sm:p-8 space-y-6">
+                <!-- Header Card -->
+                <div class="flex flex-wrap items-center justify-between bg-emerald-50/60 p-4 rounded-xl border border-emerald-200">
+                    <div>
+                        <h3 class="font-bold text-slate-900">Intitulé de la Fonction : Chef de Projet Recherche & Développement</h3>
+                        <p class="text-xs text-slate-500 mt-1">Positionnement Hiérarchique: Rattaché au Directeur de Recherche</p>
+                    </div>
+                    <div class="text-right mt-2 sm:mt-0">
+                        <h3 class="font-bold text-emerald-900 arabic-text">بطاقة وصف مهام : رئيس مشروع بحث وتطوير</h3>
+                        <p class="text-xs text-emerald-700 arabic-text mt-1">التبعية الإدارية: تحت إشراف مدير البحث</p>
+                    </div>
+                </div>
+
+                <!-- Table Structure for Tasks -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-600 border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-700 uppercase text-xs">
+                                <th class="p-3 border border-slate-200">Domaine d'Action</th>
+                                <th class="p-3 border border-slate-200">Tâches & Responsabilités</th>
+                                <th class="p-3 border border-slate-200 text-right arabic-text">المهام والمسؤوليات</th>
+                                <th class="p-3 border border-slate-200 w-24 text-center">Indicateur</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-3 font-medium text-slate-800 border border-slate-200 bg-slate-50/50" contenteditable="true">Planification</td>
+                                <td class="p-3 border border-slate-200" contenteditable="true">Définir le planning des étapes de recherche et attribuer les ressources.</td>
+                                <td class="p-3 border border-slate-200 text-right arabic-text" contenteditable="true">تحديد الجدول الزمني لمراحل البحث وتوزيع الموارد.</td>
+                                <td class="p-3 border border-slate-200 text-center text-xs" contenteditable="true">Respect des délais (Gantt)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slate-800 border border-slate-200 bg-slate-50/50" contenteditable="true">Coopération</td>
+                                <td class="p-3 border border-slate-200" contenteditable="true">Coordonner les relations avec les partenaires scientifiques et industriels.</td>
+                                <td class="p-3 border border-slate-200 text-right arabic-text" contenteditable="true">تنسيق العلاقات مع الشركاء العلميين والصناعيين.</td>
+                                <td class="p-3 border border-slate-200 text-center text-xs" contenteditable="true">Nb d'accords signés</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium text-slate-800 border border-slate-200 bg-slate-50/50" contenteditable="true">Publication</td>
+                                <td class="p-3 border border-slate-200" contenteditable="true">Superviser la rédaction des articles scientifiques et brevetabilité.</td>
+                                <td class="p-3 border border-slate-200 text-right arabic-text" contenteditable="true">الإشراف على كتابة المقالات العلمية وبراءات الاختراع.</td>
+                                <td class="p-3 border border-slate-200 text-center text-xs" contenteditable="true">Publications / An</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200 text-sm no-print">
+            <a href="#" class="flex items-center space-x-2 text-slate-600 hover:text-brand-600 font-medium transition group">
+                <i data-lucide="arrow-left" class="w-4 h-4 transition-transform group-hover:-translate-x-1"></i>
+                <div>
+                    <span class="text-xs uppercase text-slate-400 block font-bold">← Précédent</span>
+                    <span>Formulaire Évaluation des Fournisseurs...</span>
+                </div>
+            </a>
+            <a href="#" class="flex items-center space-x-2 text-slate-600 hover:text-brand-600 font-medium transition text-right group">
+                <div>
+                    <span class="text-xs uppercase text-slate-400 block font-bold">Suivant →</span>
+                    <span>Formulaires Gestion des sources Ra...</span>
+                </div>
+                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+            </a>
+        </div>
+
+        <section class="bg-white rounded-2xl border border-slate-200 shadow-custom p-6 sm:p-8 space-y-6 no-print">
+            <div class="border-b border-slate-100 pb-4">
+                <h3 class="text-xl font-bold text-slate-900">Laisser un commentaire / Validation RH</h3>
+                <p class="text-sm text-slate-500 mt-1">Votre adresse e-mail ne sera pas publiée. Les champs obligatoires sont indiqués avec <span class="text-red-500">*</span></p>
+            </div>
+
+            <!-- Feedback Alert -->
+            <div id="commentAlert" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center space-x-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>
+                <span>Votre commentaire a été soumis avec succès pour révision RH.</span>
+            </div>
+
+            <form id="commentForm" onsubmit="handleCommentSubmit(event)" class="space-y-4">
+                <div>
+                    <label for="comment" class="sr-only">Commentaire</label>
+                    <textarea id="comment" rows="5" required placeholder="Écrivez ici vos remarques, ajouts de compétences ou révisions pour cette fiche..." class="w-full rounded-xl border border-slate-300 p-4 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition placeholder-slate-400"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label for="name" class="block text-xs font-semibold text-slate-600 mb-1">Nom <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" required placeholder="Nom*" class="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs font-semibold text-slate-600 mb-1">E-mail <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" required placeholder="E-mail*" class="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+                    </div>
+                    <div>
+                        <label for="site" class="block text-xs font-semibold text-slate-600 mb-1">Site Web / Département</label>
+                        <input type="text" id="site" placeholder="Site / Service" class="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none transition">
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-3 pt-2">
+                    <input type="checkbox" id="saveInfo" class="mt-1 rounded border-slate-300 text-brand-600 focus:ring-brand-500">
+                    <label for="saveInfo" class="text-xs text-slate-600 leading-normal">
+                        Enregistrer mon nom, mon e-mail et mon site dans le navigateur pour mon prochain commentaire.
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition shadow-sm inline-flex items-center space-x-2">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Publier le commentaire</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Display Comments Stream -->
+            <div class="pt-6 border-t border-slate-100 space-y-4">
+                <h4 class="font-bold text-slate-800 text-sm">Commentaires précédents (2)</h4>
+                
+                <div id="commentsList" class="space-y-3">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 text-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-slate-800">Responsable Qualité</span>
+                            <span class="text-xs text-slate-400">30 janvier 2025</span>
+                        </div>
+                        <p class="text-slate-600">Pensez à bien spécifier la périodicité du contrôle dans la fiche de fonction pour être en conformité avec la norme ISO 9001.</p>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 text-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-slate-800">Service RH</span>
+                            <span class="text-xs text-slate-400">1 février 2025</span>
+                        </div>
+                        <p class="text-slate-600">Modèle conforme et validé par la direction. Prêt pour impression et signature.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 no-print mt-auto">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p>© 2025 CNSTN - Centre National des Sciences et Technologies Nucléaires. Tous droits réservés.</p>
+            <p class="arabic-text text-sm">المركز الوطني للعلوم والتكنولوجيا النواوية</p>
+        </div>
+    </footer>
+
+    <div id="createModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden no-print p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-100 mb-6">
+                <h3 class="font-bold text-lg text-slate-900">Générer une Nouvelle Fiche de Poste / Fonction</h3>
+                <button onclick="toggleCreateModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleGenerateFiche(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Type de Document</label>
+                    <select id="newType" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500">
+                        <option value="poste">Fiche de Poste (الوظيفة)</option>
+                        <option value="fonction">Fiche de Fonction (بطاقة وصف مهام)</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Intitulé (Français)</label>
+                        <input type="text" id="newTitleFr" required placeholder="ex: Chef de Service" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Intitulé (Arabe)</label>
+                        <input type="text" id="newTitleAr" required placeholder="مثال: رئيس مصلحة" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm arabic-text">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Mission Principale</label>
+                    <textarea id="newMission" rows="3" placeholder="Décrivez la mission principale..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Principales Tâches / Responsabilités</label>
+                    <textarea id="newTasks" rows="3" placeholder="- Tâche 1&#10;- Tâche 2" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+                    <button type="button" onclick="toggleCreateModal()" class="px-4 py-2 border border-slate-300 text-slate-700 rounded-xl text-sm font-medium hover:bg-slate-50">Annuler</button>
+                    <button type="submit" class="px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-medium hover:bg-brand-700">Insérer la fiche</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Modal toggle
+        function toggleCreateModal() {
+            const modal = document.getElementById('createModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Comment Submission Logic
+        function handleCommentSubmit(e) {
+            e.preventDefault();
+            const comment = document.getElementById('comment').value;
+            const name = document.getElementById('name').value;
+            const alertBox = document.getElementById('commentAlert');
+            const list = document.getElementById('commentsList');
+
+            if (comment && name) {
+                // Create new comment element
+                const commentDiv = document.createElement('div');
+                commentDiv.className = "bg-slate-50 p-4 rounded-xl border border-slate-200/60 text-sm animate-fade-in";
+                const today = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+                
+                commentDiv.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-slate-800">${escapeHtml(name)}</span>
+                        <span class="text-xs text-slate-400">${today}</span>
+                    </div>
+                    <p class="text-slate-600">${escapeHtml(comment)}</p>
+                `;
+
+                list.prepend(commentDiv);
+                
+                // Show alert & reset form
+                alertBox.classList.remove('hidden');
+                document.getElementById('commentForm').reset();
+
+                setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                }, 4000);
+            }
+        }
+
+        // Dynamic Generation of new card
+        function handleGenerateFiche(e) {
+            e.preventDefault();
+            const type = document.getElementById('newType').value;
+            const titleFr = document.getElementById('newTitleFr').value;
+            const titleAr = document.getElementById('newTitleAr').value;
+            const mission = document.getElementById('newMission').value;
+            const tasks = document.getElementById('newTasks').value;
+
+            const mainContainer = document.querySelector('main');
+            const targetSection = document.getElementById('fiche-poste');
+
+            const newCard = document.createElement('section');
+            newCard.className = "bg-white rounded-2xl border border-slate-200 shadow-custom overflow-hidden mb-8";
+            
+            newCard.innerHTML = `
+                <div class="${type === 'poste' ? 'bg-brand-900' : 'bg-emerald-900'} text-white px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                        <h2 class="font-bold text-lg">${type === 'poste' ? 'Fiche de Poste' : 'Fiche de Fonction'} / ${escapeHtml(titleAr)}</h2>
+                    </div>
+                    <span class="text-xs bg-white/10 px-2.5 py-1 rounded-md">Nouvelle Fiche</span>
+                </div>
+                <div class="p-6 sm:p-8 space-y-4">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <h3 class="font-bold text-slate-900">${escapeHtml(titleFr)}</h3>
+                        <h3 class="font-bold text-brand-800 arabic-text">${escapeHtml(titleAr)}</h3>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-slate-400">Mission Principale</h4>
+                        <p class="text-sm text-slate-700 mt-1">${escapeHtml(mission)}</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-slate-400">Tâches</h4>
+                        <p class="text-sm text-slate-700 mt-1 whitespace-pre-line">${escapeHtml(tasks)}</p>
+                    </div>
+                </div>
+            `;
+
+            targetSection.parentNode.insertBefore(newCard, targetSection);
+            lucide.createIcons();
+            toggleCreateModal();
+        }
+
+        // Utility to escape HTML
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

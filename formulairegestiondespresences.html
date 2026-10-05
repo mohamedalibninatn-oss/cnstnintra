@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Formulaires Gestion des Présences</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Cairo for Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cnstn: {
+                            blue: '#004B87',
+                            lightBlue: '#0078D4',
+                            green: '#107C41',
+                            greenHover: '#0e6d39',
+                            bg: '#F4F7F9',
+                            cardBg: '#FFFFFF',
+                            border: '#E2E8F0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .font-arabic {
+            font-family: 'Cairo', sans-serif;
+        }
+        .file-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .file-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-cnstn-bg font-sans min-h-screen flex flex-col text-slate-800 antialiased">
+
+    <!-- Navigation Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand / Logo Area -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3">
+                    <!-- Atom / CNSTN Logo Representation -->
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-900 to-cnstn-blue flex items-center justify-center text-white shadow-md relative overflow-hidden group">
+                        <i class="fa-solid fa-atom text-2xl text-cyan-300 group-hover:rotate-180 transition-transform duration-700"></i>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-xl text-slate-900 tracking-tight">Intranet</span>
+                            <span class="text-xs font-semibold uppercase tracking-wider bg-blue-100 text-cnstn-blue px-2 py-0.5 rounded-full">CNSTN</span>
+                        </div>
+                        <p class="text-xs text-slate-500 hidden sm:block">Centre National des Sciences et Technologies Nucléaires</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User profile & Quick Actions -->
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <div class="relative hidden sm:block">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input type="text" id="globalSearch" placeholder="Rechercher sur l'intranet..." class="pl-9 pr-4 py-1.5 text-sm rounded-lg border border-slate-200 bg-slate-50 focus:outline-none focus:bg-white focus:border-cnstn-blue focus:ring-1 focus:ring-cnstn-blue transition-all w-48 lg:w-64">
+                </div>
+                
+                <button class="relative p-2 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Notifications">
+                    <i class="fa-regular fa-bell text-lg"></i>
+                    <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+                </button>
+
+                <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+
+                <div class="flex items-center space-x-3 pl-1">
+                    <div class="w-9 h-9 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center text-cnstn-blue font-semibold text-sm">
+                        AD
+                    </div>
+                    <div class="hidden md:block text-left">
+                        <div class="text-xs font-semibold text-slate-800">Agent CNSTN</div>
+                        <div class="text-[10px] text-slate-500">Service du Personnel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Breadcrumb & Page Title -->
+        <div class="mb-6">
+            <nav class="flex text-xs text-slate-500 mb-2" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                    <li class="inline-flex items-center">
+                        <a href="#" class="hover:text-cnstn-blue inline-flex items-center">
+                            <i class="fa-solid fa-house mr-1.5"></i>
+                            Accueil
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-[10px] mx-1 text-slate-400"></i>
+                            <a href="#" class="hover:text-cnstn-blue">Formulaires RH</a>
+                        </div>
+                    </li>
+                    <li aria-current="page">
+                        <div class="flex items-center">
+                            <i class="fa-solid fa-chevron-right text-[10px] mx-1 text-slate-400"></i>
+                            <span class="text-slate-800 font-medium">Présence</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 capitalize tracking-tight flex items-center gap-3">
+                        <span>Présence</span>
+                        <span class="text-xs font-normal bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-md flex items-center gap-1">
+                            <i class="fa-solid fa-shield-check text-emerald-500"></i> Validé (P.DSC.0003)
+                        </span>
+                    </h1>
+                    <p class="text-slate-500 text-sm mt-1">
+                        Formulaires officiels pour l'enregistrement et la gestion du temps de travail.
+                    </p>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-2">
+                    <button onclick="downloadAll()" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-4 py-2.5 rounded-lg shadow-sm transition-all">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Tout Télécharger</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Document Container -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            
+            <!-- Green Title Bar Header inspired by the original procedure code -->
+            <div class="bg-gradient-to-r from-emerald-700 via-cnstn-green to-teal-700 px-6 py-4 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-white/10 backdrop-blur-md rounded-lg text-emerald-200 border border-white/10">
+                        <i class="fa-solid fa-file-signature text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-emerald-200 tracking-wider uppercase block">Code Procédure</span>
+                        <h2 class="text-lg font-bold tracking-wide">P.DSC.0003 Formulaires Gestion des présences</h2>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <span class="text-xs bg-emerald-800/60 border border-emerald-500/30 text-emerald-100 px-3 py-1 rounded-full flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-word text-blue-300"></i> Format Microsoft Word (.doc)
+                    </span>
+                    <span class="text-xs bg-white/20 text-white px-2.5 py-1 rounded-full font-medium" id="docCount">
+                        3 Fichiers
+                    </span>
+                </div>
+            </div>
+
+            <!-- Filter & Search Bar Inside Card -->
+            <div class="p-4 bg-slate-50/70 border-b border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div class="relative w-full sm:w-80">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-filter text-xs"></i>
+                    </span>
+                    <input type="text" id="documentFilter" onkeyup="filterDocs()" placeholder="Filtrer les formulaires..." class="w-full pl-9 pr-4 py-2 text-xs rounded-lg border border-slate-200 bg-white focus:outline-none focus:border-cnstn-green focus:ring-1 focus:ring-cnstn-green transition-all">
+                </div>
+
+                <div class="flex items-center space-x-2 text-xs text-slate-500 w-full sm:w-auto justify-end">
+                    <label for="sortBy" class="whitespace-nowrap">Trier par:</label>
+                    <select id="sortBy" onchange="sortDocs()" class="bg-white border border-slate-200 text-slate-700 py-1.5 px-3 rounded-lg text-xs focus:outline-none focus:border-cnstn-green">
+                        <option value="date-desc">Plus récents d'abord</option>
+                        <option value="date-asc">Plus anciens d'abord</option>
+                        <option value="title">Titre (Arabe)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Document List View -->
+            <div class="divide-y divide-slate-100" id="documentList">
+
+                <!-- ITEM 1 -->
+                <div class="doc-item file-card p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-date="2021-11-07" data-title="ورقة حضور">
+                    <div class="flex items-start sm:items-center space-x-4">
+                        <!-- File Type Icon -->
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm relative group">
+                            <i class="fa-solid fa-file-word text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span class="absolute -bottom-1 -right-1 bg-blue-600 text-white text-[9px] font-bold px-1 rounded uppercase">DOC</span>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="inline-flex items-center text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200/60">
+                                    <i class="fa-regular fa-calendar-alt mr-1.5 text-slate-400"></i> 2021/11/07
+                                </span>
+                                <span class="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded">
+                                    Présence
+                                </span>
+                            </div>
+                            <!-- RTL Arabic Title -->
+                            <a href="#" onclick="downloadFile('ورقة حضور.doc', event)" class="block text-lg font-bold text-slate-800 hover:text-cnstn-blue font-arabic transition-colors" dir="rtl">
+                                ورقة حضور
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center space-x-2 self-end sm:self-center border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="text-xs text-slate-400 hidden lg:inline-block mr-2">Microsoft Word Document</span>
+                        <button onclick="downloadFile('ورقة حضور.doc', event)" class="inline-flex items-center gap-2 text-xs font-semibold text-cnstn-green hover:text-white bg-emerald-50 hover:bg-cnstn-green border border-emerald-200 px-4 py-2 rounded-xl transition-all shadow-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Télécharger</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ITEM 2 -->
+                <div class="doc-item file-card p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-date="2022-11-08" data-title="ورقة تسجيل الغياب">
+                    <div class="flex items-start sm:items-center space-x-4">
+                        <!-- File Type Icon -->
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm relative group">
+                            <i class="fa-solid fa-file-word text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span class="absolute -bottom-1 -right-1 bg-blue-600 text-white text-[9px] font-bold px-1 rounded uppercase">DOC</span>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="inline-flex items-center text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200/60">
+                                    <i class="fa-regular fa-calendar-alt mr-1.5 text-slate-400"></i> 2022/11/08
+                                </span>
+                                <span class="text-xs text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded">
+                                    Absence
+                                </span>
+                            </div>
+                            <!-- RTL Arabic Title -->
+                            <a href="#" onclick="downloadFile('ورقة تسجيل الغياب.doc', event)" class="block text-lg font-bold text-slate-800 hover:text-cnstn-blue font-arabic transition-colors" dir="rtl">
+                                ورقة تسجيل الغياب
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center space-x-2 self-end sm:self-center border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="text-xs text-slate-400 hidden lg:inline-block mr-2">Microsoft Word Document</span>
+                        <button onclick="downloadFile('ورقة تسجيل الغياب.doc', event)" class="inline-flex items-center gap-2 text-xs font-semibold text-cnstn-green hover:text-white bg-emerald-50 hover:bg-cnstn-green border border-emerald-200 px-4 py-2 rounded-xl transition-all shadow-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Télécharger</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ITEM 3 -->
+                <div class="doc-item file-card p-4 sm:p-5 hover:bg-slate-50/80 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4" data-date="2023-11-08" data-title="ورقة حضور الأعوان المتأخرين عن العمل">
+                    <div class="flex items-start sm:items-center space-x-4">
+                        <!-- File Type Icon -->
+                        <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shadow-sm relative group">
+                            <i class="fa-solid fa-file-word text-2xl group-hover:scale-110 transition-transform"></i>
+                            <span class="absolute -bottom-1 -right-1 bg-blue-600 text-white text-[9px] font-bold px-1 rounded uppercase">DOC</span>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="inline-flex items-center text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-md border border-slate-200/60">
+                                    <i class="fa-regular fa-calendar-alt mr-1.5 text-slate-400"></i> 2023/11/08
+                                </span>
+                                <span class="text-xs text-rose-600 font-medium bg-rose-50 px-2 py-0.5 rounded">
+                                    Retard
+                                </span>
+                            </div>
+                            <!-- RTL Arabic Title -->
+                            <a href="#" onclick="downloadFile('ورقة حضور الأعوان المتأخرين عن العمل.doc', event)" class="block text-lg font-bold text-slate-800 hover:text-cnstn-blue font-arabic transition-colors" dir="rtl">
+                                ورقة حضور الأعوان المتأخرين عن العمل
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center space-x-2 self-end sm:self-center border-t sm:border-t-0 pt-3 sm:pt-0 w-full sm:w-auto justify-between sm:justify-end">
+                        <span class="text-xs text-slate-400 hidden lg:inline-block mr-2">Microsoft Word Document</span>
+                        <button onclick="downloadFile('ورقة حضور الأعوان المتأخرين عن العمل.doc', event)" class="inline-flex items-center gap-2 text-xs font-semibold text-cnstn-green hover:text-white bg-emerald-50 hover:bg-cnstn-green border border-emerald-200 px-4 py-2 rounded-xl transition-all shadow-sm">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Télécharger</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Empty State Search result -->
+            <div id="noResults" class="hidden p-12 text-center">
+                <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+                <p class="text-slate-600 font-medium">Aucun formulaire correspondant trouvé</p>
+                <p class="text-xs text-slate-400 mt-1">Essayez de modifier votre terme de recherche.</p>
+            </div>
+
+            <!-- Card Footer Info -->
+            <div class="p-4 bg-slate-50/50 border-t border-slate-200/80 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-info text-cnstn-blue"></i>
+                    <span>Les formulaires téléchargés doivent être remplis et signés par le responsable hiérarchique.</span>
+                </div>
+                <div class="text-slate-400 font-mono text-[11px]">
+                    CNSTN-DOC-REVISION v2.4
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Info Box -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200/80 flex items-start space-x-3 shadow-sm">
+                <div class="p-2.5 bg-blue-50 text-cnstn-blue rounded-lg">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-800 uppercase">Horaires Administratifs</h3>
+                    <p class="text-xs text-slate-500 mt-1">Du Lundi au Vendredi: 08:00 - 17:00</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-slate-200/80 flex items-start space-x-3 shadow-sm">
+                <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-800 uppercase">Validation RH</h3>
+                    <p class="text-xs text-slate-500 mt-1">Transmettre les feuilles signées avant le 25 du mois.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-slate-200/80 flex items-start space-x-3 shadow-sm">
+                <div class="p-2.5 bg-purple-50 text-purple-600 rounded-lg">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold text-slate-800 uppercase">Support Technique</h3>
+                    <p class="text-xs text-slate-500 mt-1">Contacter le pôle informatique en cas de problème.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-atom text-cnstn-blue"></i>
+                <span>&copy; Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="hover:text-cnstn-blue transition-colors">Politique Intranet</a>
+                <a href="#" class="hover:text-cnstn-blue transition-colors">Sécurité Information</a>
+                <a href="#" class="hover:text-cnstn-blue transition-colors">Contact RH</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast Element -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white text-xs px-4 py-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base" id="toastIcon"></i>
+        <span id="toastMessage">Téléchargement débuté avec succès.</span>
+    </div>
+
+    <script>
+        // Custom Toast Notification Handler
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMessage.textContent = message;
+
+            if (type === 'success') {
+                toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-base';
+            } else {
+                toastIcon.className = 'fa-solid fa-circle-info text-blue-400 text-base';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // File Download Simulation
+        function downloadFile(filename, event) {
+            if (event) event.preventDefault();
+            
+            // Create dummy file content simulation
+            const dummyContent = "CNSTN Document Formulaire - " + filename;
+            const blob = new Blob([dummyContent], { type: 'application/msword' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast(`Téléchargement de "${filename}" démarré.`);
+        }
+
+        function downloadAll() {
+            showToast("Préparation de l'archive ZIP des 3 formulaires...", "info");
+            setTimeout(() => {
+                downloadFile('Formulaires_Presence_CNSTN.doc');
+            }, 1000);
+        }
+
+        // Filter / Search function
+        function filterDocs() {
+            const input = document.getElementById('documentFilter').value.toLowerCase();
+            const items = document.querySelectorAll('.doc-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            document.getElementById('docCount').textContent = visibleCount + ' Fichier' + (visibleCount > 1 ? 's' : '');
+        }
+
+        // Sorting function
+        function sortDocs() {
+            const sortBy = document.getElementById('sortBy').value;
+            const container = document.getElementById('documentList');
+            const items = Array.from(container.getElementsByClassName('doc-item'));
+
+            items.sort((a, b) => {
+                if (sortBy === 'date-desc') {
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                } else if (sortBy === 'date-asc') {
+                    return new Date(a.dataset.date) - new Date(b.dataset.date);
+                } else if (sortBy === 'title') {
+                    return a.dataset.title.localeCompare(b.dataset.title);
+                }
+            });
+
+            // Re-append sorted items
+            items.forEach(item => container.appendChild(item));
+        }
+    </script>
+</body>
+</html>

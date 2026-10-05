@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet de certification du CNSTN - Intranet ISO 9001</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d3b66;       /* Deep Navy Blue */
+            --primary-dark: #082846;  /* Darker Navy */
+            --secondary: #00a896;     /* Teal / Cyan Accent */
+            --secondary-hover: #028090;
+            --accent-yellow: #f4d35e;
+            --danger-red: #e63946;    /* For PDF Badges */
+            --bg-light: #f4f6f9;      /* Background Gray */
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(13, 59, 102, 0.08);
+            --shadow-lg: 0 10px 25px rgba(13, 59, 102, 0.12);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            background-color: var(--primary-dark);
+            color: #cbd5e1;
+            padding: 8px 5%;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .top-bar-left, .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .top-bar a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .top-bar a:hover {
+            color: var(--accent-yellow);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a4f80 100%);
+            color: white;
+            padding: 30px 5%;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 168, 150, 0.25) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            width: 58px;
+            height: 58px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent-yellow);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .iso-badge-top {
+            background: rgba(0, 168, 150, 0.2);
+            border: 1px solid var(--secondary);
+            color: #5eead4;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-bar {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 20px;
+        }
+
+        .nav-link {
+            padding: 16px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background-color: #f8fafc;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom-color: var(--secondary);
+            font-weight: 600;
+            background-color: rgba(0, 168, 150, 0.04);
+        }
+
+        .main-layout {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2.8fr 1fr;
+            gap: 30px;
+            flex: 1;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .page-header-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background-color: var(--secondary);
+        }
+
+        .page-title {
+            font-size: 1.65rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-top: 12px;
+        }
+
+        .page-subtitle i {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-top: 5px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            outline: none;
+            background: var(--card-bg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(0, 168, 150, 0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .section-card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: capitalize;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .section-card-title i {
+            color: var(--secondary);
+            background: rgba(0, 168, 150, 0.1);
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .doc-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: var(--card-bg);
+            transition: var(--transition);
+        }
+
+        .doc-item:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            background-color: #fafcfc;
+        }
+
+        .doc-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .file-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: #fef2f2;
+            color: var(--danger-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            border: 1px solid #fee2e2;
+        }
+
+        .doc-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-link {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            line-height: 1.4;
+        }
+
+        .doc-link:hover {
+            color: var(--secondary);
+        }
+
+        .doc-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .doc-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            color: var(--secondary);
+            border: 1.5px solid var(--secondary);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-download:hover {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 168, 150, 0.25);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-widget {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .widget-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .widget-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .widget-list a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.88rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .widget-list a:hover {
+            background-color: var(--bg-light);
+            color: var(--secondary);
+            padding-left: 14px;
+        }
+
+        .widget-list i {
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(13, 59, 102, 0.04) 0%, rgba(0, 168, 150, 0.08) 100%);
+            border: 1px solid rgba(0, 168, 150, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .info-card h4 {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .status-closed {
+            margin-top: 15px;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .no-results i {
+            font-size: 2.5rem;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background-color: var(--primary-dark);
+            color: #94a3b8;
+            padding: 30px 5% 20px 5%;
+            margin-top: 50px;
+            font-size: 0.88rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .doc-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .btn-download {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-bar {
+                display: none;
+            }
+            .nav-container {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span><i class="fa-solid fa-atom"></i> Portail Intranet Officiel CNSTN</span>
+            <span><i class="fa-solid fa-clock"></i> Accès Réservé Personnel</span>
+        </div>
+        <div class="top-bar-right">
+            <a href="#"><i class="fa-solid fa-user-gear"></i> Espace Agent</a>
+            <a href="#"><i class="fa-solid fa-circle-question"></i> Aide</a>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-atom"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Intranet CNSTN</h1>
+                    <p>Centre National des Sciences et Technologies Nucléaires</p>
+                </div>
+            </div>
+            <div class="iso-badge-top">
+                <i class="fa-solid fa-shield-halved"></i> Système de Management Qualité ISO 9001
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="#" class="nav-link"><i class="fa-solid fa-house"></i> Accueil</a>
+            <a href="#" class="nav-link active"><i class="fa-solid fa-award"></i> Certification ISO</a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-folder-tree"></i> Procédures</a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-file-signature"></i> Formulaires</a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-flask"></i> Laboratoires</a>
+        </div>
+    </nav>
+
+    <div class="main-layout">
+        
+        <main class="content-area">
+            <!-- Header Card -->
+            <div class="page-header-card">
+                <h2 class="page-title">Projet de certification du CNSTN</h2>
+                <div class="page-subtitle">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <div>
+                        <strong>Projet de certification du CNSTN conformément à la norme ISO 9001 version 2015</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Search Bar -->
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Rechercher un document, rapport, support de formation ou formulaire...">
+            </div>
+
+            <!-- Documents Container -->
+            <div id="documentsContainer">
+
+                <!-- Section 1: Rapport -->
+                <section class="section-card" data-section>
+                    <h3 class="section-card-title">
+                        <i class="fa-solid fa-file-lines"></i> Rapport
+                    </h3>
+                    <div class="doc-list">
+                        <div class="doc-item" data-doc>
+                            <div class="doc-info">
+                                <div class="file-icon-box">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                </div>
+                                <div class="doc-details">
+                                    <a href="pdf/CNSTN Rapport de diagnostic.pdf" class="doc-link">Rapport de diagnostic</a>
+                                    <div class="doc-meta">
+                                        <span><i class="fa-regular fa-calendar"></i> Version 2015</span>
+                                        <span><i class="fa-regular fa-file"></i> Document PDF</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-download">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Sensibilisation et formation -->
+                <section class="section-card" data-section style="margin-top: 20px;">
+                    <h3 class="section-card-title">
+                        <i class="fa-solid fa-chalkboard-user"></i> Sensibilisation et formation
+                    </h3>
+                    <div class="doc-list">
+                        <div class="doc-item" data-doc>
+                            <div class="doc-info">
+                                <div class="file-icon-box">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                </div>
+                                <div class="doc-details">
+                                    <a href="pdf/support seance de sensibilisation 1.pdf" class="doc-link">Support des séances de sensibilisation du (18/12/2018) et (18/01/2019)</a>
+                                    <div class="doc-meta">
+                                        <span><i class="fa-regular fa-calendar"></i> 18/12/2018 - 18/01/2019</span>
+                                        <span><i class="fa-regular fa-file"></i> Document PDF</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-download">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Formulaires -->
+                <section class="section-card" data-section style="margin-top: 20px;">
+                    <h3 class="section-card-title">
+                        <i class="fa-solid fa-rectangle-list"></i> Formulaires
+                    </h3>
+                    <div class="doc-list">
+                        <div class="doc-item" data-doc>
+                            <div class="doc-info">
+                                <div class="file-icon-box">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                </div>
+                                <div class="doc-details">
+                                    <a href="#" class="doc-link">Formulaire processus (projet/draft)</a>
+                                    <div class="doc-meta">
+                                        <span><i class="fa-regular fa-clock"></i> Version Draft/Projet</span>
+                                        <span><i class="fa-regular fa-file"></i> Document PDF</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-download">
+                                <i class="fa-solid fa-download"></i> Télécharger
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- No Results Display -->
+                <div id="noResults" class="no-results">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <p>Aucun document ne correspond à votre recherche.</p>
+                </div>
+
+            </div>
+
+            <!-- Page Status Note -->
+            <div class="status-closed">
+                <i class="fa-solid fa-lock"></i> Comments are closed
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h4 class="widget-title">
+                    Navigation SMQ
+                    <i class="fa-solid fa-sliders"></i>
+                </h4>
+                <ul class="widget-list">
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Manuel Qualité</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Politique Qualité</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Cartographie des processus</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Procédures organisationnelles</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Audits internes</a></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h4><i class="fa-solid fa-bullhorn"></i> Cellule Qualité</h4>
+                <p>Pour toute information complémentaire concernant la démarche qualité ISO 9001:2015, contactez le Responsable Qualité Intranet.</p>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                &copy; 2026 Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.
+            </div>
+            <div>
+                Portail Intranet Qualité — ISO 9001:2015
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const docItems = document.querySelectorAll('[data-doc]');
+            const sections = document.querySelectorAll('[data-section]');
+            const noResults = document.getElementById('noResults');
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value.toLowerCase().trim();
+                let hasVisibleDocs = false;
+
+                sections.forEach(section => {
+                    let sectionHasVisibleDoc = false;
+                    const docs = section.querySelectorAll('[data-doc]');
+
+                    docs.forEach(doc => {
+                        const title = doc.querySelector('.doc-link').textContent.toLowerCase();
+                        if (title.includes(query)) {
+                            doc.style.display = 'flex';
+                            sectionHasVisibleDoc = true;
+                            hasVisibleDocs = true;
+                        } else {
+                            doc.style.display = 'none';
+                        }
+                    });
+
+                    if (sectionHasVisibleDoc) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+
+                if (!hasVisibleDocs && query !== '') {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Formulaire Évaluation des Fournisseurs</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            blue: '#0F4C81',
+                            darkBlue: '#0A3359',
+                            lightBlue: '#EBF3FA',
+                            red: '#E53E3E',
+                            gray: '#64748B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 25px -5px rgba(15, 76, 129, 0.05), 0 8px 10px -6px rgba(15, 76, 129, 0.03);
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased text-slate-800 bg-slate-50">
+
+    <!-- En-tête / Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Branding & Logo -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3 bg-slate-50 p-2 rounded-xl border border-slate-100">
+                        <!-- SVG Representing CNSTN Nuclear Atom Logo -->
+                        <svg class="w-10 h-10 text-cnstn-blue" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#0F4C81" stroke-width="3" transform="rotate(30 50 50)" />
+                            <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#0F4C81" stroke-width="3" transform="rotate(-30 50 50)" />
+                            <ellipse cx="50" cy="50" rx="42" ry="16" stroke="#0F4C81" stroke-width="3" transform="rotate(90 50 50)" />
+                            <circle cx="50" cy="50" r="7" fill="#E53E3E" />
+                        </svg>
+                        <div class="leading-none">
+                            <span class="block font-bold text-xl tracking-tight text-cnstn-blue">cnstn</span>
+                            <span class="text-[10px] uppercase font-semibold tracking-wider text-slate-500">Centre National</span>
+                        </div>
+                    </div>
+                    <div class="h-8 w-px bg-slate-200 hidden sm:block"></div>
+                    <div class="hidden sm:block">
+                        <span class="text-xl font-bold text-slate-800 tracking-tight">Intranet <span class="text-cnstn-blue">CNSTN</span></span>
+                        <p class="text-xs text-slate-500">Portail Qualité & Gestion Documentaire</p>
+                    </div>
+                </div>
+
+                <!-- Navigation droite & Utilisateur -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button class="p-2 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors relative" title="Notifications">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-cnstn-red rounded-full"></span>
+                    </button>
+                    <div class="h-6 w-px bg-slate-200"></div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-cnstn-blue text-white flex items-center shadow-sm font-semibold justify-center text-sm">
+                            AG
+                        </div>
+                        <div class="hidden md:block text-left text-xs">
+                            <p class="font-semibold text-slate-800">Agent CNSTN</p>
+                            <p class="text-slate-500">Service Achats</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Breadcrumb / Fil d'ariane -->
+        <nav class="flex text-xs text-slate-500 mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="hover:text-cnstn-blue flex items-center gap-1.5">
+                        <i class="fa-solid fa-house text-slate-400"></i>
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400 mx-2"></i>
+                        <a href="#" class="hover:text-cnstn-blue">Système Qualité</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400 mx-2"></i>
+                        <span class="font-medium text-cnstn-blue">Évaluation des Fournisseurs</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Banner Title section -->
+        <div class="relative bg-gradient-to-r from-cnstn-darkBlue to-cnstn-blue rounded-2xl p-6 sm:p-8 text-white mb-8 shadow-lg overflow-hidden">
+            <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none flex items-center justify-center">
+                <i class="fa-solid fa-file-contract text-[220px]"></i>
+            </div>
+            <div class="relative z-10 max-w-2xl">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-blue-100 backdrop-blur-sm mb-3">
+                    <i class="fa-solid fa-shield-halved mr-1.5 text-xs"></i> Procédures d'Achat & Qualité
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">
+                    Formulaire Évaluation des Fournisseurs
+                </h1>
+                <p class="text-blue-100 text-sm leading-relaxed">
+                    Accédez aux formulaires, fiches de suivi, PV de réception et lettres d'information nécessaires pour l'évaluation standardisée des fournisseurs du CNSTN.
+                </p>
+            </div>
+        </div>
+
+        <!-- Toolbar & Search -->
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
+            <!-- Search Bar -->
+            <div class="relative w-full md:w-96">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </div>
+                <input type="text" id="searchInput" onkeyup="filterDocs()" 
+                       placeholder="Rechercher par code ou désignation..." 
+                       class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-cnstn-blue focus:border-transparent shadow-sm transition-all">
+            </div>
+
+            <!-- Stats & Quick Actions -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div class="text-xs text-slate-500 font-medium">
+                    <span id="docCount" class="font-bold text-cnstn-blue">7</span> document(s) disponible(s)
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="sortDocs('code')" class="px-3 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-medium rounded-xl hover:bg-slate-50 flex items-center gap-1.5 shadow-sm transition-colors">
+                        <i class="fa-solid fa-arrow-down-1-9 text-slate-400"></i> Trier par Code
+                    </button>
+                    <button onclick="resetSearch()" class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-xl hover:bg-slate-200 transition-colors">
+                        Réinitialiser
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Cards Grid -->
+        <div id="documentsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            <!-- Card 1 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1019/09/08" data-title="pv de reception">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1019/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        PV de réception
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Procès-verbal de réception pour la validation de la livraison et conformité matérielle.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1019/09/08', 'PV de réception')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1020/09/08" data-title="fiche de non conformite achat">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1020/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        Fiche de non conformité achat
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Formulaire de déclaration des écarts et non-conformités constatés lors d'un achat.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1020/09/08', 'Fiche de non conformité achat')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1021/09/08" data-title="fiche de classification des fournisseurs">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1021/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        Fiche de classification des fournisseurs
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Grille de catégorisation initiale des fournisseurs selon les exigences CNSTN.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1021/09/08', 'Fiche de classification des fournisseurs')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1022/09/08" data-title="fiche de suivi de prestations des fournisseurs">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1022/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        Fiche de suivi de prestations des fournisseurs
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Suivi périodique de la qualité des prestations de services délivrées.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1022/09/08', 'Fiche de suivi de prestations des fournisseurs')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1074/09/08" data-title="fiche evaluation annuelle des fournisseurs">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1074/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        Fiche évaluation annuelle des fournisseurs
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Bilan annuel des performances, de la conformité globale et réhomologation.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1074/09/08', 'Fiche évaluation annuelle des fournisseurs')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1075/09/08" data-title="listes des fournisseurs agrees">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1075/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        Listes des fournisseurs agréés
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Répertoire officiel à jour des partenaires et fournisseurs approuvés par le centre.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1075/09/08', 'Listes des fournisseurs agréés')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="doc-card glass-card bg-white rounded-2xl border border-slate-200/80 p-5 custom-shadow hover:border-cnstn-blue/40 transition-all duration-300 hover:-translate-y-0.5 flex flex-col justify-between" data-code="1076/09/08" data-title="lettre d'information fournisseur">
+                <div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-semibold bg-slate-100 text-cnstn-blue border border-slate-200">
+                            <i class="fa-solid fa-hashtag mr-1 text-[10px] text-slate-400"></i>1076/09/08
+                        </span>
+                        <span class="inline-flex items-center text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Actif
+                        </span>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-800 hover:text-cnstn-blue transition-colors mb-2 capitalize">
+                        Lettre d'information fournisseur
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Modèle de courrier type d'information envoyé aux prestataires et fournisseurs.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-medium flex items-center gap-1">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-sm"></i> PDF
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="viewDocument('1076/09/08', 'Lettre d\'information fournisseur')" class="px-3 py-1.5 text-xs font-medium text-cnstn-blue bg-cnstn-lightBlue hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1">
+                            <i class="fa-regular fa-eye"></i> Aperçu
+                        </button>
+                        <a href="#" class="p-1.5 text-slate-500 hover:text-cnstn-blue hover:bg-slate-100 rounded-lg transition-colors" title="Télécharger">
+                            <i class="fa-solid fa-download text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- No Results Fallback -->
+        <div id="noResults" class="hidden text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300 mt-4">
+            <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+            <h3 class="text-base font-medium text-slate-700">Aucun document trouvé</h3>
+            <p class="text-xs text-slate-400 mt-1">Essayez de modifier votre recherche ou le code recherché.</p>
+        </div>
+
+    </main>
+
+    <!-- Modal Preview Document -->
+    <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300" id="modalContainer">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="p-2 bg-red-50 rounded-lg">
+                        <i class="fa-regular fa-file-pdf text-red-500 text-xl"></i>
+                    </div>
+                    <div>
+                        <span id="modalCode" class="text-xs font-mono font-bold text-cnstn-blue bg-blue-50 px-2 py-0.5 rounded">---</span>
+                        <h4 id="modalTitle" class="text-base font-bold text-slate-800">Aperçu du document</h4>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center my-4 min-h-[220px] flex flex-col items-center justify-center">
+                <i class="fa-solid fa-file-circle-check text-5xl text-cnstn-blue/40 mb-3"></i>
+                <p class="text-sm font-semibold text-slate-700">Document disponible au téléchargement</p>
+                <p class="text-xs text-slate-500 max-w-sm mt-1">Ce formulaire est valide et conforme au système de management de la qualité du CNSTN.</p>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="closeModal()" class="px-4 py-2 border border-slate-200 text-slate-600 rounded-xl text-xs font-semibold hover:bg-slate-50 transition-colors">
+                    Fermer
+                </button>
+                <a href="#" onclick="alert('Téléchargement simulé du fichier PDF')" class="px-4 py-2 bg-cnstn-blue text-white rounded-xl text-xs font-semibold hover:bg-cnstn-darkBlue transition-colors flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-download"></i> Télécharger le PDF
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:flex sm:justify-between sm:items-center text-xs text-slate-500">
+            <p>© 2026 CNSTN - Centre National des Sciences et Technologies Nucléaires. Tous droits réservés.</p>
+            <p class="mt-2 sm:mt-0">Intranet v2.4 • Support Qualité</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fonction de filtrage en temps réel
+        function filterDocs() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.doc-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const code = card.getAttribute('data-code').toLowerCase();
+                const title = card.getAttribute('data-title').toLowerCase();
+
+                if (code.includes(input) || title.includes(input)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('docCount').innerText = visibleCount;
+            
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Réinitialiser la recherche
+        function resetSearch() {
+            document.getElementById('searchInput').value = '';
+            filterDocs();
+        }
+
+        // Gestion de la modale d'aperçu
+        function viewDocument(code, title) {
+            document.getElementById('modalCode').innerText = 'Code: ' + code;
+            document.getElementById('modalTitle').innerText = title;
+            
+            const modal = document.getElementById('previewModal');
+            const container = document.getElementById('modalContainer');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+                container.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('previewModal');
+            const container = document.getElementById('modalContainer');
+            
+            modal.classList.add('opacity-0');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Fermeture de la modale en cliquant à l'extérieur
+        document.getElementById('previewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

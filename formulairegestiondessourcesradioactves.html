@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Gestion des Sources Radioactives</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cnstn: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0a3751',
+                        },
+                        radiation: {
+                            500: '#eab308',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .atom-spinner {
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="h-full font-sans text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- Header principal -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Branding CNSTN -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-tr from-cnstn-800 to-cnstn-600 text-white shadow-md shadow-cnstn-600/20">
+                        <i data-lucide="atom" class="w-7 h-7 atom-spinner"></i>
+                        <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xl font-bold tracking-tight text-cnstn-900">Intranet <span class="text-cnstn-600">CNSTN</span></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 bg-cnstn-50 text-cnstn-700 border border-cnstn-200 rounded-full">v2.4</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium">Centre National des Sciences et Technologies Nucléaires</p>
+                    </div>
+                </div>
+
+                <!-- Navigation rapide / Profil -->
+                <div class="flex items-center space-x-3 sm:space-x-6">
+                    <div class="hidden md:flex items-center text-xs text-slate-500 space-x-4 border-r border-slate-200 pr-6">
+                        <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i> Zone Sécurisée</span>
+                        <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-slate-400"></i> MàJ: Sept. 2026</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <div class="text-right hidden sm:block">
+                            <div class="text-sm font-semibold text-slate-800">Agent CNSTN</div>
+                            <div class="text-xs text-slate-500">Radioprotection & Sûreté</div>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-600 font-semibold shadow-inner">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Wrapper -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Breadcrumb -->
+        <nav class="flex text-xs font-medium text-slate-500 mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="hover:text-cnstn-600 flex items-center gap-1">
+                        <i data-lucide="home" class="w-3.5 h-3.5"></i>
+                        Accueil
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                        <a href="#" class="ml-1 hover:text-cnstn-600">Qualité & Procédures</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+                        <span class="ml-1 text-cnstn-700 font-semibold">Gestion des Sources Radioactives</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Titre de la page & Présentation -->
+        <div class="bg-gradient-to-r from-cnstn-900 via-cnstn-800 to-slate-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl mb-8 relative overflow-hidden">
+            <!-- Arrière-plan décoratif -->
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
+                <i data-lucide="radiation" class="w-80 h-80"></i>
+            </div>
+
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 text-sky-200 text-xs font-semibold mb-3 backdrop-blur-sm border border-sky-400/30">
+                    <i data-lucide="file-code" class="w-3.5 h-3.5"></i>
+                    Procédure Réf. : P.DSC.001
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
+                    Formulaires de Gestion des Sources Radioactives
+                </h1>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Portail officiel de téléchargement et de soumission des demandes relatives à l'acquisition, la réception, le suivi, et la délivrance de permis pour les sources radioactives au sein du CNSTN.
+                </p>
+            </div>
+        </div>
+
+        <!-- Barre d'outils et recherche -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <!-- Recherche -->
+            <div class="relative w-full md:w-96">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                </div>
+                <input type="text" id="searchInput" onkeyup="filterForms()" 
+                    placeholder="Rechercher un formulaire (ex: permis, 4001, perte...)" 
+                    class="w-full pl-9 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cnstn-500 focus:bg-white transition-all">
+            </div>
+
+            <!-- Filtres et Compteurs -->
+            <div class="flex items-center justify-between w-full md:w-auto gap-3 text-sm">
+                <span class="text-xs text-slate-500 font-medium">
+                    Affichage : <strong id="visibleCount" class="text-cnstn-700">7</strong> formulaires
+                </span>
+
+                <div class="flex gap-2">
+                    <button onclick="filterCategory('all')" class="filter-btn active-filter px-3 py-1.5 text-xs font-semibold rounded-lg bg-cnstn-100 text-cnstn-800 transition">
+                        Tous
+                    </button>
+                    <button onclick="filterCategory('permis')" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 hover:bg-slate-100 transition">
+                        Permis
+                    </button>
+                    <button onclick="filterCategory('suivi')" class="filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-600 hover:bg-slate-100 transition">
+                        Suivi & Inventaire
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Liste des Formulaires -->
+        <div id="formsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <!-- Carte 1 -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border border-slate-200 flex flex-col justify-between group" data-category="suivi" data-title="demande d'acquisition des sources radioactives 4001/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-sky-100 text-sky-800 font-mono">
+                            4001/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check-circle-2" class="w-3 h-3"></i> Actif
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-cnstn-600 transition-colors text-base mb-2 leading-snug">
+                        
+                        <a href="pdf/Demande_acquisition_des_sources_radioactives4001.pdf" class="doc-link">Demande d'acquisition des sources radioactives</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Formulaire requis avant toute commande ou importation de nouvelle source radioactive.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF (240 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4001/02/08', 'Demande d\'acquisition des sources radioactives')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4001/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 2 -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border border-slate-200 flex flex-col justify-between group" data-category="suivi" data-title="fiche de reception de la source radioactive 4002/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-sky-100 text-sky-800 font-mono">
+                            4002/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check-circle-2" class="w-3 h-3"></i> Actif
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-cnstn-600 transition-colors text-base mb-2 leading-snug">
+                        
+                        <a href="pdf/Fiche_de_reception_de_la_source_radioactive4002.pdf" class="doc-link">Fiche de réception de la source radioactive</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        PV de réception, contrôle du colis et enregistrement initial lors de la livraison sur site.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF (180 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4002/02/08', 'Fiche de réception de la source radioactive')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4002/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border border-slate-200 flex flex-col justify-between group" data-category="suivi" data-title="inventaire des sources radioactives 4003/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-sky-100 text-sky-800 font-mono">
+                            4003/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check-circle-2" class="w-3 h-3"></i> Actif
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-cnstn-600 transition-colors text-base mb-2 leading-snug">
+                        <a href="pdf/Inventaire_des_sources_Radioactives4003.pdf" class="doc-link">Inventaire des sources Radioactives</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Fiche périodique de mise à jour de la localisation, activité et état du stock des sources.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i> XLSX / PDF (310 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4003/02/08', 'Inventaire des sources Radioactives')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4003/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 4 (Urgent / Critique) -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border-l-4 border-l-rose-500 border border-slate-200 flex flex-col justify-between group" data-category="suivi" data-title="declaration de perte ou de vol dune source radioactive 4004/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-rose-100 text-rose-800 font-mono">
+                            4004/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200">
+                            <i data-lucide="alert-triangle" class="w-3 h-3"></i> Urgence
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-rose-600 transition-colors text-base mb-2 leading-snug">
+                        <a href="pdf/Declaration_de_perte_ou_de_vol_dune_source_radioactive4004.pdf" class="doc-link">Déclaration de perte ou de vol d'une source radioactive</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Formulaire d'incident obligatoire pour notification immédiate aux autorités de sûreté.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF (150 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4004/02/08', 'Déclaration de perte ou de vol d\'une source radioactive')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4004/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 5 -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border border-slate-200 flex flex-col justify-between group" data-category="suivi" data-title="controle de source radioactive 4005/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-sky-100 text-sky-800 font-mono">
+                            4005/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check-circle-2" class="w-3 h-3"></i> Actif
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-cnstn-600 transition-colors text-base mb-2 leading-snug">
+                        <a href="pdf/Controle_de_source_radioactive_4005.pdf" class="doc-link">Contrôle de source radioactive</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Rapport d'inspection périodique, vérification d'étanchéité et mesure de débit de dose.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF (210 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4005/02/08', 'Contrôle de source radioactive')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4005/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 6 -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border border-slate-200 flex flex-col justify-between group" data-category="permis" data-title="demande de permis interne pour une source radioactive 4006/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-100 text-amber-800 font-mono">
+                            4006/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check-circle-2" class="w-3 h-3"></i> Actif
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-cnstn-600 transition-colors text-base mb-2 leading-snug">
+                        <a href="pdf/Demande_de_permis_interne_pour_une_Source_Radioactive4006.pdf" class="doc-link">Demande de permis interne pour une Source Radioactive</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Autorisation d'utilisation ou de déplacement interne entre laboratoires du CNSTN.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF (195 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4006/02/08', 'Demande de permis interne pour une Source Radioactive')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4006/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte 7 -->
+            <div class="form-card glass-card rounded-xl p-5 hover:shadow-lg transition-all duration-200 border border-slate-200 flex flex-col justify-between group" data-category="permis" data-title="demande de permis externe pour une source radioactive 4007/02/08">
+                <div>
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-100 text-amber-800 font-mono">
+                            4007/02/08
+                        </span>
+                        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            <i data-lucide="check-circle-2" class="w-3 h-3"></i> Actif
+                        </span>
+                    </div>
+                    <h3 class="font-semibold text-slate-800 group-hover:text-cnstn-600 transition-colors text-base mb-2 leading-snug">
+                        <a href="pdf/Demande_de_permis_externe_pour_une_Source_Radioactive4007.pdf" class="doc-link">Demande de permis externe pour une Source Radioactive</a>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4 line-clamp-2">
+                        Autorisation pour le transport hors site, transfert externe ou prestation extérieure.
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 font-medium flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> PDF (220 KB)
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="previewDoc('4007/02/08', 'Demande de permis externe pour une Source Radioactive')" class="p-2 text-slate-500 hover:text-cnstn-600 hover:bg-slate-100 rounded-lg transition" title="Aperçu">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="downloadDoc('4007/02/08')" class="flex items-center gap-1.5 px-3 py-1.5 bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg font-medium shadow-sm transition">
+                            <i data-lucide="download" class="w-3.5 h-3.5"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Notification de recherche vide -->
+        <div id="noResults" class="hidden text-center py-12 bg-white rounded-xl border border-dashed border-slate-300 mt-4">
+            <i data-lucide="file-search" class="w-12 h-12 text-slate-300 mx-auto mb-3"></i>
+            <h3 class="text-base font-semibold text-slate-700">Aucun formulaire trouvé</h3>
+            <p class="text-xs text-slate-500 mt-1">Essayez de modifier votre terme de recherche ou le filtre sélectionné.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <div class="flex items-center gap-2">
+                <i data-lucide="atom" class="w-4 h-4 text-cnstn-600"></i>
+                <span>© 2026 CNSTN - Centre National des Sciences et Technologies Nucléaires. Tous droits réservés.</span>
+            </div>
+            <div class="flex gap-4 text-slate-400">
+                <a href="#" class="hover:text-slate-600 transition">Assistance technique</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-600 transition">Manuel Qualité</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-600 transition">Sûreté Nucléaire</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal d'aperçu -->
+    <div id="previewModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 border border-slate-200 relative animate-in fade-in zoom-in-95 duration-150">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-3 bg-cnstn-50 rounded-xl text-cnstn-600">
+                    <i data-lucide="file-text" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span id="modalCode" class="text-xs font-mono font-bold text-cnstn-600">CODE</span>
+                    <h3 id="modalTitle" class="text-lg font-bold text-slate-800 leading-tight">Titre du document</h3>
+                </div>
+            </div>
+            
+            <div class="border-t border-b border-slate-100 py-4 my-4 text-sm text-slate-600 space-y-2">
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Référence procédure:</span>
+                    <span class="font-medium text-slate-700">P.DSC.001</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Format disponible:</span>
+                    <span class="font-medium text-slate-700">PDF interactif / Impression</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Organisme émetteur:</span>
+                    <span class="font-medium text-slate-700">Direction de Sûreté et Contrôle (CNSTN)</span>
+                </div>
+            </div>
+
+            <!-- Aperçu fictif -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs font-mono text-slate-500 space-y-1.5 mb-5">
+                <div class="flex justify-between border-b border-slate-200 pb-1">
+                    <span>[RÉPUBLIQUE TUNISIENNE]</span>
+                    <span>CNSTN-FORM-V1</span>
+                </div>
+                <p class="pt-2 text-slate-700 font-sans font-medium">1. Identité du Demandeur / Service</p>
+                <p class="text-slate-400 font-sans">Nom, Prénom, Département, Grade, Contact...</p>
+                <p class="pt-2 text-slate-700 font-sans font-medium">2. Caractéristiques de la Source</p>
+                <p class="text-slate-400 font-sans">Radionucléide, Activité (Bq/Ci), Numéro de série...</p>
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition">
+                    Fermer
+                </button>
+                <button onclick="downloadCurrentModal()" class="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-cnstn-600 hover:bg-cnstn-700 text-white rounded-lg transition">
+                    <i data-lucide="download" class="w-4 h-4"></i> Télécharger
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+        <span id="toastMsg" class="text-sm font-medium">Téléchargement démarré...</span>
+    </div>
+
+    <script>
+        // Initialisation des icônes Lucide
+        lucide.createIcons();
+
+        let currentModalDocCode = '';
+
+        // Fonction de filtrage par texte
+        function filterForms() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.form-card');
+            let visible = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                if (title.includes(input)) {
+                    card.style.display = 'flex';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('visibleCount').innerText = visible;
+            
+            const noResults = document.getElementById('noResults');
+            if (visible === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Filtrage par catégorie
+        function filterCategory(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cnstn-100', 'text-cnstn-800', 'font-semibold');
+                btn.classList.add('text-slate-600');
+            });
+
+            event.target.classList.add('bg-cnstn-100', 'text-cnstn-800', 'font-semibold');
+            event.target.classList.remove('text-slate-600');
+
+            const cards = document.querySelectorAll('.form-card');
+            let visible = 0;
+
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = 'flex';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('visibleCount').innerText = visible;
+        }
+
+        // Simulation de Téléchargement
+        function downloadDoc(code) {
+            showToast(`Téléchargement du formulaire N° ${code} en cours...`);
+        }
+
+        // Afficher l'aperçu dans le Modal
+        function previewDoc(code, title) {
+            currentModalDocCode = code;
+            document.getElementById('modalCode').innerText = `Réf. ${code}`;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('previewModal').classList.add('hidden');
+        }
+
+        function downloadCurrentModal() {
+            closeModal();
+            downloadDoc(currentModalDocCode);
+        }
+
+        // Affichage Notification Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            
+            toastMsg.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

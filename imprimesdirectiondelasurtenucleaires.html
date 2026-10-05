@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimés Direction de la Sûreté Nucléaire : DSN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --header-sub-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        h1 span {
+            background-color: #3b82f6;
+            color: #ffffff;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .department-section {
+            margin-bottom: 35px;
+        }
+
+        .department-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-left: 5px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background-color: var(--header-sub-bg);
+            padding: 14px 20px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #991b1b; /* Rouge sombre pour les sous-services */
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-header span.code-tag {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .document-list {
+            list-style: none;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .document-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .document-item.sub-item {
+            padding-left: 40px;
+            background-color: #fafafa;
+        }
+
+        .doc-link {
+            text-decoration: none;
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .doc-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .code-badge {
+            font-family: monospace;
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-info {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            border-color: #bfdbfe;
+        }
+
+        /* Responsive design */
+        @media (max-width: 640px) {
+            .document-item {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .document-item.sub-item {
+                padding-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Imprimés Direction de la Sûreté Nucléaires <span>DSN</span></h1>
+    </header>
+
+    <!-- SECTION 1: Service Sûreté et Radioprotection : DSR -->
+    <div class="department-section">
+        <h2 class="department-title">Service Sûreté et Radioprotection : DSR</h2>
+
+        <!-- Sous-service SRGD -->
+        <div class="section-card">
+            <div class="section-header">
+                <span>Service Radioprotection et Gestion des Déchets</span>
+                <span class="code-tag">SRGD</span>
+            </div>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="formulairegestiondessourcesradioactves.html" class="doc-link">Formulaires Gestion des sources Radioactives</a>
+                    <span class="code-badge">P.SRGD.0001</span>
+                </li>
+                <li class="document-item">
+                    <a href="formulairesgestiondosimetres.html" class="doc-link">Formulaires Gestion dosimètres</a>
+                    <span class="code-badge">P.SRGD.0002</span>
+                </li>
+                <li class="document-item">
+                    <a href="formulairesgestiondesdechetschimiquesaucnstn.html" class="doc-link">Formulaires Gestion des déchets chimiques au CNSTN</a>
+                    <span class="code-badge">P.SRGD.0003</span>
+                </li>
+                <li class="document-item">
+                    <a href="formulairesdegestiondesdechetsradioctifs.html" class="doc-link">Formulaires de Gestion des déchets radioactifs</a>
+                    <span class="code-badge">P.SRGD.0004</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sous-service SSPP -->
+        <div class="section-card">
+            <div class="section-header">
+                <span>Service Sûreté et Protection Physique</span>
+                <span class="code-tag">SSPP</span>
+            </div>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="#" class="doc-link">Formulaire Contrôle d’accès aux laboratoires et aux bâtiments du CNSTN</a>
+                    <span class="code-badge">P.SSPP.0001</span>
+                </li>
+                <li class="document-item sub-item">
+                    <a href="#" class="doc-link">Fiche d’accueil (Durée inférieure ou égale à un mois - Frais non remboursables 20 DT)</a>
+                    <span class="code-badge badge-info">Tarif : 20 DT</span>
+                </li>
+                <li class="document-item sub-item">
+                    <a href="#" class="doc-link">Fiche d’accueil (Durée de 1 mois à 3 mois - Frais non remboursable 50 DT)</a>
+                    <span class="code-badge badge-info">Tarif : 50 DT</span>
+                </li>
+                <li class="document-item sub-item">
+                    <a href="#" class="doc-link">Fiche d’accueil (Durée de 3 à 6 mois - Frais non remboursables 100 DT)</a>
+                    <span class="code-badge badge-info">Tarif : 100 DT</span>
+                </li>
+                <li class="document-item sub-item">
+                    <a href="#" class="doc-link">Fiche d’accueil (Durée de plus de 6 mois - Frais non remboursables 150 DT)</a>
+                    <span class="code-badge badge-info">Tarif : 150 DT</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SECTION 2: Service Maintenance et Instrumentation : DI -->
+    <div class="department-section">
+        <h2 class="department-title">Service Maintenance et Instrumentation : DI</h2>
+
+        <!-- Sous-service SMI -->
+        <div class="section-card">
+            <div class="section-header">
+                <span>Service Maintenance et Instrumentation</span>
+                <span class="code-tag">SMI</span>
+            </div>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande d’intervention technique: électricité bâtiment</a>
+                    <span class="code-badge">4501/07/09</span>
+                </li>
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande d’intervention technique: équipement nucléaire</a>
+                    <span class="code-badge">4501/07/09</span>
+                </li>
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande d’intervention technique: plomberie, Climatisation et Chauffage Centrale</a>
+                    <span class="code-badge">4501/07/09</span>
+                </li>
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande d’intervention technique: équipement électronique</a>
+                    <span class="code-badge">4501/07/09</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sous-service SIR -->
+        <div class="section-card">
+            <div class="section-header">
+                <span>Service Informatique et Réseau</span>
+                <span class="code-tag">SIR</span>
+            </div>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande d’intervention informatique</a>
+                    <span class="code-badge">4751/11/07</span>
+                </li>
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande de matériel informatique</a>
+                    <span class="code-badge">4752/11/08</span>
+                </li>
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande d’ouverture compte mail officiel</a>
+                    <span class="code-badge">Formulaire</span>
+                </li>
+                <li class="document-item">
+                    <a href="#" class="doc-link">Demande de réservation de la salle polyvalente</a>
+                    <span class="code-badge">Formulaire</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

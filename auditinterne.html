@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Audit Interne</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0066cc',
+                            600: '#0052a3',
+                            800: '#102a43',
+                            900: '#0b1d3a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex flex-col min-h-full font-sans text-slate-800 antialiased selection:bg-cnstn-500 selection:text-white">
+
+    <!-- EN-TÊTE / HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo et Nom -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-100 shadow-inner">
+                        <!-- Logo Atomique CNSTN en SVG -->
+                        <svg class="w-10 h-10 text-cnstn-600" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="50" cy="50" rx="42" ry="16" stroke="currentColor" stroke-width="3" transform="rotate(-30 50 50)"/>
+                            <ellipse cx="50" cy="50" rx="42" ry="16" stroke="currentColor" stroke-width="3" transform="rotate(30 50 50)"/>
+                            <ellipse cx="50" cy="50" rx="42" ry="16" stroke="currentColor" stroke-width="3" transform="rotate(90 50 50)"/>
+                            <circle cx="50" cy="50" r="7" fill="#dc2626"/>
+                            <circle cx="20" cy="32" r="3" fill="currentColor"/>
+                            <circle cx="80" cy="68" r="3" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-2xl font-extrabold tracking-tight text-cnstn-900">Intranet</span>
+                            <span class="text-2xl font-bold text-cnstn-500">CNSTN</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium hidden sm:block">Centre National des Sciences et Technologies Nucléaires</p>
+                    </div>
+                </div>
+
+                <!-- Navigation de droite / Profil -->
+                <div class="flex items-center space-x-4">
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Rechercher un document..." class="w-64 pl-9 pr-4 py-2 bg-slate-100 text-sm rounded-lg border border-transparent focus:bg-white focus:border-cnstn-500 focus:outline-none transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+                    </div>
+                    <div class="h-8 w-px bg-slate-200 hidden sm:block"></div>
+                    <div class="flex items-center space-x-3 cursor-pointer p-1.5 rounded-lg hover:bg-slate-50 transition-colors">
+                        <div class="w-9 h-9 rounded-full bg-cnstn-100 text-cnstn-600 flex items-center justify-center font-semibold text-sm border border-cnstn-500/20">
+                            AG
+                        </div>
+                        <div class="hidden sm:block text-left">
+                            <p class="text-xs font-semibold text-slate-700">Agent CNSTN</p>
+                            <p class="text-[10px] text-slate-400">Qualité & Audit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FIL D'ARIANE / BREADCRUMB -->
+    <div class="bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <nav class="flex text-xs font-medium text-slate-500 space-x-2">
+                <a href="#" class="hover:text-cnstn-600 transition-colors"><i class="fa-solid fa-house mr-1"></i> Accueil</a>
+                <span>/</span>
+                <a href="#" class="hover:text-cnstn-600 transition-colors">Système de Management Qualité</a>
+                <span>/</span>
+                <span class="text-slate-800 font-semibold">Audit interne</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- EN-TÊTE DE LA SECTION -->
+        <div class="mb-8 bg-gradient-to-r from-cnstn-900 to-cnstn-800 text-white rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+            <!-- Décoration d'arrière-plan -->
+            <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                <i class="fa-solid fa-clipboard-check text-[220px]"></i>
+            </div>
+            
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-cnstn-100 backdrop-blur-md mb-3 border border-white/10">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                    <span>Procédure Qualité PQ05</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-2">Audit interne</h1>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Consultez et téléchargez l'ensemble des documents, fiches et formulaires relatifs au processus d'audit interne du CNSTN.
+                </p>
+            </div>
+        </div>
+
+        <!-- STATISTIQUES RAPIDES / INFORMATIONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-regular fa-folder-open"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500">Documents disponibles</p>
+                    <p class="text-xl font-bold text-slate-800">7 Fichiers</p>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500">Version Actuelle</p>
+                    <p class="text-xl font-bold text-slate-800">PQ05 - ISO 9001</p>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-medium text-slate-500">Dernière mise à jour</p>
+                    <p class="text-xl font-bold text-slate-800">Année 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTE DES DOCUMENTS DESCRIPTIFS -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+            <!-- Barre d'outils du tableau -->
+            <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Liste des documents & enregistrements</h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Cliquez sur un document pour le consulter ou le télécharger</p>
+                </div>
+                <div class="flex items-center space-x-2 self-end sm:self-auto">
+                    <button class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 shadow-sm transition-all flex items-center space-x-1.5">
+                        <i class="fa-solid fa-filter text-slate-400"></i>
+                        <span>Filtrer</span>
+                    </button>
+                    <button class="px-3 py-1.5 text-xs font-medium text-cnstn-600 bg-cnstn-50 border border-cnstn-100 rounded-lg hover:bg-cnstn-100 shadow-sm transition-all flex items-center space-x-1.5">
+                        <i class="fa-solid fa-file-zipper"></i>
+                        <span>Tout télécharger (.zip)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLEAU DES DOCUMENTS -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-100 bg-slate-50/80 text-[11px] uppercase font-bold tracking-wider text-slate-400">
+                            <th class="py-3.5 px-6">Code Document</th>
+                            <th class="py-3.5 px-6">Intitulé du Document</th>
+                            <th class="py-3.5 px-6">Type</th>
+                            <th class="py-3.5 px-6">Format</th>
+                            <th class="py-3.5 px-6 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+                        
+                        <!-- ITEM 1: PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-blue-50 border border-blue-200 text-xs font-mono">PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    <a href="pdf/PQ05.pdf" class="doc-link"> Audit Interne</a>
+                                </div>
+                                <div class="text-xs text-slate-400">Procédure générale d'organisation des audits</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700">
+                                    Procédure
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-pdf text-red-500 mr-1.5 text-base"></i> PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- ITEM 2: FE01-PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono">FE01-PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    Liste des auditeurs internes
+                                </div>
+                                <div class="text-xs text-slate-400">Annuaire et qualifications des auditeurs qualifiés</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+                                    Fiche d'enregistrement
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-excel text-emerald-600 mr-1.5 text-base"></i> XLS / PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- ITEM 3: FE02-PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono">FE02-PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    Programme annuel d'audit
+                                </div>
+                                <div class="text-xs text-slate-400">Planning et calendrier prévisionnel des audits</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+                                    Fiche d'enregistrement
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-pdf text-red-500 mr-1.5 text-base"></i> PDF
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- ITEM 4: FE03-PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono">FE03-PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    Suivi de réalisation du Programme annuel d'audit
+                                </div>
+                                <div class="text-xs text-slate-400">Tableau de suivi d'avancement des audits planifiés</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+                                    Fiche d'enregistrement
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-excel text-emerald-600 mr-1.5 text-base"></i> XLSX
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- ITEM 5: FE04-PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono">FE04-PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    Notification d'audit
+                                </div>
+                                <div class="text-xs text-slate-400">Formulaire d'avis officiel de réalisation d'audit</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+                                    Fiche d'enregistrement
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-word text-blue-600 mr-1.5 text-base"></i> DOCX
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- ITEM 6: FE05-PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono">FE05-PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    Rapport d'audit
+                                </div>
+                                <div class="text-xs text-slate-400">Modèle type pour la synthèse et les conclusions d'audit</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+                                    Fiche d'enregistrement
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-word text-blue-600 mr-1.5 text-base"></i> DOCX
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- ITEM 7: FE06-PQ05 -->
+                        <tr class="hover:bg-blue-50/40 transition-colors group">
+                            <td class="py-4 px-6 font-semibold text-cnstn-600 whitespace-nowrap">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono">FE06-PQ05</span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="font-medium text-slate-900 group-hover:text-cnstn-600 transition-colors">
+                                    Fiche écart
+                                </div>
+                                <div class="text-xs text-slate-400">Fiche de relevé d'écart et d'action corrective</div>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">
+                                    Fiche d'enregistrement
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 whitespace-nowrap">
+                                <span class="inline-flex items-center text-xs text-slate-500">
+                                    <i class="fa-solid fa-file-word text-blue-600 mr-1.5 text-base"></i> DOCX
+                                </span>
+                            </td>
+                            <td class="py-4 px-6 text-right whitespace-nowrap space-x-2">
+                                <button class="px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-cnstn-500 hover:text-white transition-all duration-150 inline-flex items-center space-x-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span>Consulter</span>
+                                </button>
+                                <button class="p-1.5 text-slate-400 hover:text-cnstn-600 transition-colors" title="Télécharger">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PIED DU TABLEAU / PAGINATION SIMPLE -->
+            <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                <span>Affichage de 7 sur 7 documents</span>
+                <span class="inline-flex items-center gap-1 font-medium text-slate-600">
+                    <i class="fa-solid fa-lock text-slate-400 text-[10px]"></i> Accès réservé au personnel du CNSTN
+                </span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- PIED DE PAGE / FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-7 h-7 rounded-md bg-slate-800 flex items-center justify-center text-cnstn-500 font-bold">
+                    C
+                </div>
+                <span>© 2026 Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.</span>
+            </div>
+            <div class="flex space-x-6 text-slate-400">
+                <a href="#" class="hover:text-white transition-colors">Support Qualité</a>
+                <a href="#" class="hover:text-white transition-colors">Manuel Qualité</a>
+                <a href="#" class="hover:text-white transition-colors">Contact Administrateur</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

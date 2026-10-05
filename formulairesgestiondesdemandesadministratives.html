@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaires Administratifs - CNSTN</title>
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === REINITIALISATION ET STYLES DE BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d3b66;   /* Bleu institutionnel */
+            --secondary-color: #00a896; /* Vert/Bleu technologique */
+            --accent-color: #f4d35e;    /* Jaune accent */
+            --accent-red: #e63946;      /* Rouge PDF */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* === TOP BAR === */
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .user-info span {
+            margin-left: 15px;
+        }
+
+        .user-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        /* === HEADER === */
+        header {
+            background: linear-gradient(rgba(13, 59, 102, 0.85), rgba(0, 168, 150, 0.75)), 
+                        url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: var(--white);
+            padding: 45px 50px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-symbol {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            background-color: #082846;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            display: block;
+            color: var(--white);
+            padding: 15px 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li a i {
+            margin-right: 8px;
+        }
+
+        /* === MAIN CONTAINER === */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2.8fr 1.2fr;
+            gap: 30px;
+        }
+
+        .main-content h2, .sidebar h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 1.35rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ref-badge {
+            background-color: #edf2f7;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #cbd5e0;
+            font-weight: 600;
+        }
+
+        /* BARRE DE RECHERCHE */
+        .search-box {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 42px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 168, 150, 0.15);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        /* LISTE DES DOCUMENTS */
+        .doc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .doc-item {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        .doc-item:hover {
+            border-left-color: var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            transform: translateY(-1px);
+        }
+
+        .doc-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .doc-details i.pdf-icon {
+            font-size: 1.6rem;
+            color: var(--accent-red);
+        }
+
+        .doc-text-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        /* Support du texte en arabe */
+        .doc-title.rtl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+        }
+
+        .doc-title:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .doc-code {
+            font-size: 0.8rem;
+            color: #718096;
+            margin-top: 1px;
+            font-weight: 500;
+        }
+
+        .btn-download {
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-download:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .no-result {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #718096;
+            background: var(--white);
+            border-radius: 6px;
+        }
+
+        /* SIDEBAR */
+        .sidebar .widget {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .widget ul {
+            list-style: none;
+        }
+
+        .widget ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .widget ul li:last-child {
+            border-bottom: none;
+        }
+
+        .widget ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .widget ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .widget ul li i {
+            color: var(--secondary-color);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.88rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                flex-direction: column;
+            }
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .doc-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .btn-download {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre supérieure -->
+    <div class="top-bar">
+        <div><i class="fa-solid fa-building-columns"></i> Portail Intranet Officiel du CNSTN</div>
+        <div class="user-info">
+            <i class="fa-solid fa-user-circle"></i> Bienvenue, <strong>Dr. Ben Ali</strong>
+            <span>|</span>
+            <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- En-tête -->
+    <header>
+        <div class="header-container">
+            <div class="logo-symbol">
+                <i class="fa-solid fa-atom"></i>
+            </div>
+            <h1>Centre National des Sciences et Technologies Nucléaires</h1>
+            <p>Gestion Documentaire Intranet</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a></li>
+            <li><a href="#"><i class="fa-solid fa-microscope"></i> Unités de Recherche</a></li>
+            <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Radioprotection</a></li>
+            <li><a href="documents.html" class="active"><i class="fa-solid fa-folder-open"></i> Documents & Procédures</a></li>
+            <li><a href="#"><i class="fa-solid fa-users-gear"></i> Ressources Humaines</a></li>
+            <li><a href="#"><i class="fa-solid fa-headset"></i> Support IT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenu Principal -->
+    <div class="container">
+        
+        <!-- Liste des Formulaires Administratifs -->
+        <main class="main-content">
+            <h2>
+                <span><i class="fa-solid fa-file-signature"></i> Formulaires Administras</span>
+                <span class="ref-badge">P.DSC.002</span>
+            </h2>
+
+            <!-- Barre de recherche -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Rechercher une demande, une attestation, une fiche...">
+            </div>
+
+            <!-- Liste dynamique des documents -->
+            <div class="doc-list" id="docList">
+
+                <!-- Item 1 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3001.pdf" class="doc-title rtl">مطلب في القيام بتنقل دون انعكاس مالی</a>
+                            <span class="doc-code">Code: 3001/01/08</span>
+                        </div>
+                    </div>
+                    <a href="" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3002.pdf" class="doc-title rtl">مطلب في القيام بـمأمورية</a>
+                            <span class="doc-code">Code: 3002/01/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title rtl">مطلب عطلة</a>
+                            <span class="doc-code">Code: FE03-PQ23</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3004.pdf" class="doc-title rtl">ترخيص</a>
+                            <span class="doc-code">Code: 3004/01/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/Imp3008.pdf" class="doc-title rtl">إعلام بالرجوع الى العمل</a>
+                            <span class="doc-code">Code: 3005/01/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/autorisation_enseignement.pdf" class="doc-title rtl">مطلب للحصول على ترخيص للتدريس</a>
+                            <span class="doc-code">Code: FE06-PQ23</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 7 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3007.pdf" class="doc-title rtl">مطلب استخراج شهادة</a>
+                            <span class="doc-code">Code: FE07-PQ23</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 8 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title rtl">جدول إرسال</a>
+                            <span class="doc-code">Code: 3003/12/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 9 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3009.pdf" class="doc-title rtl">طلب تسبيقة على مصاريف القيام بـمأمورية</a>
+                            <span class="doc-code">Code: 3009/01/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 10 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Demande d'avance sur salaire</a>
+                            <span class="doc-code">Code: 3013</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 11 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Demande d'avance aid idha</a>
+                            <span class="doc-code">Code: 3013/02/10</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 12 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3011.pdf" class="doc-title rtl">طلب شهادة في إخلاء الذمة</a>
+                            <span class="doc-code">Code: 3011/05/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 13 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3012.pdf" class="doc-title rtl">شهادة في إخلاء الذمة</a>
+                            <span class="doc-code">Code: 3012/05/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 14 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="pdf/3013.pdf" class="doc-title rtl">إعلام بمباشرة العمل</a>
+                            <span class="doc-code">Code: 3013/06/08</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 15 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Note (lettre) en français</a>
+                            <span class="doc-code">Code: 3017/02/09</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 16 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Note (lettre) en arabe</a>
+                            <span class="doc-code">Code: 3018/02/09</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 17 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Page de garde du rapport de stage</a>
+                            <span class="doc-code">Formulaire Stage</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 18 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Dernière page du rapport de stage</a>
+                            <span class="doc-code">Formulaire Stage</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 19 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Attestation finale</a>
+                            <span class="doc-code">Formulaire Stage</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 20 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title">Attestation de stage</a>
+                            <span class="doc-code">Formulaire Stage</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 21 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title rtl">أنموذج لتقرير مهمة بالخارج</a>
+                            <span class="doc-code">Rapport de Mission</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 22 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title rtl">سجل المراقبة اليومية لعملية تنظيف قاعة الاجتماعات</a>
+                            <span class="doc-code">Suivi Entretien</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 23 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title rtl">سجل المراقبة اليومية لعملية تنظيف القاعة المتعددة الاختصاصات</a>
+                            <span class="doc-code">Suivi Entretien</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Item 24 -->
+                <div class="doc-item">
+                    <div class="doc-details">
+                        <i class="fa-regular fa-file-pdf pdf-icon"></i>
+                        <div class="doc-text-info">
+                            <a href="#" class="doc-title rtl">سجل المراقبة اليومية لعملية تنظيف مقر الحراسة</a>
+                            <span class="doc-code">Suivi Entretien</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-download"><i class="fa-solid fa-download"></i> Télécharger</a>
+                </div>
+
+                <!-- Message si aucun résultat trouvé -->
+                <div id="noResult" class="no-result">
+                    <i class="fa-solid fa-folder-open" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <p>Aucun document ne correspond à votre recherche.</p>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Barre Latérale (Sidebar) -->
+        <aside class="sidebar">
+            <div class="widget">
+                <h2>Procédures Administratives</h2>
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> P.DSC.001 - Gestion du Courrier</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> P.DSC.002 - Demandes Administratives</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> P.QUA.006 - Maîtrise de la Formation</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Gestion des Stages & Thèses</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h2>Assistance Intranet</h2>
+                <p style="font-size: 0.88rem; color: #555;">Besoin d'un formulaire spécifique ou d'une attestation particulière ? Veuillez contacter la Direction des Services Communs.</p>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Pied de Page -->
+    <footer>
+        <p>&copy; 2026 Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.</p>
+        <p><small>Portail Intranet Sécurisé — Système de Gestion Qualité</small></p>
+    </footer>
+
+    <!-- JS pour la Recherche Instantanée -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const docItems = document.querySelectorAll('.doc-item');
+            const noResult = document.getElementById('noResult');
+
+            searchInput.addEventListener('input', function() {
+                const filter = searchInput.value.toLowerCase().trim();
+                let matches = 0;
+
+                docItems.forEach(item => {
+                    const title = item.querySelector('.doc-title').textContent.toLowerCase();
+                    const code = item.querySelector('.doc-code').textContent.toLowerCase();
+
+                    if (title.includes(filter) || code.includes(filter)) {
+                        item.style.display = 'flex';
+                        matches++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                if (matches === 0 && filter !== '') {
+                    noResult.style.display = 'block';
+                } else {
+                    noResult.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

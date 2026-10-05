@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique Qualité - CNSTN Intranet</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d3b66;
+            --secondary-color: #00a896;
+            --accent-color: #f4d35e;
+            --bg-color: #f8f9fa;
+            --text-color: #1a252c;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Top Bar & Nav */
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .user-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        nav {
+            background-color: #082846;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            display: block;
+            color: var(--white);
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li a i {
+            margin-right: 8px;
+        }
+
+        /* Header / Banner Rubriques */
+        .hero-section {
+            background: linear-gradient(rgba(13, 59, 102, 0.8), rgba(8, 40, 70, 0.9)), 
+                        url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            padding: 50px 20px 0 20px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-title h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .hero-title p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .rubriques-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            align-items: end;
+        }
+
+        .rubrique-card {
+            background-color: var(--white);
+            border-radius: 120px 120px 0 0;
+            padding: 35px 12px 20px 12px;
+            text-decoration: none;
+            color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 210px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .rubrique-card.active-card, .rubrique-card:hover {
+            transform: translateY(-8px);
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .rubrique-card i {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+        }
+
+        .rubrique-card.active-card i, .rubrique-card:hover i {
+            color: var(--accent-color);
+        }
+
+        .rubrique-card span {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .rubrique-card .lang-ar {
+            font-size: 1.05rem;
+            direction: rtl;
+        }
+
+        /* Contenu Principal */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .mq-card-detail {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--secondary-color);
+            margin-bottom: 40px;
+        }
+
+        .mq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .mq-header-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .mq-header-title i {
+            font-size: 2.8rem;
+            color: #e74c3c;
+        }
+
+        .mq-header-title h2 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+        }
+
+        .mq-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #eef4f8;
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .btn-download-large {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-download-large:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Structure du document officiel */
+        .policy-section {
+            margin-bottom: 25px;
+        }
+
+        .policy-section h3 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eef0f2;
+            padding-bottom: 5px;
+        }
+
+        .policy-section p {
+            margin-bottom: 10px;
+            text-align: justify;
+            color: #2c3e50;
+        }
+
+        .policy-bullets {
+            list-style: none;
+            margin-left: 10px;
+        }
+
+        .policy-bullets li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+
+        .policy-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--secondary-color);
+        }
+
+        .signature-box {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #ddd;
+            display: flex;
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .signature-content {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border-right: 4px solid var(--primary-color);
+        }
+
+        .signature-content strong {
+            color: var(--primary-color);
+            font-size: 1.05rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .rubriques-container { grid-template-columns: repeat(3, 1fr); }
+            .rubrique-card { border-radius: 20px; min-height: 150px; }
+        }
+        @media (max-width: 600px) {
+            .rubriques-container { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div><i class="fa-solid fa-building-columns"></i> Centre National des Sciences et Technologies Nucléaires</div>
+        <div class="user-info">
+            <i class="fa-solid fa-user-circle"></i> Espace Collaborateur
+            <span>|</span>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Accueil Intranet</a>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a></li>
+            <li><a href="#"><i class="fa-solid fa-microscope"></i> Unités de Recherche</a></li>
+            <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Radioprotection</a></li>
+            <li><a href="#" class="active"><i class="fa-solid fa-folder-open"></i> Documents & Procédures</a></li>
+            <li><a href="#"><i class="fa-solid fa-users-gear"></i> RH</a></li>
+            <li><a href="#"><i class="fa-solid fa-headset"></i> Support IT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header avec les Rubriques -->
+    <section class="hero-section">
+        <div class="hero-title">
+            <h1>Documents & Procédures</h1>
+            <p>Système de Management Intégré (SMI)</p>
+        </div>
+
+        <div class="rubriques-container">
+            <a href="#" class="rubrique-card">
+                <i class="fa-solid fa-file-signature"></i>
+                <span>Procédures et formulaires organisationnels</span>
+            </a>
+
+            <a href="#" class="rubrique-card">
+                <i class="fa-solid fa-gears"></i>
+                <span>Procédures Techniques</span>
+            </a>
+
+            <a href="#" class="rubrique-card">
+                <i class="fa-solid fa-award"></i>
+                <span>Projet de certification du CNSTN</span>
+            </a>
+
+            <a href="manuel-qualite.html" class="rubrique-card">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <span>Manuel qualité</span>
+            </a>
+
+            <!-- Rubrique Sélectionnée : Politique Qualité -->
+            <a href="#PolitiqueQualité.pdf" class="rubrique-card active-card">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <span>Politique qualité</span>
+            </a>
+
+            <a href="#" class="rubrique-card">
+                <i class="fa-solid fa-briefcase"></i>
+                <span class="lang-ar">المهمات والتربصات المنجزة</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contenu de la Rubrique : Politique Qualité -->
+    <main class="main-container" id="politique-qualite">
+        <div class="mq-card-detail">
+            <div class="mq-header">
+                <div class="mq-header-title">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <div>
+                        <h2>Politique Qualité du CNSTN</h2>
+                        <div class="mq-badges">
+                            <span class="badge">Réf: Politique Qualité</span>
+                            <span class="badge">Date: 06/01/2026</span>
+                            <span class="badge">Révision: 02</span>
+                            <span class="badge">Page: 1/2 - 2/2</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Lien de téléchargement direct vers le PDF -->
+                <a href="politiquequalite.html" download class="btn-download-large">
+                    <i class="fa-solid fa-download"></i> Télécharger le PDF
+                </a>
+            </div>
+
+            <!-- Contenu Texte Officiel -->
+            <div class="policy-section">
+                <h3>1. Contexte et positionnement stratégique</h3>
+                <p>Dans un environnement institutionnel, scientifique et économique en constante évolution, le Centre National des Sciences et Technologies Nucléaires (CNSTN) interagit avec des partenaires nationaux et internationaux ainsi qu'avec des clients dont les exigences en matière de qualité, de fiabilité et de conformité réglementaire sont de plus en plus élevées.</p>
+                <p>A ce titre, le CNSTN a pour vocation d'agir en tant qu'organisme national de référence en matière de soutien scientifique et technologique pour le développement, la maîtrise et la promotion des applications nucléaires pacifiques, notamment au service des secteurs de l'agroalimentaire, de l'environnement, de la santé, de l'industrie et des autres domaines connexes.</p>
+            </div>
+
+            <div class="policy-section">
+                <h3>2. Engagement en matière de systèmes de management</h3>
+                <p>A cet effet, le CNSTN s'engage à établir, mettre en œuvre, maintenir et améliorer en continu un Système de Management Intégré, conforme aux exigences légales et réglementaires applicables ainsi qu'aux référentiels normatifs en vigueur.</p>
+                <p>Ce Système de Management Intégré est fondé notamment sur les normes <strong>ISO 9001</strong> (Certification institutionnelle du CNSTN), <strong>ISO 13485</strong> (Certification du laboratoire de Radio-Traitement unités Gamma, Bêta et dosimétrie), <strong>ISO 14001</strong> et <strong>ISO 45001</strong> (Management de l'environnement, de la santé et de la sécurité au travail), ainsi que sur la norme <strong>ISO/IEC 17025</strong> pour l'accréditation des prestations d'essais.</p>
+            </div>
+
+            <div class="policy-section">
+                <h3>3. Finalité des systèmes de management</h3>
+                <p>Ces systèmes constituent des outils structurants de gouvernance et de pilotage visant à garantir des conditions de travail sûres et saines, à préserver la santé et la sécurité du personnel, à protéger l'environnement, et à assurer la fiabilité, la traçabilité et la validité des résultats d'essais, de traitements et des prestations fournies.</p>
+            </div>
+
+            <div class="policy-section">
+                <h3>4. Engagements stratégiques</h3>
+                <p>La mise en œuvre de la stratégie du CNSTN et l'atteinte de ses objectifs s'inscrivent dans le respect des engagements suivants :</p>
+                <ul class="policy-bullets">
+                    <li>Promouvoir et développer les applications nucléaires pacifiques dans le strict respect des exigences de sûreté nucléaire, de sécurité radiologique et de radioprotection.</li>
+                    <li>Identifier, analyser et satisfaire les besoins et attentes des clients ainsi que des parties intéressées pertinentes.</li>
+                    <li>Fournir des prestations conformes, fiables et de qualité, et améliorer en continu la satisfaction des clients.</li>
+                    <li>Respecter l'ensemble des exigences légales, réglementaires, contractuelles et autres obligations de conformité applicables aux activités du CNSTN.</li>
+                    <li>Garantir l'exactitude, la fiabilité et la comparabilité des résultats d'analyses et d'essais, notamment par la participation régulière à des essais inter-laboratoires et à des programmes d'évaluation externe.</li>
+                    <li>Assurer la confidentialité des informations et des données, préserver l'impartialité, l'indépendance et la cohérence des activités de laboratoire.</li>
+                    <li>Mettre à disposition les ressources humaines, techniques, financières et organisationnelles nécessaires au bon fonctionnement des laboratoires, tout en garantissant la sûreté nucléaire et la radioprotection au sein des installations du CNSTN.</li>
+                    <li>Eliminer les dangers et réduire les risques professionnels en matière de santé et de sécurité au travail.</li>
+                    <li>Prévenir les pollutions, maîtriser les impacts environnementaux et contribuer à la protection de l'environnement.</li>
+                    <li>Développer les compétences, assurer la formation continue et maintenir la qualification du personnel.</li>
+                    <li>Assurer une communication interne et externe appropriée afin de garantir l'efficacité du Système de Management Intégré.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h3>5. Déploiement et responsabilité</h3>
+                <p>Ces engagements se traduisent par des objectifs mesurables, établis, déployés, suivis et revus périodiquement dans le cadre du Système de Management Intégré.</p>
+                <p>La mise en œuvre et l'efficacité de la présente Politique Qualité reposent sur l'implication, l'adhésion et la responsabilité de l'ensemble du personnel du CNSTN.</p>
+                <p>A cet effet, la Direction Générale s'engage à fournir les ressources nécessaires à la réalisation et à l'amélioration continue du système.</p>
+            </div>
+
+            <!-- Bloc Signature -->
+            <div class="signature-box">
+                <div class="signature-content">
+                    <strong>Pr. Dr. Ir. Haïtham SGHAIER</strong>
+                    <span>Directeur Général du Centre National des Sciences et Technologies Nucléaires</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

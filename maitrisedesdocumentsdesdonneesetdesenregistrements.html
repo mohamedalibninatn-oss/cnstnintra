@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMQ - Maîtrise des Documents</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0c3a57',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars for professional desktop UI feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 antialiased font-sans">
+    <div class="flex h-screen overflow-hidden bg-slate-100">
+
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0 z-20 shadow-xl transition-all duration-300">
+            <!-- Brand / Header -->
+            <div class="h-16 flex items-center px-6 bg-slate-950/50 border-b border-slate-800/80 justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg shadow-sky-500/30">
+                        Q
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-white text-base leading-none tracking-tight">QualiDoc ISO</h1>
+                        <span class="text-[10px] text-sky-400 font-medium tracking-wider uppercase">Système MQ 9001</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
+                <div class="px-3 pb-2 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                    Gestion Documentaire
+                </div>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-sky-600 text-white font-medium shadow-md shadow-sky-600/20 transition-all">
+                    <i class="fa-solid fa-folder-tree w-5 text-center"></i>
+                    <span>Maîtrise des documents</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/70 text-slate-400 hover:text-slate-200 transition-all">
+                    <i class="fa-solid fa-file-signature w-5 text-center"></i>
+                    <span>Enregistrements</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/70 text-slate-400 hover:text-slate-200 transition-all">
+                    <i class="fa-solid fa-rotate-left w-5 text-center"></i>
+                    <span>Demandes de modification</span>
+                    <span class="ml-auto bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full border border-amber-500/30 font-semibold">2</span>
+                </a>
+
+                <div class="pt-6 px-3 pb-2 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                    Conformité & Veille
+                </div>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/70 text-slate-400 hover:text-slate-200 transition-all">
+                    <i class="fa-solid fa-[#0284c7] fa-scale-balanced w-5 text-center"></i>
+                    <span>Veille Réglementaire</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-slate-800/70 text-slate-400 hover:text-slate-200 transition-all">
+                    <i class="fa-solid fa-clipboard-check w-5 text-center"></i>
+                    <span>Audits & Revues</span>
+                </a>
+            </nav>
+
+            <!-- User Profile / Footer -->
+            <div class="p-4 border-t border-slate-800 bg-slate-950/30">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-slate-200 text-sm font-semibold border border-slate-600">
+                        RM
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-slate-200 truncate">Resp. Qualité</p>
+                        <p class="text-xs text-slate-500 truncate">qualite@entreprise.com</p>
+                    </div>
+                    <button title="Déconnexion" class="text-slate-400 hover:text-white p-1 rounded">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navbar -->
+            <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between z-10 shadow-sm">
+                <!-- Search input -->
+                <div class="flex items-center w-96 relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-slate-400 text-sm"></i>
+                    <input id="searchInput" type="text" placeholder="Rechercher un code, un titre ou un mot-clé..." 
+                           class="w-full pl-9 pr-4 py-2 bg-slate-100 hover:bg-slate-50 focus:bg-white text-sm text-slate-700 border border-slate-200 focus:border-sky-500 rounded-lg outline-none transition-all placeholder:text-slate-400">
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center space-x-4">
+                    <button class="flex items-center space-x-2 text-xs font-semibold bg-sky-50 text-sky-700 hover:bg-sky-100 px-3 py-2 rounded-lg border border-sky-200 transition">
+                        <i class="fa-solid fa-plus text-sky-600"></i>
+                        <span>Nouveau Document</span>
+                    </button>
+                    <div class="h-6 w-px bg-slate-200"></div>
+                    <button class="relative text-slate-500 hover:text-slate-700 p-2 rounded-lg hover:bg-slate-100 transition">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+                    </button>
+                </div>
+            </header>
+
+            <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+                <!-- Breadcrumbs & Title -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <div class="flex items-center space-x-2 text-xs font-medium text-slate-500 mb-1">
+                            <span>Manuel Qualité</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <span>Procédures</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            <span class="text-sky-600">PQ01</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Maîtrise des Documents et des Enregistrements</h2>
+                        <p class="text-slate-500 text-sm mt-0.5">Procédure générale ISO 9001 - Code procédure : <span class="font-semibold text-slate-700">PQ01</span></p>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="flex items-center space-x-3">
+                        <button onclick="exportToCSV()" class="flex items-center space-x-2 bg-white text-slate-700 hover:bg-slate-50 px-3.5 py-2 rounded-lg border border-slate-300 text-sm font-medium shadow-sm transition">
+                            <i class="fa-solid fa-file-export text-slate-500"></i>
+                            <span>Exporter (.CSV)</span>
+                        </button>
+                        <button class="flex items-center space-x-2 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-md shadow-slate-900/10 transition">
+                            <i class="fa-solid fa-print"></i>
+                            <span>Imprimer Liste</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Documents</p>
+                            <p id="statTotal" class="text-2xl font-bold text-slate-900 mt-1">13</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600">
+                            <i class="fa-solid fa-files text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Statut Validé</p>
+                            <p id="statActive" class="text-2xl font-bold text-emerald-600 mt-1">11</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                            <i class="fa-solid fa-circle-check text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">En Révision</p>
+                            <p id="statReview" class="text-2xl font-bold text-amber-600 mt-1">2</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600">
+                            <i class="fa-solid fa-clock-rotate-left text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Prochaine Revue</p>
+                            <p class="text-base font-bold text-slate-800 mt-1">15 Oct. 2026</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600">
+                            <i class="fa-regular fa-calendar-check text-lg"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm mb-6">
+                    <div class="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100">
+                        <!-- Category Tabs / Filter Buttons -->
+                        <div class="flex items-center space-x-1 overflow-x-auto pb-1 md:pb-0">
+                            <button onclick="filterCategory('ALL')" class="cat-btn bg-slate-900 text-white px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition">
+                                Tous (13)
+                            </button>
+                            <button onclick="filterCategory('PROCEDURE')" class="cat-btn text-slate-600 hover:bg-slate-100 px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition">
+                                Procédures
+                            </button>
+                            <button onclick="filterCategory('ANNEXE')" class="cat-btn text-slate-600 hover:bg-slate-100 px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition">
+                                Annexes
+                            </button>
+                            <button onclick="filterCategory('FORMULAIRE')" class="cat-btn text-slate-600 hover:bg-slate-100 px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition">
+                                Formulaires (FE)
+                            </button>
+                        </div>
+
+                        <!-- Right View Toggles -->
+                        <div class="flex items-center space-x-2 self-end md:self-auto">
+                            <span class="text-xs text-slate-400 font-medium mr-1">Affichage:</span>
+                            <button id="viewListBtn" onclick="switchView('list')" class="p-1.5 rounded bg-slate-200 text-slate-800 transition" title="Vue Liste">
+                                <i class="fa-solid fa-list-ul text-sm"></i>
+                            </button>
+                            <button id="viewGridBtn" onclick="switchView('grid')" class="p-1.5 rounded text-slate-400 hover:text-slate-800 transition" title="Vue Grille">
+                                <i class="fa-solid fa-border-all text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table View -->
+                    <div id="listView" class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50/70 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                                    <th class="py-3 px-4">Code / Ref</th>
+                                    <th class="py-3 px-4">Intitulé du Document</th>
+                                    <th class="py-3 px-4">Type</th>
+                                    <th class="py-3 px-4">Version</th>
+                                    <th class="py-3 px-4">Statut</th>
+                                    <th class="py-3 px-4">Dernière Modif.</th>
+                                    <th class="py-3 px-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="documentTableBody" class="divide-y divide-slate-100 text-sm">
+                                <!-- JS items render here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Grid View (Hidden by default) -->
+                    <div id="gridView" class="hidden p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- JS grid items render here -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="docModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden transition-opacity">
+        <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+            <!-- Modal Header -->
+            <div class="bg-slate-900 text-white p-6 flex justify-between items-start">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span id="modalCode" class="bg-sky-500/20 text-sky-300 font-mono text-xs px-2 py-0.5 rounded border border-sky-400/30 font-semibold">
+                            FE01-PQ1
+                        </span>
+                        <span id="modalType" class="text-slate-400 text-xs">Formulaire</span>
+                    </div>
+                    <h3 id="modalTitle" class="text-xl font-bold mt-2 leading-snug">Liste des documents internes</h3>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 space-y-6">
+                <!-- Metadata Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Statut Actuel</p>
+                        <span id="modalStatus" class="inline-flex items-center mt-1 text-xs font-semibold text-emerald-700 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
+                            Validé
+                        </span>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Version</p>
+                        <p id="modalVersion" class="text-sm font-semibold text-slate-700 mt-1">v3.0</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Responsable</p>
+                        <p id="modalOwner" class="text-sm font-semibold text-slate-700 mt-1">Resp. Qualité</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Date d'effet</p>
+                        <p id="modalDate" class="text-sm font-semibold text-slate-700 mt-1">12/01/2026</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Emplacement</p>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">Serveur GED / SMQ</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Format</p>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">PDF / XLSX</p>
+                    </div>
+                </div>
+
+                <!-- Description / Purpose -->
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Objet du Document</h4>
+                    <p id="modalDesc" class="text-sm text-slate-600 leading-relaxed bg-slate-50/50 p-3 rounded-lg border border-slate-100">
+                        Ce document définit le modèle et le format standard d'enregistrement pour le contrôle documentaire au sein de l'organisation conformément à la procédure générale PQ01.
+                    </p>
+                </div>
+
+                <!-- Document Actions -->
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <span class="text-xs text-slate-400"><i class="fa-solid fa-shield-halved text-emerald-500 mr-1"></i> Conforme ISO 9001:2015</span>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="simulatedDownload()" class="flex items-center space-x-2 bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-md shadow-sky-600/20 transition">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Télécharger PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Full Document Dataset corresponding to ISO 9001 - Document Control
+        const documents = [
+            {
+                code: "PQ01",
+                title: "Procédures Maîtrise des Documents et des Enregistrements",
+                type: "PROCEDURE",
+                typeName: "Procédure Générale",
+                version: "v4.0",
+                status: "Validé",
+                date: "2026-01-10",
+                owner: "Resp. MQ",
+                desc: "Procédure-cadre régissant l'élaboration, la vérification, l'approbation, la diffusion et l'archivage de l'ensemble des documents du Système de Management de la Qualité."
+            },
+            {
+                code: "Annexe 1",
+                title: "Page de garde",
+                type: "ANNEXE",
+                typeName: "Annexe / Modèle",
+                version: "v2.1",
+                status: "Validé",
+                date: "2025-11-15",
+                owner: "Assistant SMQ",
+                desc: "Trame normalisée pour la page de garde des procédures, consignes et manuels de l'entreprise."
+            },
+            {
+                code: "Annexe 2",
+                title: "Page standard",
+                type: "ANNEXE",
+                typeName: "Annexe / Modèle",
+                version: "v2.0",
+                status: "Validé",
+                date: "2025-11-15",
+                owner: "Assistant SMQ",
+                desc: "Format type pour les pages internes incluant le cartouche d'en-tête, la numérotation et le bas de page."
+            },
+            {
+                code: "Annexe 3",
+                title: "Page de garde du MQ",
+                type: "ANNEXE",
+                typeName: "Annexe / Modèle",
+                version: "v3.0",
+                status: "Validé",
+                date: "2026-02-01",
+                owner: "Resp. MQ",
+                desc: "Page de garde spécifique au Manuel Qualité officiel destiné aux organismes de certification et clients."
+            },
+            {
+                code: "FE01-PQ1",
+                title: "Liste des documents internes",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Registre",
+                version: "v5.2",
+                status: "Validé",
+                date: "2026-03-01",
+                owner: "Resp. MQ",
+                desc: "Registre central exhaustif répertoriant tous les documents internes applicables, leur version active et leur statut."
+            },
+            {
+                code: "FE02-PQ1",
+                title: "Liste de diffusion et retrait",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Enregistrement",
+                version: "v2.0",
+                status: "Validé",
+                date: "2025-09-20",
+                owner: "Assistante Qualité",
+                desc: "Formulaire de traçabilité assurant que les versions périmées sont retirées et que les nouvelles versions sont bien diffusées."
+            },
+            {
+                code: "FE03-PQ1",
+                title: "Planning de la revue documentaire",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Planning",
+                version: "v1.4",
+                status: "En révision",
+                date: "2026-02-18",
+                owner: "Resp. MQ",
+                desc: "Calendrier annuel de révision et de vérification périodique des procédures et enregistrements du SMQ."
+            },
+            {
+                code: "FE04-PQ1",
+                title: "Demande de modification d’un document",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Fiche",
+                version: "v3.1",
+                status: "Validé",
+                date: "2026-01-25",
+                owner: "Tous pilotes",
+                desc: "Fiche d'expression du besoin de création, modification ou annulation d'un document qualité."
+            },
+            {
+                code: "FE05-PQ1",
+                title: "Liste des documents externes",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Registre",
+                version: "v2.2",
+                status: "Validé",
+                date: "2025-12-10",
+                owner: "Resp. Documentation",
+                desc: "Répertoire des documents d'origine externe nécessaires à la réalisation des activités (normes, notices techniques, directives)."
+            },
+            {
+                code: "FE06-PQ1",
+                title: "Veille normative",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Suivi",
+                version: "v1.2",
+                status: "Validé",
+                date: "2026-02-05",
+                owner: "Ingénieur QHSE",
+                desc: "Tableau d'analyse de l'évolution des normes applicables ISO 9001, 14001, 45001 et leur impact."
+            },
+            {
+                code: "FE07-PQ1",
+                title: "Formulaire pour analyse de conformité de la norme",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Auto-évaluation",
+                version: "v2.0",
+                status: "En révision",
+                date: "2026-03-10",
+                owner: "Auditeur Interne",
+                desc: "Grille d'évaluation écart par écart pour vérifier la conformité du système vis-à-vis des exigences normatives."
+            },
+            {
+                code: "FE08-PQ1",
+                title: "Texte réglementaire veille réglementaire",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Registre",
+                version: "v1.0",
+                status: "Validé",
+                date: "2025-08-30",
+                owner: "Juriste / QHSE",
+                desc: "Fiche d'évaluation de la conformité légale et réglementaire applicable au domaine d'activité de l'entreprise."
+            },
+            {
+                code: "FE09-PQ1",
+                title: "Liste des signatures et paraphes",
+                type: "FORMULAIRE",
+                typeName: "Formulaire / Registre",
+                version: "v1.1",
+                status: "Validé",
+                date: "2025-07-14",
+                owner: "RH / Qualité",
+                desc: "Document d'identification officielle des signatures et habilitations de validation documentaire du personnel."
+            }
+        ];
+
+        let currentCategory = 'ALL';
+        let searchQuery = '';
+        let currentView = 'list';
+
+        // Initialize display
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDocuments();
+
+            // Search Filter listener
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                renderDocuments();
+            });
+        });
+
+        // Filter Function
+        function filterCategory(cat) {
+            currentCategory = cat;
+            
+            // Update Tab active styling
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn text-slate-600 hover:bg-slate-100 px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition";
+            });
+            event.target.className = "cat-btn bg-slate-900 text-white px-3.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition";
+
+            renderDocuments();
+        }
+
+        // View Switcher Function
+        function switchView(view) {
+            currentView = view;
+            const listView = document.getElementById('listView');
+            const gridView = document.getElementById('gridView');
+            const listBtn = document.getElementById('viewListBtn');
+            const gridBtn = document.getElementById('viewGridBtn');
+
+            if (view === 'list') {
+                listView.classList.remove('hidden');
+                gridView.classList.add('hidden');
+                listBtn.className = "p-1.5 rounded bg-slate-200 text-slate-800 transition";
+                gridBtn.className = "p-1.5 rounded text-slate-400 hover:text-slate-800 transition";
+            } else {
+                listView.classList.add('hidden');
+                gridView.classList.remove('hidden');
+                gridBtn.className = "p-1.5 rounded bg-slate-200 text-slate-800 transition";
+                listBtn.className = "p-1.5 rounded text-slate-400 hover:text-slate-800 transition";
+            }
+        }
+
+        // Filter Data Helper
+        function getFilteredData() {
+            return documents.filter(doc => {
+                const matchesCat = currentCategory === 'ALL' || doc.type === currentCategory;
+                const matchesSearch = doc.title.toLowerCase().includes(searchQuery) || 
+                                     doc.code.toLowerCase().includes(searchQuery) ||
+                                     doc.owner.toLowerCase().includes(searchQuery);
+                return matchesCat && matchesSearch;
+            });
+        }
+
+        // Main Render Function
+        function renderDocuments() {
+            const data = getFilteredData();
+            const tbody = document.getElementById('documentTableBody');
+            const grid = document.getElementById('gridView');
+
+            tbody.innerHTML = '';
+            grid.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400 italic">Aucun document ne correspond à la recherche.</td></tr>`;
+                grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-400 italic">Aucun document ne correspond à la recherche.</div>`;
+                return;
+            }
+
+            data.forEach((doc, idx) => {
+                // Determine Badge styling based on document status
+                const statusBadge = doc.status === 'Validé' 
+                    ? `<span class="inline-flex items-center text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-circle-check text-[10px] mr-1"></i> Validé</span>`
+                    : `<span class="inline-flex items-center text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-clock-rotate-left text-[10px] mr-1"></i> En Révision</span>`;
+
+                // Icon based on type
+                let typeIcon = "fa-file-lines text-sky-500";
+                if (doc.type === "PROCEDURE") typeIcon = "fa-book text-indigo-500";
+                if (doc.type === "ANNEXE") typeIcon = "fa-paperclip text-slate-500";
+                if (doc.type === "FORMULAIRE") typeIcon = "fa-file-signature text-sky-600";
+
+                // Render Table Row
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 transition group";
+                tr.innerHTML = `
+                    <td class="py-3.5 px-4 font-mono font-semibold text-slate-900 text-xs">
+                        ${doc.code}
+                    </td>
+                    <td class="py-3.5 px-4">
+                        <button onclick="openModal(${documents.indexOf(doc)})" class="font-medium text-slate-800 hover:text-sky-600 text-left transition group-hover:underline">
+                            ${doc.title}
+                        </button>
+                    </td>
+                    <td class="py-3.5 px-4 text-xs text-slate-500 flex items-center space-x-2">
+                        <i class="fa-solid ${typeIcon}"></i>
+                        <span>${doc.typeName}</span>
+                    </td>
+                    <td class="py-3.5 px-4 font-mono text-xs text-slate-600 font-medium">
+                        ${doc.version}
+                    </td>
+                    <td class="py-3.5 px-4">
+                        ${statusBadge}
+                    </td>
+                    <td class="py-3.5 px-4 text-xs text-slate-500">
+                        ${doc.date}
+                    </td>
+                    <td class="py-3.5 px-4 text-right">
+                        <div class="flex items-center justify-end space-x-2">
+                            <button onclick="openModal(${documents.indexOf(doc)})" title="Aperçu" class="p-1.5 text-slate-400 hover:text-sky-600 hover:bg-sky-50 rounded transition">
+                                <i class="fa-regular fa-eye text-sm"></i>
+                            </button>
+                            <button onclick="simulatedDownload('${doc.code}')" title="Télécharger" class="p-1.5 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded transition">
+                                <i class="fa-solid fa-download text-sm"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+
+                // Render Grid Card
+                const card = document.createElement('div');
+                card.className = "bg-slate-50/50 hover:bg-white border border-slate-200 hover:border-sky-300 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono text-xs font-bold bg-slate-200/70 text-slate-700 px-2 py-0.5 rounded">
+                                ${doc.code}
+                            </span>
+                            ${statusBadge}
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base hover:text-sky-600 cursor-pointer mb-2 transition" onclick="openModal(${documents.indexOf(doc)})">
+                            ${doc.title}
+                        </h4>
+                        <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
+                            ${doc.desc}
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                        <span class="font-mono text-slate-600 font-semibold">${doc.version}</span>
+                        <span>Dernière maj: ${doc.date}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Modal Functions
+        function openModal(index) {
+            const doc = documents[index];
+            document.getElementById('modalCode').innerText = doc.code;
+            document.getElementById('modalType').innerText = doc.typeName;
+            document.getElementById('modalTitle').innerText = doc.title;
+            document.getElementById('modalVersion').innerText = doc.version;
+            document.getElementById('modalOwner').innerText = doc.owner;
+            document.getElementById('modalDate').innerText = doc.date;
+            document.getElementById('modalDesc').innerText = doc.desc;
+
+            const modalStatus = document.getElementById('modalStatus');
+            if (doc.status === 'Validé') {
+                modalStatus.className = "inline-flex items-center mt-1 text-xs font-semibold text-emerald-700 bg-emerald-100/80 px-2.5 py-0.5 rounded-full";
+                modalStatus.innerText = "Validé";
+            } else {
+                modalStatus.className = "inline-flex items-center mt-1 text-xs font-semibold text-amber-700 bg-amber-100/80 px-2.5 py-0.5 rounded-full";
+                modalStatus.innerText = "En révision";
+            }
+
+            document.getElementById('docModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('docModal').classList.add('hidden');
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('docModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Export Function
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,Code,Intitule,Type,Version,Statut,Date\n";
+            documents.forEach(doc => {
+                csvContent += `"${doc.code}","${doc.title}","${doc.typeName}","${doc.version}","${doc.status}","${doc.date}"\n`;
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Registre_Documents_PQ01.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function simulatedDownload(code) {
+            const targetCode = code || document.getElementById('modalCode').innerText;
+            alert(`[Téléchargement] Le document ${targetCode}.pdf a été généré et téléchargé.`);
+        }
+    </script>
+</body>
+</html>

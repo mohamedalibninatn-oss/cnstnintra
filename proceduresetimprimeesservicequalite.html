@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procédures et Imprimés Service Qualité : SMQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-accent: #2563eb;
+            --bg-body: #f1f5f9;
+            --card-bg: #ffffff;
+            --border-color: #cbd5e1;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --badge-proc: #dbeafe;
+            --badge-proc-text: #1e40af;
+            --badge-doc: #fef3c7;
+            --badge-doc-text: #92400e;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        header {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .tag-smq {
+            background-color: #0284c7;
+            color: #ffffff;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            transition: all 0.25s ease-in-out;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-accent);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .code-badge {
+            font-family: monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--primary);
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .type-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .type-procedure {
+            background-color: var(--badge-proc);
+            color: var(--badge-proc-text);
+        }
+
+        .type-form {
+            background-color: var(--badge-doc);
+            color: var(--badge-doc-text);
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        .card:hover .card-title {
+            color: var(--primary-accent);
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 0.8rem;
+            color: var(--primary-accent);
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Procédures et Imprimées Service Qualité</h1>
+        <span class="tag-smq">SMQ</span>
+    </header>
+
+    <div class="grid-container">
+        <!-- Item 1 -->
+        <a href="maitrisedesdocumentsdesdonneesetdesenregistrements.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ01</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Maîtrise des documents, des données et des enregistrements</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 2 -->
+        <a href="formulairesgestiondesarchives.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">P.QUA.0002</span>
+                <span class="type-badge type-form">Formulaire</span>
+            </div>
+            <div class="card-title">Formulaires Gestion des archives</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 3 -->
+        <a href="traitementdesachats.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">P.QUA.003</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Traitement des achats</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 4 -->
+        <a href="actioncorrective.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ04</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Action corrective</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 5 -->
+        <a href="auditinterne.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ05</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Audit interne</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 6 -->
+        <a href="formulairemaitrisedelaformation.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">P.QUA.0006</span>
+                <span class="type-badge type-form">Formulaire</span>
+            </div>
+            <div class="card-title">Formulaire Maîtrise de la formation</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 7 -->
+        <a href="formulairestraitementdesanalysesetdesessais.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">P.QUA.0008</span>
+                <span class="type-badge type-form">Formulaire</span>
+            </div>
+            <div class="card-title">Formulaires Traitement des analyses et des essais</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 8 -->
+        <a href="traitementdesreclamationsclient.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ08</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Traitement des réclamations client</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 9 -->
+        <a href="protectiondel’informationetimpartialite.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ09</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Protection de l’information et impartialité</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 10 -->
+        <a href="formulaireevaluationdesfournisseurs.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">P.QUA.0011</span>
+                <span class="type-badge type-form">Formulaire</span>
+            </div>
+            <div class="card-title">Formulaire Évaluation des Fournisseurs</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 11 -->
+        <a href="#" class="card">
+            <div class="card-header">
+                <span class="code-badge">1072/09/08</span>
+                <span class="type-badge type-form">Document</span>
+            </div>
+            <div class="card-title">Page de garde rapport d’expertise.doc</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 12 -->
+        <a href="#" class="card">
+            <div class="card-header">
+                <span class="code-badge">1073/11/08</span>
+                <span class="type-badge type-form">Document</span>
+            </div>
+            <div class="card-title">Fiche de vie</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 13 -->
+        <a href="#" class="card">
+            <div class="card-header">
+                <span class="code-badge">STD-01</span>
+                <span class="type-badge type-form">Modèle</span>
+            </div>
+            <div class="card-title">Modèle standard de présentation</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 14 -->
+        <a href="#" class="card">
+            <div class="card-header">
+                <span class="code-badge">STD-02</span>
+                <span class="type-badge type-form">Modèle</span>
+            </div>
+            <div class="card-title">Modèle standard de présentation</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 15 -->
+        <a href="gestiondestravauxnonconforme.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ13</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Gestion des travaux non conforme</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 16 -->
+        <a href="revuedeladirection.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ14</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Revue de la direction</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 17 -->
+        <a href="satisfactionclient.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ15</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Satisfaction client</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 18 -->
+        <a href="elaborationdefichedeposteetdefichedefonction.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">P.QUA.016</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Élaboration de fiche de poste et de fiche de fonction</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+
+        <!-- Item 19 -->
+        <a href="actionpreventive.html" class="card">
+            <div class="card-header">
+                <span class="code-badge">PQ17</span>
+                <span class="type-badge type-procedure">Procédure</span>
+            </div>
+            <div class="card-title">Action préventive</div>
+            <div class="card-footer">Télécharger &rarr;</div>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

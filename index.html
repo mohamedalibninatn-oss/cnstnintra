@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet - Centre National des Sciences et Technologies Nucléaires</title>
+    <!-- Inclusion des icônes FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === REINITIALISATION ET STYLES DE BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d3b66;   /* Bleu profond institutionnel */
+            --secondary-color: #00a896; /* Vert/Bleu atomique/technologique */
+            --accent-color: #f4d35e;    /* Jaune/Or (clin d'œil à la radioactivité/énergie) */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* === BARRE SUPÉRIEURE (Top Bar) === */
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .user-info span {
+            margin-left: 15px;
+        }
+
+        .user-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        /* === HEADER AVEC IMAGE SYMBOLIQUE === */
+        header {
+            /* Image symbolique : Structure atomique / Recherche nucléaire */
+            background: linear-gradient(rgba(13, 59, 102, 0.8), rgba(0, 168, 150, 0.7)), 
+                        url('https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: var(--white);
+            padding: 60px 50px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-symbol {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            animation: spin 20s linear infinite;
+        }
+
+        /* Animation légère pour le symbole de l'atome */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            background-color: #082846;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            display: block;
+            color: var(--white);
+            padding: 15px 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: var(--secondary-color);
+        }
+
+        nav ul li a i {
+            margin-right: 8px;
+        }
+
+        /* === CONTENU PRINCIPAL === */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Section principale (Actualités & Raccourcis) */
+        .main-content h2, .sidebar h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Grille d'accès rapide */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .card-link {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eef0f2;
+        }
+
+        .card-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            color: var(--secondary-color);
+        }
+
+        .card-link i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .card-link span {
+            display: block;
+            font-weight: 600;
+        }
+
+        /* Section Nouveautés / Articles */
+        .news-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .news-item .date {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .news-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Sidebar (Barre latérale) */
+        .sidebar .widget {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .widget ul {
+            list-style: none;
+        }
+
+        .widget ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .widget ul li:last-child {
+            border-bottom: none;
+        }
+
+        .widget ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .widget ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .widget ul li i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* Badge Sécurité */
+        .security-status {
+            background-color: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .security-status h4 {
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+
+        /* === FOOTER === */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                flex-direction: column;
+            }
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre supérieure d'informations utilisateur -->
+    <div class="top-bar">
+        <div><i class="fa-solid fa-building-columns"></i> Portail Intranet Officiel du CNSTN</div>
+        <div class="user-info">
+            <i class="fa-solid fa-user-circle"></i> Bienvenue, <strong>Dr. Ben Ali</strong>
+            <span>|</span>
+            <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- En-tête (Header) avec Fond d'écran Symbolique -->
+    <header>
+        <div class="header-container">
+            <!-- Symbole de l'atome -->
+            <div class="logo-symbol">
+                <i class="fa-solid fa-atom"></i>
+            </div>
+            <h1>Centre National des Sciences et Technologies Nucléaires</h1>
+            <p>Espace de Travail Collaboratif & Gestion de la Recherche</p>
+        </div>
+    </header>
+
+    <!-- Barre de Navigation Principal -->
+    <nav>
+        <ul>
+            <li><a href="#" class="active"><i class="fa-solid fa-house"></i> Accueil</a></li>
+            <li><a href="#"><i class="fa-solid fa-microscope"></i> Réservation Labos</a></li>
+            <li><a href="#"><i class="fa-solid fa-shield-halved"></i> Radioprotection</a></li>
+            <li><a href="documents.html"><i class="fa-solid fa-folder-open"></i> Documents & Procédures</a></li>
+            <li><a href="#"><i class="fa-solid fa-users-gear"></i> Ressources Humaines</a></li>
+            <li><a href="#"><i class="fa-solid fa-headset"></i> Support IT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenu Principal -->
+    <div class="container">
+        
+        <!-- Colonne Principale -->
+        <main class="main-content">
+            <h2>Accès Rapides</h2>
+            <div class="quick-links">
+                <a href="réservationlabos.html" class="card-link">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Réservation Labos</span>
+                </a>
+                <a href="#" class="card-link">
+                    <i class="fa-solid fa-radiation"></i>
+                    <span>Registre Dosimétrie</span>
+                </a>
+                <a href="#" class="card-link">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span>Demande de Congés</span>
+                </a>
+                <a href="#" class="card-link">
+                    <i class="fa-solid fa-book-journal-whills"></i>
+                    <span>Bibliothèque Scientifique</span>
+                </a>
+            </div>
+
+            <h2>Actualités Internes</h2>
+            <article class="news-item">
+                <div class="date"><i class="fa-regular fa-calendar"></i> 24 Mai 2024</div>
+                <h3>Séminaire sur les Applications Médicales des Radio-isotopes</h3>
+                <p>Le département de médecine nucléaire organise une journée d'étude ce jeudi à l'amphithéâtre principal. La présence des chercheurs des unités A et B est vivement recommandée.</p>
+            </article>
+
+            <article class="news-item">
+                <div class="date"><i class="fa-regular fa-calendar"></i> 18 Mai 2024</div>
+                <h3>Mise à jour des protocoles de Sécurité & Radioprotection</h3>
+                <p>Les nouvelles directives concernant l'accès aux zones contrôlées ont été publiées. Veuillez consulter la section "Procédures" pour prendre connaissance du nouveau règlement.</p>
+            </article>
+        </main>
+
+        <!-- Barre Latérale (Sidebar) -->
+        <aside class="sidebar">
+            <!-- Widget Sécurité -->
+            <div class="security-status">
+                <h4><i class="fa-solid fa-circle-check"></i> Statut de Sécurité</h4>
+                <p><small>Niveau de vigilance : Normal</small></p>
+                <p><small>Dernier contrôle des installations : Aujourd'hui à 08:00</small></p>
+            </div>
+
+            <!-- Widget Liens Utiles -->
+            <div class="widget">
+                <h2>Ressources utiles</h2>
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-file-pdf"></i> Annuaire Interne (PDF)</a></li>
+                    <li><a href="#"><i class="fa-solid fa-link"></i> Portails AIEA (IAEA)</a></li>
+                    <li><a href="#"><i class="fa-solid fa-box-archive"></i> Archives des Rapports</a></li>
+                    <li><a href="#"><i class="fa-solid fa-envelope"></i> Webmail Institutionnel</a></li>
+                </ul>
+            </div>
+
+            <!-- Widget Événements -->
+            <div class="widget">
+                <h2>À Venir</h2>
+                <ul>
+                    <li><i class="fa-solid fa-clock"></i> <strong>28 Mai :</strong> Audit Qualité ISO 9001</li>
+                    <li><i class="fa-solid fa-clock"></i> <strong>05 Juin :</strong> Maintenance Réacteur d'Essai</li>
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Pied de Page (Footer) -->
+    <footer>
+        <p>&copy; 2024 Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.</p>
+        <p><small>Système d'Information Interne — Système sécurisé</small></p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimés Direction Générale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --warning-color: #d97706;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 10px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h1 span {
+            background-color: #e0e7ff;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background-color: #f1f5f9;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .document-list {
+            list-style: none;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .document-item:hover {
+            background-color: #f8fafc;
+        }
+
+        .doc-link {
+            text-decoration: none;
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .doc-link:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .doc-link.highlight {
+            color: var(--warning-color);
+        }
+
+        .code-badge {
+            font-family: monospace;
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .rtl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .document-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .document-item.rtl {
+                align-items: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Imprimés Direction Générale <span>DG</span></h1>
+    </header>
+
+    <!-- Section Secrétariat -->
+    <div class="section-card">
+        <div class="section-header">
+            📁 Secrétariat
+        </div>
+        <ul class="document-list">
+            <li class="document-item rtl">
+                <a href="#" class="doc-link">بطاقة ارشادات حول القيام بمهمة أو تربص بالخارج</a>
+            </li>
+            <li class="document-item rtl">
+                <a href="#" class="doc-link">قائمة في المهمات والتربصات المنجزة بالخارج خلال السنة التي تسبق المهمة او التربص المطلوب</a>
+            </li>
+            <li class="document-item rtl">
+                <a href="pdf/0501.pdf" class="doc-link">طلب حضور اجتماع بحضور المدير العام</a>
+                <span class="code-badge">0501/01/08</span>
+            </li>
+            <li class="document-item rtl">
+                <a href="#" class="doc-link">مذكرة عمل</a>
+                <span class="code-badge">0502/01/08</span>
+            </li>
+            <li class="document-item rtl">
+                <a href="" class="doc-link highlight">جدول الوثائق المرسلة إلى الإدارة العامة</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Section Bureau d'ordre -->
+    <div class="section-card">
+        <div class="section-header">
+            📬 Bureau d’ordre
+        </div>
+        <ul class="document-list">
+            <li class="document-item">
+                <a href="pdf/Traitement_du_courrie_ 0401.pdf" class="doc-link">Traitement du Courrier Urgent</a>
+                <span class="code-badge">0401/04/08</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

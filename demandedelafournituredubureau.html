@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Fournitures de bureau</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .code-font {
+            font-family: 'Courier Prime', monospace;
+        }
+
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 shadow-sm">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <!-- SVG Logo representing CNSTN Atomic Symbol -->
+                <div class="relative w-14 h-14 flex items-center justify-center">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <!-- Orbit 1 -->
+                        <ellipse cx="50" cy="50" rx="42" ry="14" fill="none" stroke="#1e3a8a" stroke-width="2.5" transform="rotate(-30 50 50)"/>
+                        <!-- Orbit 2 -->
+                        <ellipse cx="50" cy="50" rx="42" ry="14" fill="none" stroke="#1e3a8a" stroke-width="2.5" transform="rotate(30 50 50)"/>
+                        <!-- Orbit 3 -->
+                        <ellipse cx="50" cy="50" rx="42" ry="14" fill="none" stroke="#1e3a8a" stroke-width="2.5" transform="rotate(90 50 50)"/>
+                        <!-- Center Core -->
+                        <circle cx="50" cy="50" r="6" fill="#dc2626"/>
+                        <circle cx="43" cy="48" r="3" fill="#1e3a8a"/>
+                        <circle cx="55" cy="53" r="3" fill="#1e3a8a"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                        Intranet CNSTN
+                    </h1>
+                    <p class="text-xs text-slate-500">Centre National des Sciences et Technologies Nucléaires</p>
+                </div>
+            </div>
+            
+            <!-- User Status / Portal Badge -->
+            <div class="flex items-center gap-3 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200 text-xs text-slate-600">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Session Active: <strong>Agent CNSTN</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+
+        <!-- Title Section -->
+        <div>
+            <h2 class="text-3xl font-semibold text-slate-900 tracking-tight">
+                fournitures de bureau
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">Gestion des demandes et suivi du stock pour les services internes.</p>
+        </div>
+
+        <!-- Procedure & Document Table (Replica of snapshot with modern enhancements) -->
+        <div class="bg-white rounded-lg border border-slate-300 shadow-sm overflow-hidden">
+            <!-- Header Green Line -->
+            <div class="p-4 bg-white border-b border-slate-200">
+                <div class="flex items-center gap-2 font-mono text-base font-medium text-emerald-600 code-font">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <span>P.SEM.001 Procédure demande de la fourniture de bureau</span>
+                </div>
+            </div>
+
+            <!-- Documents List -->
+            <div class="divide-y divide-slate-200 text-sm">
+                <!-- Document Item 1: Demande -->
+                <div class="p-4 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-xs text-slate-500 font-semibold code-font">3501/10/08</span>
+                        <a href="pdf/Imp 3501- Demande de fourniture1.pdf" onclick="showTab('demande')" class="text-blue-600 hover:underline font-medium flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-pdf text-red-500"></i>
+                            Demande de founiture de bureau.pdf
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="showTab('demande')" class="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-md text-xs font-medium transition-colors border border-blue-200 flex items-center gap-1">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Remplir en ligne
+                        </button>
+                        <a href="#" onclick="alert('Téléchargement du fichier PDF modèle...')" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-md text-xs font-medium transition-colors border border-slate-200 flex items-center gap-1">
+                            <i class="fa-solid fa-download"></i>
+                            PDF
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Document Item 2: Fiche de suivi -->
+                <div class="p-4 hover:bg-slate-50 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-xs text-slate-500 font-semibold code-font">3502/10/08</span>
+                        <a href="pdf/Imp 3502- Fiche de suivi de stock1.pdf" onclick="showTab('stock')" class="text-blue-600 hover:underline font-medium flex items-center gap-1.5 border-b border-dotted border-blue-600">
+                            <i class="fa-solid fa-file-pdf text-red-500"></i>
+                            Fiche de suivi de stock .pdf
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="showTab('stock')" class="px-3 py-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-md text-xs font-medium transition-colors border border-emerald-200 flex items-center gap-1">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            Consulter / Mettre à jour
+                        </button>
+                        <a href="#" onclick="alert('Téléchargement du fichier PDF suivi de stock...')" class="px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-md text-xs font-medium transition-colors border border-slate-200 flex items-center gap-1">
+                            <i class="fa-solid fa-download"></i>
+                            PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Section: Forms & Stock Viewer -->
+        <div id="interactive-portal" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <!-- Tabs Navigation -->
+            <div class="flex border-b border-slate-200 bg-slate-50">
+                <button id="tab-btn-demande" onclick="showTab('demande')" class="flex-1 py-3.5 px-4 text-center font-medium text-sm border-b-2 border-blue-600 text-blue-600 bg-white transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Nouvelle Demande de Fourniture
+                </button>
+                <button id="tab-btn-stock" onclick="showTab('stock')" class="flex-1 py-3.5 px-4 text-center font-medium text-sm text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-warehouse"></i>
+                    Fiche de Suivi de Stock
+                </button>
+                <button id="tab-btn-historique" onclick="showTab('historique')" class="flex-1 py-3.5 px-4 text-center font-medium text-sm text-slate-600 hover:text-slate-900 border-b-2 border-transparent transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    Mes Demandes (<span id="request-count">2</span>)
+                </button>
+            </div>
+
+            <!-- Tab Content 1: Demande Form -->
+            <div id="tab-content-demande" class="p-6 space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-semibold text-slate-900">Formulaire de Demande de Fournitures (Ref: 3501/10/08)</h3>
+                    <p class="text-xs text-slate-500 mt-1">Remplissez les éléments requis pour soumettre votre demande au magasin central.</p>
+                </div>
+
+                <form id="office-supply-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                    <!-- Informational Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Nom & Prénom</label>
+                            <input type="text" id="req-name" required value="Sami Ben Ali" class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Département / Service</label>
+                            <select id="req-dept" required class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
+                                <option value="Sécurité & Sureté Nucléaire">Sécurité & Sureté Nucléaire</option>
+                                <option value="Informatique & Réseaux">Informatique & Réseaux</option>
+                                <option value="Ressources Humaines">Ressources Humaines</option>
+                                <option value="Finances & Comptabilité">Finances & Comptabilité</option>
+                                <option value="Laboratoires R&D">Laboratoires R&D</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Date de demande</label>
+                            <input type="date" id="req-date" required class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Items Table -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider">Liste des Articles Demandés</label>
+                        <div class="border border-slate-200 rounded-lg overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-xs uppercase text-slate-600 border-b border-slate-200">
+                                    <tr>
+                                        <th class="p-3 w-1/12">#</th>
+                                        <th class="p-3 w-5/12">Désignation de l'article</th>
+                                        <th class="p-3 w-3/12">Unité</th>
+                                        <th class="p-3 w-2/12">Quantité</th>
+                                        <th class="p-3 w-1/12 text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="items-tbody" class="divide-y divide-slate-200">
+                                    <!-- Row 1 -->
+                                    <tr class="item-row">
+                                        <td class="p-3 text-slate-400 text-center font-mono text-xs">1</td>
+                                        <td class="p-3">
+                                            <input type="text" placeholder="ex: Rame de papier A4 80g" required class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-sm focus:ring-1 focus:ring-blue-500">
+                                        </td>
+                                        <td class="p-3">
+                                            <select class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-sm bg-white">
+                                                <option>Paquet / Cartouche</option>
+                                                <option>Boîte</option>
+                                                <option>Unité</option>
+                                                <option>Rame</option>
+                                            </select>
+                                        </td>
+                                        <td class="p-3">
+                                            <input type="number" min="1" value="2" required class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-sm">
+                                        </td>
+                                        <td class="p-3 text-center">
+                                            <button type="button" onclick="removeRow(this)" class="text-slate-400 hover:text-red-500 transition-colors p-1">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" onclick="addItemRow()" class="mt-2 text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                            <i class="fa-solid fa-plus-circle"></i> Ajouter un autre article
+                        </button>
+                    </div>
+
+                    <!-- Urgency & Comments -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Niveau de Priorité</label>
+                            <div class="flex gap-4 items-center mt-2">
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input type="radio" name="priority" value="Normale" checked class="text-blue-600 focus:ring-blue-500">
+                                    <span>Normale</span>
+                                </label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input type="radio" name="priority" value="Urgente" class="text-red-600 focus:ring-red-500">
+                                    <span class="text-red-600 font-medium">Urgente</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Remarques / Motif</label>
+                            <textarea rows="2" placeholder="Précisez le besoin ou le projet..." class="w-full px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Actions -->
+                    <div class="pt-4 border-t border-slate-200 flex justify-end gap-3">
+                        <button type="reset" class="px-4 py-2 border border-slate-300 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                            Réinitialiser
+                        </button>
+                        <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm font-medium shadow-sm transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Soumettre la Demande
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Tab Content 2: Stock Tracker -->
+            <div id="tab-content-stock" class="p-6 space-y-6 hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-slate-900">Fiche de Suivi de Stock (Ref: 3502/10/08)</h3>
+                        <p class="text-xs text-slate-500 mt-1">État en temps réel des stocks de fournitures de bureau disponibles au magasin.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                            <input type="text" id="stock-search" onkeyup="filterStock()" placeholder="Rechercher un article..." class="pl-8 pr-3 py-1.5 border border-slate-300 rounded-md text-xs w-48 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                        <button onclick="refreshStock()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-md text-xs font-medium text-slate-700 transition-colors">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stock Table -->
+                <div class="border border-slate-200 rounded-lg overflow-x-auto">
+                    <table class="w-full text-left text-sm" id="stock-table">
+                        <thead class="bg-slate-50 text-xs uppercase text-slate-600 border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Code Article</th>
+                                <th class="p-3">Désignation</th>
+                                <th class="p-3">Catégorie</th>
+                                <th class="p-3">Qté en Stock</th>
+                                <th class="p-3">Seuil Alerte</th>
+                                <th class="p-3">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-3 font-mono text-xs text-slate-500">FOUR-A4-80</td>
+                                <td class="p-3 font-medium text-slate-800">Papier A4 80g (Rame de 500)</td>
+                                <td class="p-3 text-slate-500">Papeterie</td>
+                                <td class="p-3 font-semibold text-slate-900">145 rames</td>
+                                <td class="p-3 text-slate-500">20 rames</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium">Disponible</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-mono text-xs text-slate-500">FOUR-STY-BLU</td>
+                                <td class="p-3 font-medium text-slate-800">Stylo à bille Bleu (Boîte de 50)</td>
+                                <td class="p-3 text-slate-500">Écriture</td>
+                                <td class="p-3 font-semibold text-slate-900">12 boîtes</td>
+                                <td class="p-3 text-slate-500">15 boîtes</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-medium">Stock Bas</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-mono text-xs text-slate-500">FOUR-AGR-24</td>
+                                <td class="p-3 font-medium text-slate-800">Agrafes 24/6 (Boîte de 1000)</td>
+                                <td class="p-3 text-slate-500">Petites fournitures</td>
+                                <td class="p-3 font-semibold text-slate-900">35 boîtes</td>
+                                <td class="p-3 text-slate-500">10 boîtes</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium">Disponible</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-mono text-xs text-slate-500">FOUR-TON-HP83</td>
+                                <td class="p-3 font-medium text-slate-800">Toner HP LaserJet 83A Noir</td>
+                                <td class="p-3 text-slate-500">Consommables Imp.</td>
+                                <td class="p-3 font-semibold text-slate-900">0 unité</td>
+                                <td class="p-3 text-slate-500">3 unités</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 rounded-full bg-red-100 text-red-800 text-xs font-medium">Rupture</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-mono text-xs text-slate-500">FOUR-REG-30</td>
+                                <td class="p-3 font-medium text-slate-800">Règles transparentes 30cm</td>
+                                <td class="p-3 text-slate-500">Bureautique</td>
+                                <td class="p-3 font-semibold text-slate-900">48 unités</td>
+                                <td class="p-3 text-slate-500">10 unités</td>
+                                <td class="p-3">
+                                    <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-medium">Disponible</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: History -->
+            <div id="tab-content-historique" class="p-6 space-y-6 hidden">
+                <div class="border-b border-slate-100 pb-4">
+                    <h3 class="text-lg font-semibold text-slate-900">Historique de vos Demandes</h3>
+                    <p class="text-xs text-slate-500 mt-1">Suivez le statut de validation de vos demandes transmises au magasin.</p>
+                </div>
+
+                <div id="history-list" class="space-y-3">
+                    <!-- History Item 1 -->
+                    <div class="p-4 border border-slate-200 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-slate-300 transition-all">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-800 text-sm">Demande #REQ-2026-089</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">Approuvée</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Articles: 2x Rames A4, 1x Boîte Stylo Bleu</p>
+                            <p class="text-xs text-slate-400">Soumise le: 22/09/2026 à 10:15</p>
+                        </div>
+                        <button onclick="alert('Détails de la demande REQ-2026-089')" class="text-xs text-blue-600 font-medium hover:underline">
+                            Voir détails
+                        </button>
+                    </div>
+
+                    <!-- History Item 2 -->
+                    <div class="p-4 border border-slate-200 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-slate-300 transition-all">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-800 text-sm">Demande #REQ-2026-042</span>
+                                <span class="px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800">En attente magasinier</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Articles: 1x Toner HP LaserJet 83A</p>
+                            <p class="text-xs text-slate-400">Soumise le: 24/09/2026 à 08:30</p>
+                        </div>
+                        <button onclick="alert('Détails de la demande REQ-2026-042')" class="text-xs text-blue-600 font-medium hover:underline">
+                            Voir détails
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="mt-auto bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>© 2026 CNSTN - Centre National des Sciences et Technologies Nucléaires</p>
+            <p class="font-mono text-slate-400">Système Intranet SEM v2.4 | P.SEM.001</p>
+        </div>
+    </footer>
+
+    <!-- Logic & Interactivity -->
+    <script>
+        // Set default date to today
+        document.getElementById('req-date').valueAsDate = new Date();
+
+        // Switch Tabs Logic
+        function showTab(tabName) {
+            const tabs = ['demande', 'stock', 'historique'];
+            
+            tabs.forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                
+                if (t === tabName) {
+                    content.classList.remove('hidden');
+                    btn.classList.add('border-blue-600', 'text-blue-600', 'bg-white');
+                    btn.classList.remove('border-transparent', 'text-slate-600');
+                } else {
+                    content.classList.add('hidden');
+                    btn.classList.remove('border-blue-600', 'text-blue-600', 'bg-white');
+                    btn.classList.add('border-transparent', 'text-slate-600');
+                }
+            });
+        }
+
+        // Add New Item Row in Form
+        let rowCounter = 1;
+        function addItemRow() {
+            rowCounter++;
+            const tbody = document.getElementById('items-tbody');
+            const newRow = document.createElement('tr');
+            newRow.className = 'item-row';
+            newRow.innerHTML = `
+                <td class="p-3 text-slate-400 text-center font-mono text-xs">${rowCounter}</td>
+                <td class="p-3">
+                    <input type="text" placeholder="Désignation de l'article" required class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-sm focus:ring-1 focus:ring-blue-500">
+                </td>
+                <td class="p-3">
+                    <select class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-sm bg-white">
+                        <option>Unité</option>
+                        <option>Boîte</option>
+                        <option>Paquet / Cartouche</option>
+                        <option>Rame</option>
+                    </select>
+                </td>
+                <td class="p-3">
+                    <input type="number" min="1" value="1" required class="w-full px-2.5 py-1.5 border border-slate-300 rounded text-sm">
+                </td>
+                <td class="p-3 text-center">
+                    <button type="button" onclick="removeRow(this)" class="text-slate-400 hover:text-red-500 transition-colors p-1">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(newRow);
+            updateRowNumbers();
+        }
+
+        // Remove Item Row
+        function removeRow(btn) {
+            const tbody = document.getElementById('items-tbody');
+            if (tbody.children.length > 1) {
+                btn.closest('tr').remove();
+                updateRowNumbers();
+            } else {
+                alert('La demande doit contenir au moins un article.');
+            }
+        }
+
+        function updateRowNumbers() {
+            const rows = document.querySelectorAll('#items-tbody tr');
+            rows.forEach((row, index) => {
+                row.children[0].innerText = index + 1;
+            });
+            rowCounter = rows.length;
+        }
+
+        // Handle Form Submit
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const reqId = 'REQ-2026-' + Math.floor(100 + Math.random() * 900);
+            const dateStr = document.getElementById('req-date').value;
+            
+            // Construct notification item in history
+            const historyList = document.getElementById('history-list');
+            const newHistory = document.createElement('div');
+            newHistory.className = 'p-4 border border-blue-200 bg-blue-50/30 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 hover:border-blue-300 transition-all';
+            newHistory.innerHTML = `
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-slate-800 text-sm">Demande #${reqId}</span>
+                        <span class="px-2 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-800">Transmise</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Articles soumis pour validation administrative</p>
+                    <p class="text-xs text-slate-400">Soumise le: ${dateStr}</p>
+                </div>
+                <button onclick="alert('Détails de la demande ${reqId}')" class="text-xs text-blue-600 font-medium hover:underline">
+                    Voir détails
+                </button>
+            `;
+            
+            historyList.prepend(newHistory);
+            
+            // Increment counter
+            const countElem = document.getElementById('request-count');
+            countElem.innerText = parseInt(countElem.innerText) + 1;
+
+            // Reset Form and Switch Tab
+            document.getElementById('office-supply-form').reset();
+            document.getElementById('req-date').valueAsDate = new Date();
+            
+            alert(`Succès! Votre demande #${reqId} a été transmise au service gestionnaire.`);
+            showTab('historique');
+        }
+
+        // Filter Stock Table
+        function filterStock() {
+            const query = document.getElementById('stock-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#stock-table tbody tr');
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        function refreshStock() {
+            document.getElementById('stock-search').value = '';
+            filterStock();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Gestion de la Caisse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            blue: '#1E3A8A',
+                            lightBlue: '#3B82F6',
+                            green: '#15803D',
+                            accent: '#DC2626',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+        }
+        /* Custom scrollbar for table/modals */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-full font-sans text-slate-800 flex flex-col antialiased">
+
+    <header class="sticky top-0 z-40 w-full border-b border-slate-200 glass-header shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- CNSTN Logo & Brand -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3 cursor-pointer" onclick="location.reload()">
+                        <!-- Custom SVG CNSTN Atom Logo -->
+                        <div class="relative w-12 h-12 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-slate-800" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="50" cy="50" rx="42" ry="14" transform="rotate(-30 50 50)" stroke="#1E3A8A" stroke-width="2.5"/>
+                                <ellipse cx="50" cy="50" rx="42" ry="14" transform="rotate(30 50 50)" stroke="#1E3A8A" stroke-width="2.5"/>
+                                <ellipse cx="50" cy="50" rx="42" ry="14" transform="rotate(90 50 50)" stroke="#1E3A8A" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="7" fill="#DC2626"/>
+                                <circle cx="20" cy="33" r="3" fill="#1E3A8A"/>
+                                <circle cx="80" cy="67" r="3" fill="#1E3A8A"/>
+                            </svg>
+                            <span class="absolute -bottom-1 font-bold text-[10px] tracking-wider text-slate-900 uppercase">cnstn</span>
+                        </div>
+                        <div class="border-l border-slate-300 h-10 mx-2 hidden sm:block"></div>
+                        <div>
+                            <span class="text-2xl font-bold text-slate-900 tracking-tight">Intranet <span class="text-blue-900">CNSTN</span></span>
+                            <p class="text-xs text-slate-500 font-medium hidden sm:block">Centre National des Sciences et Technologies Nucléaires</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Header Actions -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Input -->
+                    <div class="relative hidden md:block w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input type="text" placeholder="Rechercher un document..." class="w-full pl-9 pr-4 py-2 bg-slate-100 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all">
+                    </div>
+
+                    <!-- Notification Button -->
+                    <button class="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="flex items-center space-x-3 pl-3 border-l border-slate-200">
+                        <div class="w-9 h-9 rounded-full bg-blue-900 text-white font-semibold flex items-center justify-center text-sm shadow-sm">
+                            AH
+                        </div>
+                        <div class="hidden lg:block text-left">
+                            <div class="text-sm font-semibold text-slate-800">A. Hamdaoui</div>
+                            <div class="text-xs text-slate-500">Service Financier</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Breadcrumb & Header Title Section -->
+        <div class="mb-8">
+            <nav class="flex text-xs font-medium text-slate-500 mb-3" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-2">
+                    <li><a href="#" class="hover:text-blue-900"><i class="fa-solid fa-house mr-1"></i> Accueil</a></li>
+                    <li><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i></li>
+                    <li><a href="#" class="hover:text-blue-900">Finances & Comptabilité</a></li>
+                    <li><i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i></li>
+                    <li class="text-slate-900 font-semibold">Gestion de la Caisse</li>
+                </ol>
+            </nav>
+            
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center space-x-3">
+                        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">caisse</h1>
+                        <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-semibold bg-green-100 text-green-800 border border-green-200">
+                            P.DSC.001
+                        </span>
+                    </div>
+                    <p class="text-slate-600 mt-1 font-medium text-sm sm:text-base">
+                        <span class="text-green-700 font-bold">P.DSC.001 Gestion de la Caisse</span> — Procédures, formulaires officiels et suivi des opérations.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="openModal('newRequestModal')" class="inline-flex items-center justify-center px-4 py-2.5 border border-transparent rounded-lg text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900 shadow-sm transition-all">
+                        <i class="fa-solid fa-plus mr-2 text-xs"></i> Nouvelle Demande
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Stat Card 1 -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Solde Fond de Roulement</p>
+                        <h3 class="text-2xl font-bold text-slate-900 mt-1">4,850.000 <span class="text-sm font-normal text-slate-500">TND</span></h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-emerald-600 font-medium">
+                    <i class="fa-solid fa-circle-check mr-1.5"></i>
+                    <span>Plafond autorisé: 10,000.000 TND</span>
+                </div>
+            </div>
+
+            <!-- Stat Card 2 -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Demandes en Attente</p>
+                        <h3 class="text-2xl font-bold text-slate-900 mt-1">3 <span class="text-sm font-normal text-slate-500">dossiers</span></h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-amber-600 font-medium">
+                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>
+                    <span>2 nécessitent votre validation</span>
+                </div>
+            </div>
+
+            <!-- Stat Card 3 -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Réglé Ce Mois</p>
+                        <h3 class="text-2xl font-bold text-slate-900 mt-1">1,240.500 <span class="text-sm font-normal text-slate-500">TND</span></h3>
+                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-xs text-slate-500 font-medium">
+                    <i class="fa-solid fa-arrow-up-right-dots mr-1.5 text-blue-600"></i>
+                    <span>14 notes de frais traitées</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center">
+                <i class="fa-solid fa-folder-tree mr-2 text-blue-900"></i>
+                Procédures & Formulaires Officiels (P.DSC.001)
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Procedure Item 1 -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:border-blue-500 hover:shadow-md transition-all group relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="inline-block px-2.5 py-1 text-xs font-mono font-bold bg-slate-100 text-slate-700 rounded-md border border-slate-200">
+                                001/01/10
+                            </span>
+                            <span class="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center text-sm group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-car-side"></i>
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-900 group-hover:text-blue-700 transition-colors mb-2">
+                            Mémoire de déplacement
+                             <a href="pdf/memoire_de_deplacement3703.pdf" class="doc-link">memoire de déplacement</a>
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Formulaire officiel de justification des missions, transports et frais d'hébergement pour les agents du CNSTN.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <button onclick="openFormModal('memoire')" class="text-xs font-semibold text-blue-900 hover:text-blue-700 flex items-center">
+                            <i class="fa-solid fa-pen-to-square mr-1.5"></i> Remplir la demande
+                        </button>
+                        <button onclick="downloadPdf('001/01/10 Mémoire de déplacement')" class="text-slate-400 hover:text-slate-600 p-1" title="Télécharger vierge PDF">
+                            <i class="fa-solid fa-file-pdf text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Procedure Item 2 -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:border-blue-500 hover:shadow-md transition-all group relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="inline-block px-2.5 py-1 text-xs font-mono font-bold bg-slate-100 text-slate-700 rounded-md border border-slate-200">
+                                3002/01/10
+                            </span>
+                            <span class="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center text-sm group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-900 group-hover:text-blue-700 transition-colors mb-2">
+                            Note de frais
+                            <a href="pdf/note_de_frais3704.pdf" class="doc-link">Note de Frais</a>
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Remboursement des petites dépenses administratives et achats urgents sous justificatifs acquittés.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <button onclick="openFormModal('frais')" class="text-xs font-semibold text-blue-900 hover:text-blue-700 flex items-center">
+                            <i class="fa-solid fa-pen-to-square mr-1.5"></i> Saisir une note
+                        </button>
+                        <button onclick="downloadPdf('3002/01/10 Note de frais')" class="text-slate-400 hover:text-slate-600 p-1" title="Télécharger vierge PDF">
+                            <i class="fa-solid fa-file-pdf text-base"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Procedure Item 3 -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:border-blue-500 hover:shadow-md transition-all group relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="inline-block px-2.5 py-1 text-xs font-mono font-bold bg-slate-100 text-slate-700 rounded-md border border-slate-200">
+                                3003/01/10
+                            </span>
+                            <span class="w-8 h-8 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center text-sm group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-900 group-hover:text-blue-700 transition-colors mb-2">
+                            Demande de renouvellement de fond de roulement
+                            <a href="pdf/demande_de_renouv_FR3706.pdf" class="doc-link">Demande de renouvellement de fond de roulement</a>
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Procédure de réapprovisionnement de la caisse principale après apurement des dépenses effectuées.
+                        </p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <button onclick="openFormModal('renouvellement')" class="text-xs font-semibold text-blue-900 hover:text-blue-700 flex items-center">
+                            <i class="fa-solid fa-pen-to-square mr-1.5"></i> Effectuer la demande
+                        </button>
+                        <button onclick="downloadPdf('3003/01/10 Demande de renouvellement')" class="text-slate-400 hover:text-slate-600 p-1" title="Télécharger vierge PDF">
+                            <i class="fa-solid fa-file-pdf text-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-8">
+            <div class="p-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-base font-bold text-slate-900">Dernières Demandes & Mouvements de Caisse</h2>
+                    <p class="text-xs text-slate-500">Historique des demandes soumises au service financier</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <select id="statusFilter" onchange="filterTable()" class="bg-slate-50 border border-slate-300 text-slate-700 text-xs rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="all">Tous les statuts</option>
+                        <option value="Validé">Validé</option>
+                        <option value="En attente">En attente</option>
+                        <option value="Rejeté">Rejeté</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                            <th class="py-3 px-4">Réf Doc</th>
+                            <th class="py-3 px-4">Bénéficiaire / Demandeur</th>
+                            <th class="py-3 px-4">Type de Procédure</th>
+                            <th class="py-3 px-4">Date</th>
+                            <th class="py-3 px-4 text-right">Montant</th>
+                            <th class="py-3 px-4 text-center">Statut</th>
+                            <th class="py-3 px-4 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-slate-100 text-xs">
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3.5 px-4 font-mono font-semibold text-slate-700">001/01/10-089</td>
+                            <td class="py-3.5 px-4 font-semibold text-slate-900">Dr. Mabrouk K.</td>
+                            <td class="py-3.5 px-4 text-slate-600">Mémoire de déplacement (Sfax)</td>
+                            <td class="py-3.5 px-4 text-slate-500">21/09/2026</td>
+                            <td class="py-3.5 px-4 text-right font-semibold text-slate-900">185.000 TND</td>
+                            <td class="py-3.5 px-4 text-center">
+                                <span class="status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span> En attente
+                                </span>
+                            </td>
+                            <td class="py-3.5 px-4 text-center">
+                                <button onclick="viewDetails('001/01/10-089', 'Dr. Mabrouk K.', 'Mémoire de déplacement', '185.000 TND', '21/09/2026', 'En attente')" class="text-blue-900 hover:text-blue-700 font-medium text-xs">
+                                    Détails
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3.5 px-4 font-mono font-semibold text-slate-700">3002/01/10-142</td>
+                            <td class="py-3.5 px-4 font-semibold text-slate-900">Sami Ben Amor</td>
+                            <td class="py-3.5 px-4 text-slate-600">Note de frais - Fournitures Labo</td>
+                            <td class="py-3.5 px-4 text-slate-500">19/09/2026</td>
+                            <td class="py-3.5 px-4 text-right font-semibold text-slate-900">64.500 TND</td>
+                            <td class="py-3.5 px-4 text-center">
+                                <span class="status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> Validé
+                                </span>
+                            </td>
+                            <td class="py-3.5 px-4 text-center">
+                                <button onclick="viewDetails('3002/01/10-142', 'Sami Ben Amor', 'Note de frais', '64.500 TND', '19/09/2026', 'Validé')" class="text-blue-900 hover:text-blue-700 font-medium text-xs">
+                                    Détails
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3.5 px-4 font-mono font-semibold text-slate-700">3003/01/10-012</td>
+                            <td class="py-3.5 px-4 font-semibold text-slate-900">Caisse Principale</td>
+                            <td class="py-3.5 px-4 text-slate-600">Renouvellement Fond de Roulement</td>
+                            <td class="py-3.5 px-4 text-slate-500">15/09/2026</td>
+                            <td class="py-3.5 px-4 text-right font-semibold text-slate-900">3,000.000 TND</td>
+                            <td class="py-3.5 px-4 text-center">
+                                <span class="status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> Validé
+                                </span>
+                            </td>
+                            <td class="py-3.5 px-4 text-center">
+                                <button onclick="viewDetails('3003/01/10-012', 'Caisse Principale', 'Renouvellement Fond', '3,000.000 TND', '15/09/2026', 'Validé')" class="text-blue-900 hover:text-blue-700 font-medium text-xs">
+                                    Détails
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4 -->
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="py-3.5 px-4 font-mono font-semibold text-slate-700">3002/01/10-140</td>
+                            <td class="py-3.5 px-4 font-semibold text-slate-900">Inès Trabelsi</td>
+                            <td class="py-3.5 px-4 text-slate-600">Note de frais - Réception visiteurs</td>
+                            <td class="py-3.5 px-4 text-slate-500">12/09/2026</td>
+                            <td class="py-3.5 px-4 text-right font-semibold text-slate-900">120.000 TND</td>
+                            <td class="py-3.5 px-4 text-center">
+                                <span class="status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-100 text-rose-800">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span> Rejeté
+                                </span>
+                            </td>
+                            <td class="py-3.5 px-4 text-center">
+                                <button onclick="viewDetails('3002/01/10-140', 'Inès Trabelsi', 'Note de frais', '120.000 TND', '12/09/2026', 'Rejeté')" class="text-blue-900 hover:text-blue-700 font-medium text-xs">
+                                    Détails
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+                <span>Affichage de 4 demandes récentes</span>
+                <a href="#" class="text-blue-900 hover:underline font-semibold">Voir tout le registre des caisses →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-auto border-t border-slate-200 bg-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-atom text-blue-900"></i>
+                <span class="font-semibold text-slate-700">CNSTN</span> — Centre National des Sciences et Technologies Nucléaires
+            </div>
+            <div>
+                Système d'Information Intranet • Procédure Qualité <span class="font-mono text-slate-700">P.DSC.001</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="newRequestModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl max-w-lg w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in duration-150">
+            <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-lg bg-blue-900 text-white flex items-center justify-center text-sm">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base" id="modalTitle">Nouvelle Demande de Caisse</h3>
+                        <p class="text-xs text-slate-500">Procédure P.DSC.001</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('newRequestModal')" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form id="caisseForm" onsubmit="handleFormSubmit(event)" class="p-5 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Type de Procédure *</label>
+                    <select id="formType" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs focus:ring-2 focus:ring-blue-900 focus:outline-none">
+                        <option value="001/01/10">001/01/10 — Mémoire de déplacement</option>
+                        <option value="3002/01/10">3002/01/10 — Note de frais</option>
+                        <option value="3003/01/10">3003/01/10 — Demande de renouvellement de fond de roulement</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Demandeur *</label>
+                        <input type="text" id="formApplicant" required value="A. Hamdaoui" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs focus:ring-2 focus:ring-blue-900 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Montant estimé (TND) *</label>
+                        <input type="number" step="0.001" id="formAmount" placeholder="0.000" required class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs focus:ring-2 focus:ring-blue-900 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Objet / Motif de la demande *</label>
+                    <textarea id="formObject" rows="3" required placeholder="Précisez l'objet, la destination ou le motif des dépenses..." class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs focus:ring-2 focus:ring-blue-900 focus:outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Pièce Justificative (PDF, Image)</label>
+                    <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center cursor-pointer hover:border-blue-500 transition-colors bg-slate-50">
+                        <i class="fa-solid fa-cloud-arrow-up text-slate-400 text-xl mb-1"></i>
+                        <p class="text-xs text-slate-600">Glissez-déposez vos justificatifs ou <span class="text-blue-900 font-semibold underline">parcourir</span></p>
+                        <p class="text-[10px] text-slate-400 mt-1">Factures, tickets, ordres de mission (Max 5Mo)</p>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('newRequestModal')" class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-xs font-semibold hover:bg-slate-100">
+                        Annuler
+                    </button>
+                    <button type="submit" class="px-4 py-2 bg-blue-900 text-white rounded-lg text-xs font-semibold hover:bg-blue-800 shadow-sm">
+                        <i class="fa-solid fa-paper-plane mr-1.5"></i> Soumettre au Directeur
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="detailModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-xl max-w-md w-full overflow-hidden border border-slate-200">
+            <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <h3 class="font-bold text-slate-900 text-sm">Détails de la demande</h3>
+                <button onclick="closeModal('detailModal')" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-3 text-xs">
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-slate-500">Référence:</span>
+                    <span id="detailRef" class="font-mono font-bold text-slate-800"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-slate-500">Demandeur:</span>
+                    <span id="detailApplicant" class="font-semibold text-slate-800"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-slate-500">Type de procédure:</span>
+                    <span id="detailType" class="text-slate-800"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-slate-500">Montant:</span>
+                    <span id="detailAmount" class="font-bold text-slate-900"></span>
+                </div>
+                <div class="flex justify-between border-b pb-2">
+                    <span class="text-slate-500">Date de soumission:</span>
+                    <span id="detailDate" class="text-slate-800"></span>
+                </div>
+                <div class="flex justify-between items-center border-b pb-2">
+                    <span class="text-slate-500">Statut actuel:</span>
+                    <span id="detailStatus"></span>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+                <button onclick="closeModal('detailModal')" class="px-4 py-2 bg-slate-200 text-slate-800 rounded-lg text-xs font-semibold hover:bg-slate-300">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 hidden flex items-center space-x-3 z-50 text-xs">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toastMsg">Opération effectuée avec succès.</span>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function openFormModal(typeKey) {
+            const formType = document.getElementById('formType');
+            if (typeKey === 'memoire') formType.value = '001/01/10';
+            else if (typeKey === 'frais') formType.value = '3002/01/10';
+            else if (typeKey === 'renouvellement') formType.value = '3003/01/10';
+            
+            openModal('newRequestModal');
+        }
+
+        function downloadPdf(docTitle) {
+            showToast(`Génération du formulaire PDF: ${docTitle}...`);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3500);
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const type = document.getElementById('formType').value;
+            const applicant = document.getElementById('formApplicant').value;
+            const amount = parseFloat(document.getElementById('formAmount').value).toFixed(3);
+            const today = new Date().toLocaleDateString('fr-FR');
+            const randomId = Math.floor(100 + Math.random() * 900);
+            const ref = `${type}-${randomId}`;
+
+            // Add new row to table
+            const tableBody = document.getElementById('tableBody');
+            const newRow = document.createElement('tr');
+            newRow.className = "hover:bg-slate-50 transition-colors bg-blue-50/40";
+            newRow.innerHTML = `
+                <td class="py-3.5 px-4 font-mono font-semibold text-slate-700">${ref}</td>
+                <td class="py-3.5 px-4 font-semibold text-slate-900">${applicant}</td>
+                <td class="py-3.5 px-4 text-slate-600">Demande directe (${type})</td>
+                <td class="py-3.5 px-4 text-slate-500">${today}</td>
+                <td class="py-3.5 px-4 text-right font-semibold text-slate-900">${amount} TND</td>
+                <td class="py-3.5 px-4 text-center">
+                    <span class="status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span> En attente
+                    </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                    <button onclick="viewDetails('${ref}', '${applicant}', '${type}', '${amount} TND', '${today}', 'En attente')" class="text-blue-900 hover:text-blue-700 font-medium text-xs">
+                        Détails
+                    </button>
+                </td>
+            `;
+
+            tableBody.insertBefore(newRow, tableBody.firstChild);
+            closeModal('newRequestModal');
+            document.getElementById('caisseForm').reset();
+            showToast('Demande soumise avec succès au service financier !');
+        }
+
+        function viewDetails(ref, applicant, type, amount, date, status) {
+            document.getElementById('detailRef').innerText = ref;
+            document.getElementById('detailApplicant').innerText = applicant;
+            document.getElementById('detailType').innerText = type;
+            document.getElementById('detailAmount').innerText = amount;
+            document.getElementById('detailDate').innerText = date;
+            
+            let statusMarkup = '';
+            if (status === 'Validé') {
+                statusMarkup = `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Validé</span>`;
+            } else if (status === 'Rejeté') {
+                statusMarkup = `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-100 text-rose-800">Rejeté</span>`;
+            } else {
+                statusMarkup = `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">En attente</span>`;
+            }
+            document.getElementById('detailStatus').innerHTML = statusMarkup;
+
+            openModal('detailModal');
+        }
+
+        function filterTable() {
+            const filterValue = document.getElementById('statusFilter').value;
+            const rows = document.querySelectorAll('#tableBody tr');
+
+            rows.forEach(row => {
+                const statusBadge = row.querySelector('.status-badge');
+                if (!statusBadge) return;
+                const statusText = statusBadge.innerText.trim();
+
+                if (filterValue === 'all' || statusText.includes(filterValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

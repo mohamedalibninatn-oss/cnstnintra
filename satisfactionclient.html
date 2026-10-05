@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet CNSTN - Satisfaction Client</title>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cnstn: {
+                            50: '#f0f5ff',
+                            100: '#e0ebff',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .card-hover-effect {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -10px rgba(30, 58, 138, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- Header Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
+                        <!-- CNSTN Atom Logo Representation -->
+                        <div class="relative w-12 h-12 flex items-center justify-center bg-blue-50 rounded-xl border border-blue-100 text-cnstn-800 shadow-inner">
+                            <svg class="w-8 h-8 text-cnstn-800" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.5">
+                                <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(30 50 50)"/>
+                                <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(-30 50 50)"/>
+                                <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(90 50 50)"/>
+                                <circle cx="50" cy="50" r="7" class="fill-red-500 stroke-none"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="text-xs font-semibold tracking-wider text-slate-400 uppercase block">Portail Interne</span>
+                            <h1 class="text-2xl font-bold text-cnstn-800 tracking-tight leading-none">Intranet CNSTN</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Header Controls -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Bar -->
+                    <div class="relative hidden md:block w-64">
+                        <input type="text" id="searchInput" placeholder="Rechercher un document..." 
+                               class="w-full pl-9 pr-4 py-2 bg-slate-100 hover:bg-slate-50 focus:bg-white text-sm text-slate-700 rounded-lg border border-transparent focus:border-blue-500 focus:outline-none transition">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+                    </div>
+
+                    <!-- User Profile Dropdown Placeholder -->
+                    <div class="flex items-center space-x-3 border-l border-slate-200 pl-4">
+                        <div class="w-9 h-9 rounded-full bg-cnstn-800 text-white flex items-center justify-center font-semibold text-sm shadow-sm">
+                            AD
+                        </div>
+                        <div class="hidden lg:block text-left">
+                            <span class="text-sm font-medium text-slate-700 block leading-tight">Agent CNSTN</span>
+                            <span class="text-xs text-slate-400 block">Qualité & Management</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex text-sm text-slate-500 mb-6" aria-label="Fil d'Ariane">
+            <ol class="inline-flex items-center space-x-2">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center hover:text-cnstn-700 transition">
+                        <i class="fa-solid fa-house mr-2 text-slate-400"></i>
+                        Accueil
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-300 mx-2"></i>
+                        <a href="#" class="hover:text-cnstn-700 transition">Système de Management Qualité</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-300 mx-2"></i>
+                        <span class="font-medium text-slate-800">Satisfaction client</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Header & Title Section -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm mb-8 relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-5 text-cnstn-800 pointer-events-none">
+                <i class="fa-solid fa-face-smile text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-cnstn-800 mb-2">
+                            <i class="fa-solid fa-circle text-[8px] mr-1.5 text-blue-600"></i> Processus PQ08 / FE02
+                        </span>
+                        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Satisfaction client</h2>
+                        <p class="mt-2 text-slate-600 text-sm max-w-2xl">
+                            Consultez les procédures de gestion de la satisfaction client et accédez aux formulaires d'enquêtes et retours d'expérience du CNSTN.
+                        </p>
+                    </div>
+                    <div>
+                        <button onclick="refreshData()" class="inline-flex items-center px-4 py-2 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 shadow-sm transition">
+                            <i class="fa-solid fa-rotate-right mr-2 text-slate-400"></i> Actualiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search filter on mobile -->
+        <div class="mb-6 md:hidden">
+            <div class="relative">
+                <input type="text" placeholder="Rechercher un document..." class="w-full pl-9 pr-4 py-2.5 bg-white text-sm text-slate-700 rounded-lg border border-slate-200 shadow-sm">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
+            </div>
+        </div>
+
+        <!-- Documents & Forms List Grid -->
+        <div class="space-y-4">
+
+            <!-- Card 1: PQ08 Satisfaction client -->
+            <div class="card-hover-effect bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+                <div class="flex items-start space-x-4">
+                    <div class="p-3 bg-blue-50 text-cnstn-700 rounded-xl group-hover:bg-cnstn-800 group-hover:text-white transition-colors duration-200 shrink-0">
+                        <i class="fa-solid fa-file-contract text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold text-cnstn-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">PQ08</span>
+                            <span class="inline-flex items-center text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                                <i class="fa-solid fa-check text-[10px] mr-1"></i> En vigueur
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 group-hover:text-cnstn-700 transition mt-1">
+                            Satisfaction client
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Procédure générale relative au suivi et à l'évaluation de la satisfaction des clients.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between sm:justify-end space-x-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                    <span class="text-xs text-slate-400 hidden lg:inline-block mr-2">PDF • 1.2 MB</span>
+                    <a href="#" class="inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-cnstn-800 hover:text-white text-slate-700 text-sm font-medium rounded-lg transition-colors duration-200">
+                        <i class="fa-solid fa-download mr-2 text-xs"></i>
+                        Télécharger
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: FE02-PQ09 Enquête de satisfaction client -->
+            <div class="card-hover-effect bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+                <div class="flex items-start space-x-4">
+                    <div class="p-3 bg-amber-50 text-amber-700 rounded-xl group-hover:bg-amber-600 group-hover:text-white transition-colors duration-200 shrink-0">
+                        <i class="fa-solid fa-square-poll-vertical text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">FE02-PQ09</span>
+                            <span class="inline-flex items-center text-xs font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+                                Formulaire Interactif
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 group-hover:text-amber-800 transition mt-1">
+                            Enquête de satisfaction client
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Fiche d'enregistrement et questionnaire pour recueillir l'avis des partenaires et clients.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between sm:justify-end space-x-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                    <span class="text-xs text-slate-400 hidden lg:inline-block mr-2">En ligne</span>
+                    <a href="#" class="inline-flex items-center px-4 py-2 bg-cnstn-800 hover:bg-cnstn-900 text-white text-sm font-medium rounded-lg shadow-sm transition-colors duration-200">
+                        <i class="fa-solid fa-pen-to-square mr-2 text-xs"></i>
+                        Remplir l'enquête
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Help / Information Box -->
+        <div class="mt-12 bg-blue-50/60 rounded-2xl p-6 border border-blue-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-full bg-blue-100 text-cnstn-800 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-headset text-lg"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-slate-900">Besoin d'assistance avec la démarche qualité ?</h4>
+                    <p class="text-xs text-slate-600">Contactez la Cellule Qualité du CNSTN pour toute demande particulière ou assistance.</p>
+                </div>
+            </div>
+            <a href="mailto:qualite@cnstn.rnrt.tn" class="text-xs font-semibold text-cnstn-800 hover:text-cnstn-900 bg-white border border-blue-200 px-4 py-2 rounded-lg shadow-sm whitespace-nowrap hover:bg-blue-50 transition">
+                <i class="fa-envelope fa-regular mr-1.5"></i> Contacter la cellule
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>© 2026 Centre National des Sciences et Technologies Nucléaires (CNSTN). Tous droits réservés.</p>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:underline">Mentions légales</a>
+                <a href="#" class="hover:underline">Support Intranet</a>
+                <a href="#" class="hover:underline">Politique Qualité</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function refreshData() {
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('i');
+            icon.classList.add('fa-spin');
+            setTimeout(() => {
+                icon.classList.remove('fa-spin');
+            }, 800);
+        }
+    </script>
+</body>
+</html>

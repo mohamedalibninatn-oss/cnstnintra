@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNSTN Intranet - PQ14 Revue de la direction</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        cnstn: {
+                            50: '#f0f5fa',
+                            100: '#e1ebf5',
+                            500: '#1d4ed8',
+                            800: '#0f2b48',
+                            900: '#0a1d33',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .atom-spinner {
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Header Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3 group cursor-pointer">
+                        <div class="relative w-12 h-12 flex items-center justify-center bg-cnstn-800 rounded-xl shadow-md group-hover:scale-105 transition-transform duration-200">
+                            <!-- SVG Atomic Logo inspired by CNSTN -->
+                            <svg class="w-8 h-8 text-white atom-spinner" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4">
+                                <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(0 50 50)" class="opacity-70" />
+                                <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(60 50 50)" class="opacity-70" />
+                                <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(120 50 50)" class="opacity-70" />
+                                <circle cx="50" cy="50" r="7" class="fill-red-500 stroke-none" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-1.5">
+                                <span class="font-bold text-xl tracking-tight text-cnstn-800">cnstn</span>
+                                <span class="text-xs px-1.5 py-0.5 rounded bg-red-100 text-red-600 font-semibold tracking-wider uppercase">Qualité</span>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-500 tracking-wide uppercase">Intranet CNSTN</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Central Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                        </span>
+                        <input type="text" placeholder="Rechercher une procédure, un formulaire, un document..." 
+                            class="w-full pl-10 pr-4 py-2 bg-slate-100/80 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all">
+                    </div>
+                </div>
+
+                <!-- Right Quick Actions & User Profile -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors relative" title="Notifications">
+                        <i class="fa-regular fa-bell text-lg"></i>
+                        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+                    </button>
+                    <button class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors" title="Aide & Support">
+                        <i class="fa-regular fa-circle-question text-lg"></i>
+                    </button>
+                    
+                    <div class="h-6 w-px bg-slate-200"></div>
+
+                    <!-- User Profile -->
+                    <div class="flex items-center space-x-3 pl-1 cursor-pointer group">
+                        <div class="w-9 h-9 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm shadow-sm ring-2 ring-blue-600/20 group-hover:ring-blue-600 transition-all">
+                            AQ
+                        </div>
+                        <div class="hidden lg:block text-left">
+                            <p class="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Resp. Assurance Qualité</p>
+                            <p class="text-[10px] text-slate-500">Direction Générale</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Breadcrumb Navigation -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2 text-sm text-slate-500">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center hover:text-blue-600 transition-colors">
+                        <i class="fa-solid fa-house mr-2 text-xs"></i>
+                        Accueil
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs mx-1 text-slate-400"></i>
+                        <a href="#" class="hover:text-blue-600 transition-colors">Système de Management Qualité</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs mx-1 text-slate-400"></i>
+                        <a href="#" class="hover:text-blue-600 transition-colors">Procédures Qualité</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-xs mx-1 text-slate-400"></i>
+                        <span class="font-semibold text-slate-800">PQ14 Revue de la direction</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Page Header Banner -->
+        <div class="bg-gradient-to-r from-cnstn-800 via-blue-900 to-cnstn-800 rounded-2xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden mb-8">
+            <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                <i class="fa-solid fa-clipboard-check text-[240px]"></i>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="px-3 py-1 bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-blue-200 font-semibold text-xs rounded-full uppercase tracking-wider">
+                        Procédure Qualité (PQ)
+                    </span>
+                    <span class="px-3 py-1 bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-200 font-semibold text-xs rounded-full uppercase tracking-wider flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ISO 9001:2015 & ISO 17025
+                    </span>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                    PQ14 Revue de la direction
+                </h1>
+                <p class="text-blue-100 max-w-3xl text-sm sm:text-base leading-relaxed">
+                    Définition de l'organisation et des modalités d'évaluation périodique de l'efficacité du Système de Management de la Qualité par la Haute Direction du CNSTN.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- Left 2 Columns: Document Cards & Formnaires -->
+            <div class="lg:col-span-2 space-y-6">
+
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-blue-600"></i>
+                        Documents Officiels & Enregistrements
+                    </h2>
+                    <span class="text-xs text-slate-500 font-medium">2 éléments disponibles</span>
+                </div>
+
+                <!-- Document 1: PQ14 Procédures de la revue de direction -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all duration-200 group relative">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3.5 bg-red-50 text-red-600 rounded-xl border border-red-100 group-hover:scale-105 transition-transform shrink-0">
+                                <i class="fa-solid fa-file-pdf text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-extrabold text-blue-700 uppercase tracking-wide">PQ14</span>
+                                    <span class="px-2 py-0.5 text-[11px] font-semibold bg-slate-100 text-slate-600 rounded">Version 4.0</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mt-0.5">
+                                    Procédure de la revue de direction
+                                </h3>
+                                <p class="text-sm text-slate-500 mt-1">
+                                    Document décrivant le processus, les entrées et les sorties de la revue de direction annuelle.
+                                </p>
+                                <div class="flex flex-wrap items-center gap-4 mt-3 text-xs text-slate-400">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> MàJ: 12 Janvier 2024</span>
+                                    <span><i class="fa-regular fa-hard-drive mr-1"></i> 1.8 Mo</span>
+                                    <span><i class="fa-regular fa-file-lines mr-1"></i> PDF</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-end pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <button class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1.5" title="Aperçu">
+                                <i class="fa-regular fa-eye"></i>
+                                <span>Aperçu</span>
+                            </button>
+                            <button class="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors flex items-center gap-1.5" title="Télécharger">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Télécharger</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document 2: FE01-PQ14 Revue de direction -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all duration-200 group relative">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3.5 bg-blue-50 text-blue-600 rounded-xl border border-blue-100 group-hover:scale-105 transition-transform shrink-0">
+                                <i class="fa-solid fa-file-word text-3xl"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-extrabold text-blue-700 uppercase tracking-wide">FE01-PQ14</span>
+                                    <span class="px-2 py-0.5 text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200/60 rounded">Formulaire d'enregistrement</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mt-0.5">
+                                    Fiche de Revue de direction
+                                </h3>
+                                <p class="text-sm text-slate-500 mt-1">
+                                    Procès-verbal de la revue de direction, rapport d'analyse et plan d'action décisionnel.
+                                </p>
+                                <div class="flex flex-wrap items-center gap-4 mt-3 text-xs text-slate-400">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> MàJ: 05 Février 2024</span>
+                                    <span><i class="fa-regular fa-hard-drive mr-1"></i> 450 Ko</span>
+                                    <span><i class="fa-regular fa-file-word mr-1"></i> DOCX / Modèle</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-center gap-2 w-full sm:w-auto justify-end pt-3 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                            <button class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors flex items-center gap-1.5" title="Remplir en ligne">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <span>Compléter</span>
+                            </button>
+                            <button class="px-4 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition-colors flex items-center gap-1.5" title="Télécharger">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Télécharger</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Quality Section: Key Metrics & Inputs -->
+                <div class="pt-4">
+                    <h3 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-blue-600"></i>
+                        Données d'Entrée & Indicateurs de Performance (KPIs)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-2xl font-black text-emerald-600">94.2%</span>
+                            <p class="text-xs text-slate-500 font-medium mt-1">Taux de réalisation des actions</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-2xl font-black text-blue-600">12</span>
+                            <p class="text-xs text-slate-500 font-medium mt-1">Audits internes validés</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+                            <span class="text-2xl font-black text-amber-500">03</span>
+                            <p class="text-xs text-slate-500 font-medium mt-1">Opportunités d'amélioration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version History Table -->
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mt-6">
+                    <div class="p-4 bg-slate-50/80 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-slate-500"></i>
+                            Historique des révisions du document
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-slate-100/50 uppercase text-slate-400 font-semibold border-b border-slate-200">
+                                <tr>
+                                    <th class="px-4 py-2.5">Version</th>
+                                    <th class="px-4 py-2.5">Date</th>
+                                    <th class="px-4 py-2.5">Objet de la modification</th>
+                                    <th class="px-4 py-2.5">Auteur</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="px-4 py-3 font-bold text-blue-600">v4.0</td>
+                                    <td class="px-4 py-3">12/01/2024</td>
+                                    <td class="px-4 py-3">Alignement avec les nouvelles exigences ISO 17025 v2017</td>
+                                    <td class="px-4 py-3">R. Assurance Qualité</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-bold text-slate-700">v3.1</td>
+                                    <td class="px-4 py-3">08/03/2022</td>
+                                    <td class="px-4 py-3">Ajustement du modèle du procès-verbal FE01-PQ14</td>
+                                    <td class="px-4 py-3">Comité Qualité</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Sidebar Info & Quick Access -->
+            <div class="space-y-6">
+
+                <!-- Prochaine Réunion Box -->
+                <div class="bg-gradient-to-br from-slate-900 to-cnstn-800 rounded-xl p-6 text-white shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-2.5 py-1 bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[11px] font-bold rounded-md uppercase tracking-wider">
+                            Planifié
+                        </span>
+                        <i class="fa-regular fa-calendar-check text-slate-400 text-lg"></i>
+                    </div>
+                    <h4 class="text-sm font-semibold text-slate-300">Prochaine Revue de Direction</h4>
+                    <p class="text-2xl font-extrabold text-white mt-1">28 Novembre 2026</p>
+                    <p class="text-xs text-slate-400 mt-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-location-dot"></i> Salle de Conférence A - CNSTN
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs">
+                        <span class="text-slate-400">Ordre du jour préliminaire</span>
+                        <a href="#" class="text-blue-400 font-medium hover:underline">Voir détails &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Comité de Direction / Membres -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-users text-blue-600"></i>
+                        Participants Clés
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center justify-between text-xs">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[11px]">
+                                    DG
+                                </div>
+                                <span class="font-medium text-slate-700">Directeur Général</span>
+                            </div>
+                            <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Président</span>
+                        </li>
+                        <li class="flex items-center justify-between text-xs">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-[11px]">
+                                    RMQ
+                                </div>
+                                <span class="font-medium text-slate-700">Resp. Management Qualité</span>
+                            </div>
+                            <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Rapporteur</span>
+                        </li>
+                        <li class="flex items-center justify-between text-xs">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-7 h-7 rounded-full bg-purple-100 text-purple-700 font-bold flex items-center justify-center text-[11px]">
+                                    DT
+                                </div>
+                                <span class="font-medium text-slate-700">Directeurs Techniques</span>
+                            </div>
+                            <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded">Membres</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Useful Links Card -->
+                <div class="bg-blue-50/50 rounded-xl p-5 border border-blue-100">
+                    <h3 class="text-xs font-bold text-blue-900 uppercase tracking-wider mb-3">
+                        Ressources associées
+                    </h3>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="#" class="text-blue-700 hover:text-blue-900 font-medium flex items-center justify-between group">
+                                <span class="group-hover:underline">Manuel Qualité (MQ-01)</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-blue-700 hover:text-blue-900 font-medium flex items-center justify-between group">
+                                <span class="group-hover:underline">PQ13 Gestion des non-conformités</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-blue-700 hover:text-blue-900 font-medium flex items-center justify-between group">
+                                <span class="group-hover:underline">PQ15 Audits internes</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2 text-xs text-slate-500">
+                <span class="font-bold text-cnstn-800">CNSTN</span>
+                <span>&bull;</span>
+                <span>Centre National des Sciences et Technologies Nucléaires</span>
+            </div>
+            <p class="text-xs text-slate-400">
+                &copy; 2026 CNSTN Intranet — Système de Management de la Qualité ISO 9001 / ISO 17025
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
